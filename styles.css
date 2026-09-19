@@ -156,3 +156,167 @@ html{scroll-padding-top:86px;scrollbar-gutter:stable}
 @media(max-width:720px){.profile-card.wide{max-width:none}.profile-card.wide img{aspect-ratio:4/3}.meta-row span:not(:last-child)::after{display:none}.reveal{transform:translateY(10px)}}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important}.grid-bg::before{display:none}.profile-card.wide img{transition:none!important}.btn:hover,.path-card:hover,.case:hover,.research-card:hover,.credential-grid article:hover,.media-card:hover{transform:none!important}}
 @media print{.scroll-progress,.section-indicator{display:none!important}.profile-card.wide img{aspect-ratio:3/2;filter:none}}
+/* FIX PASS 2026-09-20: portrait, DPG hierarchy, spacing, indicator, motion */
+.section-indicator{
+  position:fixed;
+  right:22px;
+  top:50%;
+  z-index:31;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  transform:translateY(-50%);
+  transform-origin:center;
+  font:10px ui-monospace,SFMono-Regular,Consolas,monospace;
+  letter-spacing:.14em;
+  color:var(--muted);
+  pointer-events:none;
+}
+.section-indicator #section-index{color:var(--accent);font-size:11px}
+.section-indicator i{width:1px;height:88px;background:var(--line)}
+.section-indicator #section-label{
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  max-height:190px;
+  color:var(--muted);
+}
+
+.hero{
+  min-height:calc(100vh - 70px);
+  grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);
+  gap:clamp(42px,7vw,96px);
+  align-items:center;
+  padding:92px 0 80px;
+}
+.hero-copy{max-width:760px}
+.hero-side{display:grid;gap:16px;align-self:center}
+.profile-card.portrait{
+  margin:0;
+  border:1px solid color-mix(in srgb,var(--line) 82%,var(--accent));
+  background:var(--panel);
+  box-shadow:0 28px 80px rgba(8,27,40,.14);
+  overflow:hidden;
+}
+.profile-card.portrait .profile-image-link{display:block;overflow:hidden}
+.profile-card.portrait img{
+  display:block;
+  width:100%;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  object-position:center 18%;
+  background:color-mix(in srgb,var(--accent) 4%,var(--panel));
+  transition:transform .8s var(--ease-out),filter .35s ease;
+}
+.profile-card.portrait:hover img{transform:scale(1.018)}
+.profile-card.portrait figcaption{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:11px 13px;
+  border-top:1px solid var(--line);
+  font:9px ui-monospace,monospace;
+  color:var(--muted);
+  letter-spacing:.08em;
+}
+
+.indexed{padding:108px 0;scroll-margin-top:86px}
+.section-head{
+  display:grid;
+  grid-template-columns:160px minmax(0,1fr);
+  column-gap:48px;
+  align-items:start;
+  margin-bottom:54px;
+}
+.section-head h2{
+  font-size:clamp(34px,5vw,68px);
+  line-height:1.02;
+  letter-spacing:-.04em;
+  margin-bottom:14px;
+}
+.section-head h2+p{max-width:780px;font-size:17px}
+.path-grid{gap:24px}
+.path-card,.case,.research-card,.credential-grid article{padding:32px}
+.resume-arrival{
+  gap:16px;
+  padding:16px 18px;
+  margin-bottom:48px;
+}
+.resume-arrival a{padding-bottom:2px}
+
+.dpg-grid{
+  grid-template-columns:1.05fr .95fr;
+  gap:48px;
+  align-items:start;
+}
+.dpg-media{display:grid;grid-template-columns:1fr;gap:14px}
+.dpg-media .feature img{
+  aspect-ratio:4/3;
+  object-fit:cover;
+  object-position:center;
+}
+.media-stack{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.media-card{
+  display:flex;
+  flex-direction:column;
+  border:1px solid var(--line);
+  background:var(--panel);
+  text-decoration:none;
+  overflow:hidden;
+  transition:transform .32s var(--ease-out),box-shadow .32s var(--ease-out),border-color .28s ease;
+}
+.media-card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--bg)}
+.media-card.certificate img{object-fit:contain;padding:8px}
+.media-card span{padding:10px 12px;font-size:11px;color:var(--accent);border-top:1px solid var(--line)}
+.media-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 20px 60px rgba(0,0,0,.16)}
+
+.reveal{
+  opacity:0;
+  transform:translateY(26px);
+  transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1);
+  will-change:opacity,transform;
+}
+.reveal.is-visible{opacity:1;transform:none}
+.profile-card,.path-card,.case,.research-card,.credential-grid article,.identity article,.origin-grid article,.timeline article{
+  transition:transform .34s var(--ease-out),box-shadow .34s var(--ease-out),border-color .28s ease;
+}
+.profile-card:hover,.path-card:hover,.case:hover,.research-card:hover,.credential-grid article:hover,.identity article:hover,.origin-grid article:hover,.timeline article:hover{
+  transform:translateY(-4px);
+  border-color:var(--accent);
+  box-shadow:0 18px 54px rgba(0,0,0,.14);
+}
+.btn{transition:transform .24s ease,border-color .24s ease,background .24s ease,color .24s ease}
+.btn:hover{transform:translateY(-2px)}
+.desktop-nav a::after{
+  left:0;
+  right:auto;
+  width:100%;
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .28s ease;
+}
+.desktop-nav a:hover::after,.desktop-nav a.active::after{right:auto;transform:scaleX(1)}
+
+@media(max-width:1100px){.section-indicator{display:none}}
+@media(max-width:1050px){
+  .hero{grid-template-columns:1fr;min-height:auto;gap:40px}
+  .hero-side{grid-template-columns:minmax(260px,420px) 1fr;align-items:start}
+  .profile-card.portrait{max-width:420px}
+  .dpg-grid{grid-template-columns:1fr}
+  .path-grid{grid-template-columns:1fr}
+}
+@media(max-width:720px){
+  .indexed{padding:72px 0}
+  .section-head{display:block;margin-bottom:36px}
+  .section-head>p{margin-bottom:15px}
+  .section-head h2{font-size:38px}
+  .path-card,.case,.research-card,.credential-grid article{padding:22px}
+  .hero{padding:54px 0 62px}
+  .hero-side{grid-template-columns:1fr}
+  .profile-card.portrait{max-width:none}
+  .media-stack{grid-template-columns:1fr}
+  .reveal{transform:translateY(14px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .profile-card.portrait img,.media-card,.profile-card,.path-card,.case,.research-card,.credential-grid article,.identity article,.origin-grid article,.timeline article,.btn{transition:none!important}
+}

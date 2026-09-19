@@ -678,11 +678,6 @@ html[dir="rtl"] .reviewer-mode-note span{flex-direction:row-reverse}
 
 
 /* 2026-09-20 performance pass */
-main>.indexed,
-main>.selected-highlights{
-  content-visibility:auto;
-  contain-intrinsic-size:auto 900px;
-}
 @media(max-width:720px){
   .topbar{
     backdrop-filter:none;
@@ -690,4 +685,18 @@ main>.selected-highlights{
     background:var(--bg);
   }
   .grid-bg{display:none}
+}
+
+
+/* 2026-09-20 touch target pass */
+.credential-grid article>a,
+.evidence-table .ev>a{
+  min-height:32px;
+  display:flex;
+  align-items:center;
+  padding-block:6px;
+}
+.evidence-table .ev>a{justify-content:flex-end}
+@media(max-width:720px){
+  .evidence-table .ev>a{justify-content:flex-start}
 }

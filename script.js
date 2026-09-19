@@ -132,12 +132,14 @@ for(const [lng,map] of Object.entries(COPY_PATCH)){Object.assign(D[lng],map);}
 const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
 let lang=localStorage.getItem("mhf-lang")||"en";
 let theme=localStorage.getItem("mhf-theme")||"home";
+let langInitialized=false;
 
 function applyLang(next){
   lang=D[next]?next:"en"; localStorage.setItem("mhf-lang",lang);
   document.documentElement.lang=lang; document.documentElement.dir=lang==="ar"?"rtl":"ltr";
-  $$("[data-i18n]").forEach(el=>{const v=D[lang][el.dataset.i18n]; if(v) el.textContent=v;});
-  $$(".languages button").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+  if(lang!=="en"||langInitialized){$("[data-i18n]").forEach(el=>{const v=D[lang][el.dataset.i18n]; if(v) el.textContent=v;});}
+  $(".languages button").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+  langInitialized=true;
 }
 function applyTheme(next){
   theme=next==="lab"?"lab":"home"; localStorage.setItem("mhf-theme",theme);
@@ -185,7 +187,7 @@ $("#search-button").addEventListener("click",()=>{dialog.showModal();render();se
 document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();dialog.showModal();render();setTimeout(()=>input.focus(),0)}});
 input.addEventListener("input",()=>render(input.value));
 
-if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}
+if("serviceWorker" in navigator){window.addEventListener("load",()=>{const registerSW=()=>navigator.serviceWorker.register("sw.js").catch(()=>{});if("requestIdleCallback" in window)requestIdleCallback(registerSW,{timeout:2500});else setTimeout(registerSW,1200);})}
 
 
 // Reference-led interaction layer: precise, restrained, keyboard-friendly.
@@ -214,30 +216,28 @@ const sectionObserver=new IntersectionObserver(entries=>{
 },{rootMargin:"-20% 0px -55% 0px",threshold:[0,.2,.5,.8]});
 tracked.forEach(s=>sectionObserver.observe(s));
 
-const revealTargets=[...document.querySelectorAll(".hero .profile-card,.indexed .section-head,.path-card,.identity article,.origin-grid article,.case,.research-card,.dpg-media,.media-card,.timeline article,.matrix article,.credential-grid article,.split,.thoughts p,.route,.question-index a,.project-archive")];
-if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
+const setupVisualEnhancements=()=>{
+  const fineDesktop=matchMedia("(min-width: 900px) and (pointer:fine) and (prefers-reduced-motion: no-preference)").matches;
+  if(!fineDesktop) return;
+  const revealTargets=[...document.querySelectorAll(".hero .profile-card,.indexed .section-head,.path-card,.identity article,.origin-grid article,.case,.research-card,.dpg-media,.media-card,.timeline article,.matrix article,.credential-grid article,.split,.thoughts p,.route,.question-index a,.project-archive")];
   revealTargets.forEach(el=>el.classList.add("reveal"));
   const revealObserver=new IntersectionObserver(entries=>entries.forEach(e=>{
     if(e.isIntersecting){e.target.classList.add("is-visible");revealObserver.unobserve(e.target);}
   }),{rootMargin:"0px 0px -8% 0px",threshold:.12});
   revealTargets.forEach(el=>revealObserver.observe(el));
-}else{
-  revealTargets.forEach(el=>el.classList.add("is-visible"));
-}
 
-const spotlight=[...document.querySelectorAll(".path-card,.case,.research-card,.credential-grid article,.identity article,.media-card")];
-spotlight.forEach(el=>{
-  el.dataset.spotlight="";
-  el.addEventListener("pointermove",e=>{
-    const r=el.getBoundingClientRect();
-    el.style.setProperty("--spot-x",((e.clientX-r.left)/r.width*100)+"%");
-    el.style.setProperty("--spot-y",((e.clientY-r.top)/r.height*100)+"%");
-  },{passive:true});
-});
-
-if(matchMedia("(pointer:fine)").matches){
+  const spotlight=[...document.querySelectorAll(".path-card,.case,.research-card,.credential-grid article,.identity article,.media-card")];
+  spotlight.forEach(el=>{
+    el.dataset.spotlight="";
+    el.addEventListener("pointermove",e=>{
+      const r=el.getBoundingClientRect();
+      el.style.setProperty("--spot-x",((e.clientX-r.left)/r.width*100)+"%");
+      el.style.setProperty("--spot-y",((e.clientY-r.top)/r.height*100)+"%");
+    },{passive:true});
+  });
   addEventListener("pointermove",e=>{
     document.documentElement.style.setProperty("--mx",e.clientX+"px");
     document.documentElement.style.setProperty("--my",e.clientY+"px");
   },{passive:true});
-}
+};
+if("requestIdleCallback" in window)requestIdleCallback(setupVisualEnhancements,{timeout:3000});else setTimeout(setupVisualEnhancements,1400);

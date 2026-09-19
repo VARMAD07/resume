@@ -675,3 +675,19 @@ html[dir="rtl"] .reviewer-mode-note span{flex-direction:row-reverse}
 @media(zoom:2){
   .topbar{position:static}
 }
+
+
+/* 2026-09-20 performance pass */
+main>.indexed,
+main>.selected-highlights{
+  content-visibility:auto;
+  contain-intrinsic-size:auto 900px;
+}
+@media(max-width:720px){
+  .topbar{
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    background:var(--bg);
+  }
+  .grid-bg{display:none}
+}

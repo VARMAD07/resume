@@ -320,3 +320,81 @@ html{scroll-padding-top:86px;scrollbar-gutter:stable}
 @media(prefers-reduced-motion:reduce){
   .profile-card.portrait img,.media-card,.profile-card,.path-card,.case,.research-card,.credential-grid article,.identity article,.origin-grid article,.timeline article,.btn{transition:none!important}
 }
+
+
+/* 2026-09-20 supplied visual assets */
+.portfolio-banner{
+  width:min(1240px,calc(100% - 36px));
+  margin:26px auto 0;
+  border:1px solid var(--line);
+  background:#06131e;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(8,27,40,.14);
+}
+.portfolio-banner img{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:1983/793;
+  object-fit:cover;
+}
+.credential-grid article{
+  min-height:350px;
+  padding:20px;
+  justify-content:flex-start;
+}
+.credential-image-wrap{
+  height:150px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:14px 0 18px;
+  padding:8px;
+  background:color-mix(in srgb,var(--panel) 94%,white 6%);
+  border:1px solid color-mix(in srgb,var(--line) 72%,transparent);
+}
+.credential-art{
+  display:block;
+  max-width:100%;
+  max-height:132px;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  image-rendering:auto;
+}
+.credential-grid h3{
+  margin:0 0 auto;
+  line-height:1.35;
+}
+.dpg-media-updated{
+  display:grid;
+  grid-template-columns:minmax(0,1.7fr) minmax(220px,.7fr);
+  gap:14px;
+  align-items:stretch;
+}
+.group-photo-card img{
+  aspect-ratio:3/2;
+  object-fit:cover;
+  object-position:center;
+}
+.dpg-certificate-card img{
+  height:100%;
+  min-height:280px;
+  object-fit:contain;
+  padding:14px;
+  background:white;
+}
+@media(max-width:900px){
+  .credential-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dpg-media-updated{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .portfolio-banner{width:calc(100% - 24px);margin-top:14px}
+  .credential-grid{grid-template-columns:1fr}
+  .credential-grid article{min-height:auto}
+  .credential-image-wrap{height:170px}
+  .credential-art{max-height:150px}
+}
+@media print{
+  .portfolio-banner{display:none}
+}

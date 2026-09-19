@@ -758,3 +758,118 @@ html[dir="rtl"] .reviewer-mode-note span{flex-direction:row-reverse}
   .evidence-ref{width:100%;justify-content:space-between}
   .highlight-proof{padding-top:10px}
 }
+
+
+/* 2026-09-20 section header assembly fix */
+/*
+  Keep every indexed section on one editorial system:
+  index label at left, title at right, optional description directly below title,
+  and optional metadata below the description. This replaces earlier auto-placement
+  rules that could put the title into the narrow label column.
+*/
+.section-head{
+  display:grid;
+  grid-template-columns:160px minmax(0,1fr);
+  grid-template-areas:
+    "index title"
+    ". intro"
+    ". meta";
+  column-gap:48px;
+  row-gap:12px;
+  align-items:start;
+  margin-bottom:54px;
+}
+.section-head > p:first-child{
+  grid-area:index;
+  grid-column:auto;
+  grid-row:auto;
+  margin:5px 0 0;
+  min-width:0;
+}
+.section-head > h2{
+  grid-area:title;
+  grid-column:auto;
+  grid-row:auto;
+  margin:0;
+  max-width:980px;
+  min-width:0;
+  text-wrap:balance;
+}
+.section-head > h2 + p{
+  grid-area:intro;
+  grid-column:auto;
+  grid-row:auto;
+  margin:0;
+  max-width:780px;
+  min-width:0;
+  color:var(--muted);
+  text-wrap:pretty;
+}
+.section-head > .verification-stamp{
+  grid-area:meta;
+  grid-column:auto;
+  grid-row:auto;
+  justify-self:start;
+  margin:2px 0 0;
+}
+
+/* Arabic keeps the same information hierarchy mirrored naturally. */
+html[dir="rtl"] .section-head{
+  grid-template-columns:minmax(0,1fr) 160px;
+  grid-template-areas:
+    "title index"
+    "intro ."
+    "meta .";
+}
+html[dir="rtl"] .section-head > p:first-child,
+html[dir="rtl"] .section-head > h2,
+html[dir="rtl"] .section-head > h2 + p,
+html[dir="rtl"] .section-head > .verification-stamp{
+  grid-column:auto;
+  grid-row:auto;
+}
+
+/* At phone width the editorial grid becomes a deliberate vertical stack. */
+@media(max-width:720px){
+  .section-head,
+  html[dir="rtl"] .section-head{
+    display:block;
+    margin-bottom:36px;
+  }
+  .section-head > p:first-child{
+    margin:0 0 12px;
+  }
+  .section-head > h2{
+    margin:0 0 14px;
+    font-size:clamp(34px,11vw,42px);
+    line-height:1.02;
+  }
+  .section-head > h2 + p{
+    margin:0;
+    font-size:15px;
+    line-height:1.65;
+  }
+  .section-head > .verification-stamp{
+    display:inline-flex;
+    margin-top:14px;
+  }
+}
+
+@media print{
+  .section-head,
+  html[dir="rtl"] .section-head{
+    display:grid!important;
+    grid-template-columns:34mm minmax(0,1fr)!important;
+    grid-template-areas:
+      "index title"
+      ". intro"
+      ". meta"!important;
+    column-gap:7mm!important;
+    row-gap:3mm!important;
+    margin-bottom:18px!important;
+  }
+  .section-head > p:first-child{grid-area:index!important;margin:1mm 0 0!important}
+  .section-head > h2{grid-area:title!important;margin:0!important;font-size:19pt!important}
+  .section-head > h2 + p{grid-area:intro!important;margin:0!important}
+  .section-head > .verification-stamp{grid-area:meta!important;margin:0!important}
+}

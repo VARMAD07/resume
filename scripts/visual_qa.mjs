@@ -45,6 +45,35 @@ async function assert(name,condition,details={}){
   await assert("desktop no console errors",consoleErrors.length===0,{consoleErrors});
   await assert("desktop no failed requests",failedRequests.length===0,{failedRequests});
 
+  const headerChecks=await page.locator(".section-head").evaluateAll(headers=>headers.map((h,index)=>{
+    const title=h.querySelector("h2");
+    const label=h.querySelector(":scope > p:first-child");
+    const intro=title?.nextElementSibling?.tagName==="P"?title.nextElementSibling:null;
+    const meta=h.querySelector(".verification-stamp");
+    const box=e=>e?e.getBoundingClientRect():null;
+    const tb=box(title),lb=box(label),ib=box(intro),mb=box(meta);
+    const overlap=(a,b)=>a&&b&&Math.min(a.right,b.right)>Math.max(a.left,b.left)&&Math.min(a.bottom,b.bottom)>Math.max(a.top,b.top);
+    return {
+      index,
+      title:title?.textContent?.trim(),
+      titleBox:tb?{x:tb.x,y:tb.y,width:tb.width,height:tb.height}:null,
+      labelBox:lb?{x:lb.x,y:lb.y,width:lb.width,height:lb.height}:null,
+      introBox:ib?{x:ib.x,y:ib.y,width:ib.width,height:ib.height}:null,
+      metaBox:mb?{x:mb.x,y:mb.y,width:mb.width,height:mb.height}:null,
+      titleLabelOverlap:overlap(tb,lb),
+      titleIntroOverlap:overlap(tb,ib),
+      introMetaOverlap:overlap(ib,mb),
+      alignedIntro:!ib||Math.abs(ib.x-tb.x)<2,
+      titleInContentColumn:!lb||tb.x>lb.x+lb.width
+    };
+  }));
+  const badHeaders=headerChecks.filter(h=>h.titleLabelOverlap||h.titleIntroOverlap||h.introMetaOverlap||!h.alignedIntro||!h.titleInContentColumn);
+  await assert("section headers assemble without overlap",badHeaders.length===0,{badHeaders});
+  const nextHeader=headerChecks.find(h=>h.title?.includes("From software to silicon"));
+  await assert("system layers title has usable desktop width",Boolean(nextHeader&&nextHeader.titleBox.width>420),{nextHeader});
+  const evidenceHeader=headerChecks.find(h=>h.title?.includes("Verification centre"));
+  await assert("verification metadata sits below introduction",Boolean(evidenceHeader&&evidenceHeader.metaBox&&evidenceHeader.introBox&&evidenceHeader.metaBox.y>=evidenceHeader.introBox.y+evidenceHeader.introBox.height-1),{evidenceHeader});
+
   // Force lazy images to load by walking the page.
   for(const selector of ["#research",".dpg","#credentials","#evidence"]){
     const loc=page.locator(selector);
@@ -83,7 +112,7 @@ async function assert(name,condition,details={}){
   const badges=await page.locator("#credentials .credential-art").evaluateAll(imgs=>imgs.map(i=>({src:i.currentSrc||i.src,w:i.naturalWidth,h:i.naturalHeight})));
   await assert("five credential badges render",badges.length===5 && badges.every(x=>x.w>0),{badges});
 
-  for(const [sel,file] of [["#research","desktop-research.png"],[".dpg","desktop-dpg.png"],["#credentials","desktop-credentials.png"],["#evidence","desktop-evidence.png"]]){
+  for(const [sel,file] of [["#next","desktop-system-layers.png"],["#research","desktop-research.png"],[".dpg","desktop-dpg.png"],["#credentials","desktop-credentials.png"],["#evidence","desktop-evidence.png"]]){
     const loc=page.locator(sel); await loc.scrollIntoViewIfNeeded(); await page.waitForTimeout(200); await loc.screenshot({path:`${OUT}/${file}`});
   }
 

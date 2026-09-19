@@ -64,6 +64,50 @@ ja:{
 }
 };
 
+
+const COPY_PATCH={
+  en:{
+    "mode.home":"LIGHT","mode.lab":"DARK",
+    "hero.academic":"IIT Madras BS Data Science & Applications pathway alongside Class 12 PCM, with a longer-term engineering direction in electronics and hardware-software systems.",
+    "hero.iitm":"IITM BS DS&A · pathway",
+    "photo.caption":"DPG Dialogues 2025 · volunteer cohort",
+    "scope.study":"ACTIVE ACADEMIC TRACK",
+    "path.title":"One direction, two academic tracks",
+    "path.intro":"The IIT Madras data-science pathway is part of the academic record here, while electronics remains the parallel engineering direction shaping the longer-term goal.",
+    "path.iitmText":"The IIT Madras BS in Data Science and Applications is part of the academic path presented here. The supplied portal evidence records the admissions/qualifier stage; this site keeps that evidence precise rather than presenting qualifier-stage status as completed degree enrolment.",
+    "path.status":"INSTITUTION","path.accepted":"IIT Madras","path.level":"PROGRAMME","path.nextEvent":"EVIDENCE","path.exam":"Supplied portal record",
+    "path.detail":"Evidence detail","path.detailText":"The supplied IIT Madras portal screenshots show the application accepted with documents under verification and the dashboard at qualifier level at the time the evidence was captured. This portfolio does not convert that stage into a claim of completed programme enrolment.",
+    "path.short":"IITM path"
+  },
+  ar:{
+    "mode.home":"فاتح","mode.lab":"داكن",
+    "hero.academic":"مسار BS في علوم البيانات والتطبيقات من IIT Madras بالتوازي مع الصف الثاني عشر PCM، مع اتجاه هندسي أطول مدى نحو الإلكترونيات وتكامل العتاد والبرمجيات.",
+    "hero.iitm":"IITM BS DS&A · مسار",
+    "photo.caption":"DPG Dialogues 2025 · مجموعة المتطوعين",
+    "scope.study":"المسار الأكاديمي النشط",
+    "path.title":"اتجاه واحد، مساران أكاديميان",
+    "path.intro":"مسار علوم البيانات في IIT Madras جزء من السجل الأكاديمي هنا، بينما تبقى الإلكترونيات الاتجاه الهندسي الموازي الذي يشكّل الهدف على المدى الأطول.",
+    "path.iitmText":"يُعرض برنامج BS في علوم البيانات والتطبيقات من IIT Madras هنا ضمن المسار الأكاديمي. توثّق أدلة البوابة المقدمة مرحلة القبول/التأهيل، لذلك يحافظ الموقع على دقة هذه المرحلة ولا يقدّمها كأنها تسجيل مكتمل في الدرجة.",
+    "path.status":"المؤسسة","path.accepted":"IIT Madras","path.level":"البرنامج","path.nextEvent":"الدليل","path.exam":"سجل البوابة المقدم",
+    "path.detail":"تفصيل الدليل","path.detailText":"تُظهر لقطات بوابة IIT Madras المقدمة أن الطلب كان مقبولاً مع استمرار التحقق من الوثائق وأن لوحة المعلومات كانت عند مستوى التأهيل وقت حفظ الدليل. لا يحوّل هذا الموقع تلك المرحلة إلى ادعاء بتسجيل مكتمل في البرنامج.",
+    "path.short":"مسار IITM"
+  },
+  ja:{
+    "mode.home":"ライト","mode.lab":"ダーク",
+    "hero.academic":"高校12年相当のPCMと並行してIIT Madras BS Data Science and Applicationsの進学プロセスを進めながら、長期的には電子工学とハードウェア・ソフトウェア協調設計へ向かっています。",
+    "hero.iitm":"IITM BS DS&A · pathway",
+    "photo.caption":"DPG Dialogues 2025 · ボランティア集合写真",
+    "scope.study":"現在の学術トラック",
+    "path.title":"一つの方向、二つの学術トラック",
+    "path.intro":"IIT Madrasのデータサイエンス進学トラックを現在の学術記録として示し、電子工学を長期的な工学方向として並行して育てています。",
+    "path.iitmText":"IIT Madras BS in Data Science and Applications は、ここで示す学術経路の一部です。提出済みポータル資料は入学・Qualifier段階を示しており、このサイトではその事実を、学位課程への正式登録が完了したかのように拡大しません。",
+    "path.status":"教育機関","path.accepted":"IIT Madras","path.level":"プログラム","path.nextEvent":"証拠","path.exam":"提出済みポータル記録",
+    "path.detail":"証拠の詳細","path.detailText":"提出済みのIIT Madrasポータル画像では、資料確認中の受理済み申請と、証拠取得時点のQualifierレベル表示が確認できます。このポートフォリオでは、その段階を正式なプログラム登録完了という主張には置き換えません。",
+    "path.short":"IITM経路"
+  }
+};
+for(const [lng,map] of Object.entries(COPY_PATCH)){Object.assign(D[lng],map);}
+
 const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
 let lang=localStorage.getItem("mhf-lang")||"en";
 let theme=localStorage.getItem("mhf-theme")||"home";
@@ -101,7 +145,7 @@ const index=[
 {label:"StudySyncEngine",meta:"PROJECT / OCR / local automation / privacy",href:"#work"},
 {label:"AI-Assisted Healthcare Systems",meta:"RESEARCH / JMIR preprint / DOI",href:"#research"},
 {label:"METABASIS / Books vs. Reels",meta:"RESEARCH / context compression",href:"#research"},
-{label:"IIT Madras BS Data Science and Applications",meta:"ACADEMIC / qualifier pathway / November 2026",href:"#academic-path"},
+{label:"IIT Madras BS Data Science and Applications",meta:"ACADEMIC / admissions pathway / supplied portal evidence",href:"#academic-path"},
 {label:"DPG Dialogues 2025",meta:"EXPERIENCE / public-interest systems",href:"#experience"},
 {label:"NASA Open Science Essentials",meta:"CREDENTIAL / open science",href:"#credentials"},
 {label:"Google AI Professional Certificate",meta:"CREDENTIAL / AI",href:"#credentials"},
@@ -119,3 +163,58 @@ document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLower
 input.addEventListener("input",()=>render(input.value));
 
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}
+
+
+// Reference-led interaction layer: precise, restrained, keyboard-friendly.
+const progressBar=document.querySelector("#scroll-progress-bar");
+const sectionIndex=document.querySelector("#section-index");
+const sectionLabel=document.querySelector("#section-label");
+const navLinks=[...document.querySelectorAll(".desktop-nav a")];
+const tracked=[...document.querySelectorAll("main section[id]")];
+
+const onScroll=()=>{
+  const max=document.documentElement.scrollHeight-innerHeight;
+  const p=max>0?scrollY/max:0;
+  if(progressBar) progressBar.style.transform=`scaleX(${Math.min(1,Math.max(0,p))})`;
+};
+addEventListener("scroll",onScroll,{passive:true}); onScroll();
+
+const sectionObserver=new IntersectionObserver(entries=>{
+  const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+  if(!visible) return;
+  const sec=visible.target;
+  const pos=tracked.indexOf(sec);
+  const heading=sec.querySelector("h2,h1");
+  if(sectionIndex) sectionIndex.textContent=String(Math.max(0,pos)).padStart(2,"0");
+  if(sectionLabel) sectionLabel.textContent=(heading?.textContent||sec.id||"SECTION").trim().toUpperCase().slice(0,34);
+  navLinks.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+sec.id));
+},{rootMargin:"-20% 0px -55% 0px",threshold:[0,.2,.5,.8]});
+tracked.forEach(s=>sectionObserver.observe(s));
+
+const revealTargets=[...document.querySelectorAll(".indexed .section-head,.path-card,.identity article,.origin-grid article,.case,.research-card,.dpg-media,.timeline article,.matrix article,.credential-grid article,.split,.thoughts p,.route,.question-index a,.project-archive")];
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
+  revealTargets.forEach(el=>el.classList.add("reveal"));
+  const revealObserver=new IntersectionObserver(entries=>entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add("is-visible");revealObserver.unobserve(e.target);}
+  }),{rootMargin:"0px 0px -8% 0px",threshold:.08});
+  revealTargets.forEach(el=>revealObserver.observe(el));
+}else{
+  revealTargets.forEach(el=>el.classList.add("is-visible"));
+}
+
+const spotlight=[...document.querySelectorAll(".path-card,.case,.research-card,.credential-grid article,.identity article,.media-card")];
+spotlight.forEach(el=>{
+  el.dataset.spotlight="";
+  el.addEventListener("pointermove",e=>{
+    const r=el.getBoundingClientRect();
+    el.style.setProperty("--spot-x",((e.clientX-r.left)/r.width*100)+"%");
+    el.style.setProperty("--spot-y",((e.clientY-r.top)/r.height*100)+"%");
+  },{passive:true});
+});
+
+if(matchMedia("(pointer:fine)").matches){
+  addEventListener("pointermove",e=>{
+    document.documentElement.style.setProperty("--mx",e.clientX+"px");
+    document.documentElement.style.setProperty("--my",e.clientY+"px");
+  },{passive:true});
+}

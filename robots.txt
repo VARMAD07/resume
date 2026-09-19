@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+
 Sitemap: https://varmad07.github.io/resume/sitemap.xml

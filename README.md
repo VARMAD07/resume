@@ -7,7 +7,7 @@ https://varmad07.github.io/resume/
 
 ## Architecture
 - `index.html` — semantic content and evidence-linked portfolio
-- `styles.css` — responsive HOME/LAB visual system, RTL support, print styles
+- `styles.css` — responsive LIGHT/DARK visual system, RTL support, print styles
 - `script.js` — EN/AR/JA interface, theme, local search, copy actions, resume-ref context
 - `404.html` — custom project-pages-safe error page
 - `manifest.webmanifest` + `sw.js` — lightweight installability / offline shell
@@ -24,3 +24,7 @@ Use the stable canonical destination:
 `https://varmad07.github.io/resume/?ref=resume`
 
 The resume file itself can change without changing the printed QR destination.
+
+
+## Reference-led polish
+The current interaction pass studies high-level principles from strong portfolio work—clear narrative hierarchy, quiet navigation, microinteraction, responsive personality and exploratory interaction—without copying source code or reproducing another portfolio's visual identity.

@@ -1,7 +1,7 @@
 {
   "ci": {
     "collect": {
-      "staticDistDir": ".",
+      "url": ["http://localhost:8080/index.html"],
       "numberOfRuns": 1,
       "settings": {
         "onlyCategories": ["performance", "accessibility", "best-practices", "seo"],

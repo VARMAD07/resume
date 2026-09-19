@@ -32,9 +32,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-          cache: npm
-          cache-dependency-path: package-lock.json
-        continue-on-error: true
+      - name: Start local portfolio server
+        run: |
+          python3 -m http.server 8080 >/tmp/mhf-portfolio-http.log 2>&1 &
+          sleep 2
       - name: Run Lighthouse CI quality gate
         run: npx --yes @lhci/cli@0.14.0 autorun --config=./lighthouserc.json
       - name: Upload Lighthouse reports

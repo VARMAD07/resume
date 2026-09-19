@@ -11,17 +11,73 @@
   <meta property="og:title" content="Mohammad Hammad Faridi — Portfolio">
   <meta property="og:description" content="A living record of work, evidence, research lessons, the IIT Madras BS Data Science pathway, and a transition from software toward electronics.">
   <meta property="og:url" content="https://varmad07.github.io/resume/">
-  <meta property="og:image" content="https://varmad07.github.io/resume/assets/images/banner.webp">
+  <meta property="og:image" content="https://varmad07.github.io/resume/assets/images/social-preview.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Mohammad Hammad Faridi — systems engineering, AI, infrastructure and technology for society">
-  <meta name="twitter:image" content="https://varmad07.github.io/resume/assets/images/banner.webp">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="https://varmad07.github.io/resume/assets/images/social-preview.webp">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="preload" as="image" href="assets/images/banner.webp" type="image/webp">
   <link rel="preload" as="image" href="assets/images/profile.webp" type="image/webp">
   <link rel="stylesheet" href="styles.css">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Person","name":"Mohammad Hammad Faridi","url":"https://varmad07.github.io/resume/","sameAs":["https://orcid.org/0009-0002-3228-3335","https://github.com/VARMAD07","https://linkedin.com/in/hammadfaridi07"],"knowsAbout":["Python","data science","AI-assisted software","automation","open science","digital public infrastructure","electronics","semiconductors","VLSI","embedded systems"],"description":"Class 12 PCM student building software and research projects while progressing through the IIT Madras BS Data Science and Applications admissions pathway and developing toward electronics and hardware-software systems."}
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"Person",
+        "@id":"https://varmad07.github.io/resume/#person",
+        "name":"Mohammad Hammad Faridi",
+        "url":"https://varmad07.github.io/resume/",
+        "image":"https://varmad07.github.io/resume/assets/images/profile.webp",
+        "sameAs":[
+          "https://orcid.org/0009-0002-3228-3335",
+          "https://github.com/VARMAD07",
+          "https://linkedin.com/in/hammadfaridi07"
+        ],
+        "knowsAbout":[
+          "Python","data science","AI-assisted software","automation","open science",
+          "digital public infrastructure","electronics","semiconductors","VLSI","embedded systems"
+        ],
+        "description":"Class 12 PCM student building software and research projects while progressing through the IIT Madras BS Data Science and Applications admissions pathway and developing toward electronics and hardware-software systems."
+      },
+      {
+        "@type":"WebSite",
+        "@id":"https://varmad07.github.io/resume/#website",
+        "url":"https://varmad07.github.io/resume/",
+        "name":"Mohammad Hammad Faridi — Portfolio",
+        "about":{"@id":"https://varmad07.github.io/resume/#person"},
+        "inLanguage":["en","ar","ja"]
+      },
+      {
+        "@type":"ScholarlyArticle",
+        "@id":"https://varmad07.github.io/resume/#healthcare-ai-preprint",
+        "headline":"AI-Assisted Healthcare Systems: Bridging the Implementation Gap Through a Human-Centered Perspective",
+        "author":{"@id":"https://varmad07.github.io/resume/#person"},
+        "url":"https://zenodo.org/records/20707263",
+        "description":"Independent review project on implementation barriers, human oversight and real-world use of AI-assisted healthcare systems. Presented in this portfolio as a preprint and research-learning record."
+      },
+      {
+        "@type":"SoftwareSourceCode",
+        "@id":"https://varmad07.github.io/resume/#halim-nexus-ai",
+        "name":"Halim Nexus AI",
+        "author":{"@id":"https://varmad07.github.io/resume/#person"},
+        "codeRepository":"https://github.com/VARMAD07/halim-nexus-ai",
+        "url":"https://halimai.streamlit.app/",
+        "programmingLanguage":"Python"
+      },
+      {
+        "@type":"SoftwareSourceCode",
+        "@id":"https://varmad07.github.io/resume/#study-sync-engine",
+        "name":"StudySyncEngine",
+        "author":{"@id":"https://varmad07.github.io/resume/#person"},
+        "codeRepository":"https://github.com/VARMAD07/study-sync-engine",
+        "programmingLanguage":"Python"
+      }
+    ]
+  }
   </script>
 </head>
 <body>
@@ -43,6 +99,10 @@
 <nav id="mobile-nav" class="mobile-nav" hidden>
   <a href="#profile" data-i18n="nav.profile">Profile</a><a href="#work" data-i18n="nav.work">Work</a><a href="#research" data-i18n="nav.research">Research</a><a href="#experience" data-i18n="nav.experience">Experience</a><a href="#evidence" data-i18n="nav.evidence">Evidence</a><a href="#next" data-i18n="nav.next">Next</a>
 </nav>
+<aside id="reviewer-mode-note" class="reviewer-mode-note" hidden>
+  <span><b data-i18n="reviewer.label">REVIEWER VIEW</b><small data-i18n="reviewer.note">Focused academic path · work · research · systems · evidence</small></span>
+  <a href="./" data-i18n="reviewer.exit">Exit reviewer view</a>
+</aside>
 
 <section class="portfolio-banner" aria-label="Mohammad Hammad Faridi systems engineering banner">
   <img src="assets/images/banner.webp" alt="Mohammad Hammad Faridi — Systems Engineering, AI and Machine Learning, Infrastructure, Automation and Workflows, Technology for Society" width="1983" height="793" decoding="async" fetchpriority="high">
@@ -152,7 +212,7 @@
   <p class="privacy-note" data-i18n="path.privacy">Evidence note: I supplied IIT Madras dashboard/application screenshots for this record. The raw screenshots contain personal account, contact and payment information, so this public portfolio does not republish them.</p>
 </section>
 
-<section class="indexed">
+<section class="indexed reviewer-optional">
   <header class="section-head"><p>01 / ORIENTATION</p><h2 data-i18n="identity.title">Identity map</h2></header>
   <div class="identity">
     <article><span>BUILD</span><h3>Python · AI · Automation · Cloud</h3><p data-i18n="identity.build">Practical software systems, local workflows and AI-assisted tools.</p></article>
@@ -163,7 +223,7 @@
   </div>
 </section>
 
-<section class="indexed">
+<section class="indexed reviewer-optional">
   <header class="section-head"><p>02 / ORIGIN</p><h2 data-i18n="origins.title">Why I build</h2><p data-i18n="origins.intro">Most of the questions that shaped me did not look important when they began.</p></header>
   <div class="origin-grid">
     <article><em>01</em><h3 data-i18n="origins.remote">A missing remote</h3><p data-i18n="origins.remoteText">An ordinary workaround became a question about invisible communication between devices.</p></article>
@@ -322,23 +382,23 @@
   </div>
 </section>
 
-<section class="indexed" id="open-science">
+<section class="indexed reviewer-optional" id="open-science">
   <header class="section-head"><p>11 / RESEARCH PRACTICE</p><h2 data-i18n="open.title">Open science as a working habit</h2></header>
   <div class="split"><p data-i18n="open.text">NASA Open Science Essentials introduced me to FAIR principles, repositories, licensing, version control, persistent identifiers and the idea that research becomes more useful when other people can inspect, reproduce and build on it. I am still learning to apply those practices consistently.</p><blockquote data-i18n="open.quote">Good systems should not depend on one person understanding everything. Good research should not either.</blockquote></div>
 </section>
 
-<section class="indexed">
+<section class="indexed reviewer-optional">
   <header class="section-head"><p>12 / PROCESS NOTES</p><h2 data-i18n="how.title">How I think</h2></header>
   <div class="thoughts"><p data-i18n="how.1">I notice processes that feel unnecessarily difficult.</p><p data-i18n="how.2">I tend to follow a question until it becomes a different question.</p><p data-i18n="how.3">I have learned that technically correct does not always mean useful.</p><p data-i18n="how.4">I am becoming more comfortable discovering that my first answer was wrong.</p><p data-i18n="how.5">I care about whether the person on the other side actually benefits.</p></div>
 </section>
 
-<section class="indexed">
+<section class="indexed reviewer-optional">
   <header class="section-head"><p>13 / INTERNATIONAL PROFILE</p><h2 data-i18n="international.title">Across contexts, not defined by one destination</h2></header>
   <div class="route"><div><b>SAUDI ARABIA</b><small data-i18n="international.saudi">early years and schooling</small></div><i></i><div><b>INDIA</b><small data-i18n="international.india">current education base</small></div><i></i><div><b data-i18n="international.next">INTERNATIONAL STUDY</b><small data-i18n="international.nextText">engineering education and research exposure</small></div></div>
   <div class="language-levels"><p><b>English · Hindi · Urdu</b><span data-i18n="lang.pro">professional working proficiency</span></p><p><b>Arabic</b><span data-i18n="lang.limited">limited working proficiency</span></p><p><b>日本語 / Japanese</b><span data-i18n="lang.beginner">beginner / learning</span></p></div>
 </section>
 
-<section class="indexed">
+<section class="indexed reviewer-optional">
   <header class="section-head"><p>14 / QUESTION INDEX</p><h2 data-i18n="questions.title">Questions that keep returning</h2></header>
   <div class="question-index"><a href="#profile" data-i18n="questions.1">How does one device tell another what to do?</a><a href="#research" data-i18n="questions.2">Why do technically capable systems fail after deployment?</a><a href="#research" data-i18n="questions.3">What is lost when information becomes shorter?</a><a href="#work" data-i18n="questions.4">How can software remain useful without sending everything to the cloud?</a><a href="#next" data-i18n="questions.5">What happens below the software layer?</a></div>
 </section>
@@ -349,7 +409,7 @@
 </section>
 </main>
 
-<footer><div><b>Mohammad Hammad Faridi</b><span data-i18n="footer.location">Kanpur, India</span><a href="mailto:mhammadfaridi07@gmail.com">mhammadfaridi07@gmail.com</a></div><nav><a href="https://github.com/VARMAD07" target="_blank" rel="noopener">GitHub</a><a href="https://linkedin.com/in/hammadfaridi07" target="_blank" rel="noopener">LinkedIn</a><a href="https://orcid.org/0009-0002-3228-3335" target="_blank" rel="noopener">ORCID</a><button class="copy" data-copy="0009-0002-3228-3335" data-i18n="copy.orcid">Copy ORCID</button></nav><p data-i18n="footer.line">Built as a living record of work, evidence and learning.</p></footer>
+<footer><div><b>Mohammad Hammad Faridi</b><span data-i18n="footer.location">Kanpur, India</span><a href="mailto:mhammadfaridi07@gmail.com">mhammadfaridi07@gmail.com</a></div><nav><a href="https://github.com/VARMAD07" target="_blank" rel="noopener">GitHub</a><a href="https://linkedin.com/in/hammadfaridi07" target="_blank" rel="noopener">LinkedIn</a><a href="https://orcid.org/0009-0002-3228-3335" target="_blank" rel="noopener">ORCID</a><a href="?view=reviewer#profile" data-i18n="footer.reviewer">Reviewer view</a><button class="copy" data-copy="0009-0002-3228-3335" data-i18n="copy.orcid">Copy ORCID</button></nav><p data-i18n="footer.line">Built as a living record of work, evidence and learning.</p></footer>
 
 <button id="search-button" class="search-button" aria-haspopup="dialog" aria-controls="search-dialog"><kbd>Ctrl</kbd><kbd>K</kbd><span data-i18n="search.label">Search record</span></button>
 <dialog id="search-dialog" aria-labelledby="search-title"><form method="dialog" class="search-panel"><header><h2 id="search-title" data-i18n="search.title">Search the record</h2><button aria-label="Close">×</button></header><input id="search-input" type="search" autocomplete="off" placeholder="Projects, research, skills, evidence…" aria-label="Search portfolio record"><div id="search-results"></div></form></dialog>

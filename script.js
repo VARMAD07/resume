@@ -137,8 +137,8 @@ let langInitialized=false;
 function applyLang(next){
   lang=D[next]?next:"en"; localStorage.setItem("mhf-lang",lang);
   document.documentElement.lang=lang; document.documentElement.dir=lang==="ar"?"rtl":"ltr";
-  if(lang!=="en"||langInitialized){$("[data-i18n]").forEach(el=>{const v=D[lang][el.dataset.i18n]; if(v) el.textContent=v;});}
-  $(".languages button").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+  if(lang!=="en"||langInitialized){document.querySelectorAll("[data-i18n]").forEach(el=>{const v=D[lang][el.dataset.i18n]; if(v) el.textContent=v;});}
+  document.querySelectorAll(".languages button").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
   langInitialized=true;
 }
 function applyTheme(next){

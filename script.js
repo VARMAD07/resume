@@ -1,5 +1,6 @@
 const D={
 en:{
+"evidence.reviewed":"Evidence reviewed · September 2026",
 "hero.role":"Student · Systems thinker · Future engineer",
 "quick.label":"QUICK READ","quick.title":"Five stops through the record","quick.build":"Build","quick.research":"Research","quick.systems":"Systems","quick.evidence":"Evidence","quick.next":"Next",
 "highlights.kicker":"START HERE / 30-SECOND VIEW","highlights.title":"Selected highlights","highlights.intro":"Four anchors for a fast review: one build, one research arc, one systems exposure and one academic direction.","highlights.build":"BUILD","highlights.buildText":"A role-based educational software project combining Python, local persistence, AI-assisted evaluation and notification pathways.","highlights.research":"RESEARCH","highlights.researchText":"Independent synthesis of 18 studies, followed by editorial criticism that sharpened the methodology, evidence and reproducibility questions.","highlights.systems":"SYSTEMS","highlights.systemsText":"Volunteer exposure that widened the frame from software features to infrastructure, governance, accessibility and population-scale use.","highlights.path":"ACADEMIC PATH","highlights.pathTitle":"PCM foundation → deeper engineering","highlights.pathText":"Class 12 PCM, an active data-science admissions pathway, and a longer-term direction toward electronics and hardware-software systems.","highlights.open":"Open section ↗",
@@ -26,6 +27,7 @@ en:{
 "resume.title":"Compressed record, expanded here","resume.text":"The résumé is the short version. This site carries the context, evidence, limits and learning behind it.","resume.view":"View résumé","resume.files":"Résumé files","resume.print":"Print profile","footer.location":"Kanpur, India","copy.orcid":"Copy ORCID","footer.line":"Built as a living record of work, evidence and learning.","search.label":"Search record","search.title":"Search the record"
 },
 ar:{
+"evidence.reviewed":"تمت مراجعة الأدلة · سبتمبر 2026",
 "hero.role":"طالب · مفكر في الأنظمة · مهندس مستقبلي",
 "quick.label":"قراءة سريعة","quick.title":"خمس محطات في السجل","quick.build":"البناء","quick.research":"البحث","quick.systems":"الأنظمة","quick.evidence":"الأدلة","quick.next":"التالي",
 "highlights.kicker":"ابدأ هنا / نظرة في 30 ثانية","highlights.title":"أبرز المحطات","highlights.intro":"أربع نقاط لقراءة سريعة: مشروع برمجي، مسار بحثي، تجربة في الأنظمة العامة، واتجاه أكاديمي.","highlights.build":"بناء","highlights.buildText":"مشروع برمجيات تعليمية قائم على الأدوار يجمع Python والتخزين المحلي والتقييم المدعوم بالذكاء الاصطناعي ومسارات الإشعارات.","highlights.research":"بحث","highlights.researchText":"مراجعة مستقلة لـ18 دراسة، ثم نقد تحريري ساعد على تعميق أسئلة المنهجية والأدلة وقابلية إعادة الإنتاج.","highlights.systems":"أنظمة","highlights.systemsText":"تجربة تطوعية وسّعت المنظور من ميزات البرمجيات إلى البنية التحتية والحوكمة وإمكانية الوصول والاستخدام على نطاق واسع.","highlights.path":"المسار الأكاديمي","highlights.pathTitle":"أساس PCM ← هندسة أعمق","highlights.pathText":"الصف الثاني عشر PCM، ومسار قبول نشط في علم البيانات، واتجاه أطول نحو الإلكترونيات وأنظمة العتاد والبرمجيات.","highlights.open":"افتح القسم ↗",
@@ -52,6 +54,7 @@ ar:{
 "resume.title":"سجل مختصر، وتفاصيل موسعة هنا","resume.text":"السيرة الذاتية هي النسخة المختصرة. هذا الموقع يحمل السياق والأدلة والحدود والدروس وراءها.","resume.view":"عرض السيرة الذاتية","resume.files":"ملفات السيرة الذاتية","resume.print":"طباعة الملف","footer.location":"كانبور، الهند","copy.orcid":"نسخ ORCID","footer.line":"سجل حي للأعمال والأدلة والتعلم.","search.label":"البحث في السجل","search.title":"البحث في السجل"
 },
 ja:{
+"evidence.reviewed":"証拠確認済み · 2026年9月",
 "hero.role":"高校生 · システム思考 · 将来のエンジニア",
 "quick.label":"クイック・リード","quick.title":"記録を5つの入口から読む","quick.build":"制作","quick.research":"研究","quick.systems":"システム","quick.evidence":"証拠","quick.next":"次へ",
 "highlights.kicker":"ここから / 30秒で概要","highlights.title":"主要ハイライト","highlights.intro":"短時間で見るための4つの軸：制作、研究の流れ、公共システムへの接点、学習方向。","highlights.build":"制作","highlights.buildText":"Python、ローカル保存、AI支援評価、通知経路を組み合わせた役割別の教育ソフトウェア・プロジェクト。","highlights.research":"研究","highlights.researchText":"18本の研究を独立に整理し、その後の編集上の批評を通じて方法論・証拠・再現性への理解を深めました。","highlights.systems":"システム","highlights.systemsText":"ボランティア経験を通じ、視点がソフトウェア機能からインフラ、ガバナンス、アクセシビリティ、大規模利用へ広がりました。","highlights.path":"学習方向","highlights.pathTitle":"PCMの基礎 → より深い工学へ","highlights.pathText":"高校12年相当のPCM、進行中のデータサイエンス入学経路、そして電子工学とハードウェア・ソフトウェア統合への長期的な方向。","highlights.open":"セクションを開く ↗",
@@ -158,13 +161,13 @@ const dialog=$("#search-dialog"),input=$("#search-input"),results=$("#search-res
 const index=[
 {label:"Halim Nexus AI",meta:"PROJECT / Python / AI / SQLite / Twilio",href:"#work"},
 {label:"StudySyncEngine",meta:"PROJECT / OCR / local automation / privacy",href:"#work"},
-{label:"AI-Assisted Healthcare Systems",meta:"RESEARCH / JMIR preprint / DOI",href:"#research"},
+{label:"AI-Assisted Healthcare Systems",meta:"RESEARCH / preprint / methodology / Zenodo",href:"#research"},
 {label:"METABASIS / Books vs. Reels",meta:"RESEARCH / context compression",href:"#research"},
 {label:"IIT Madras BS Data Science and Applications",meta:"ACADEMIC / admissions pathway / supplied portal evidence",href:"#academic-path"},
 {label:"DPG Dialogues 2025",meta:"EXPERIENCE / public-interest systems",href:"#experience"},
 {label:"NASA Open Science Essentials",meta:"CREDENTIAL / open science",href:"#credentials"},
 {label:"Google AI Professional Certificate",meta:"CREDENTIAL / AI",href:"#credentials"},
-{label:"Verification centre",meta:"EVIDENCE / ORCID / DOI / GitHub",href:"#evidence"},
+{label:"Verification centre",meta:"EVIDENCE / ORCID / GitHub / issuer records",href:"#evidence"},
 {label:"Electronics / VLSI / semiconductors",meta:"NEXT / learning direction",href:"#next"},
 {label:"Python / OCR / SQLite / Google Cloud",meta:"SKILLS / linked to work",href:"#work"}
 ];
@@ -202,7 +205,7 @@ const sectionObserver=new IntersectionObserver(entries=>{
   const heading=sec.querySelector("h2,h1");
   if(sectionIndex) sectionIndex.textContent=String(Math.max(0,pos)).padStart(2,"0");
   if(sectionLabel) sectionLabel.textContent=(heading?.textContent||sec.id||"SECTION").trim().toUpperCase().slice(0,34);
-  navLinks.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+sec.id));
+  navLinks.forEach(a=>{const active=a.getAttribute("href")==="#"+sec.id;a.classList.toggle("active",active);if(active)a.setAttribute("aria-current","location");else a.removeAttribute("aria-current");});
 },{rootMargin:"-20% 0px -55% 0px",threshold:[0,.2,.5,.8]});
 tracked.forEach(s=>sectionObserver.observe(s));
 

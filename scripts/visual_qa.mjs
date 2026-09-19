@@ -56,8 +56,9 @@ async function assert(name,condition,details={}){
   await assert("all displayed images load",broken.length===0,{broken});
 
   await page.keyboard.press("Control+K");
+  await page.waitForTimeout(80);
   await assert("search dialog opens",await page.locator("#search-dialog").evaluate(d=>d.open));
-  await assert("search input receives focus",(await page.evaluate(()=>document.activeElement?.id))==="search-input");
+  await assert("search input receives focus",(await page.evaluate(()=>document.activeElement?.id))==="search-input",{activeElement:await page.evaluate(()=>document.activeElement?.id)});
   await page.locator('#search-dialog button[aria-label="Close"]').click();
 
   const beforeTheme=await page.locator("html").getAttribute("data-theme");
@@ -130,6 +131,8 @@ async function assert(name,condition,details={}){
   await page.screenshot({path:`${OUT}/mobile-menu.png`,fullPage:false});
   await page.locator("#mobile-nav a").first().click();
 
+  await page.locator(".dpg").scrollIntoViewIfNeeded();
+  await page.waitForTimeout(350);
   await page.locator("#credentials").scrollIntoViewIfNeeded();
   await page.waitForTimeout(350);
   await assert("mobile credentials use one column",

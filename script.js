@@ -70,7 +70,7 @@ const COPY_PATCH={
     "mode.home":"LIGHT","mode.lab":"DARK",
     "hero.academic":"IIT Madras BS Data Science & Applications pathway alongside Class 12 PCM, with a longer-term engineering direction in electronics and hardware-software systems.",
     "hero.iitm":"IITM BS DS&A · pathway",
-    "photo.caption":"DPG Dialogues 2025 · volunteer cohort",
+    "photo.caption":"Profile portrait","dpg.group":"Volunteer cohort photograph ↗",
     "scope.study":"ACTIVE ACADEMIC TRACK",
     "path.title":"One direction, two academic tracks",
     "path.intro":"The IIT Madras data-science pathway is part of the academic record here, while electronics remains the parallel engineering direction shaping the longer-term goal.",
@@ -83,7 +83,7 @@ const COPY_PATCH={
     "mode.home":"فاتح","mode.lab":"داكن",
     "hero.academic":"مسار BS في علوم البيانات والتطبيقات من IIT Madras بالتوازي مع الصف الثاني عشر PCM، مع اتجاه هندسي أطول مدى نحو الإلكترونيات وتكامل العتاد والبرمجيات.",
     "hero.iitm":"IITM BS DS&A · مسار",
-    "photo.caption":"DPG Dialogues 2025 · مجموعة المتطوعين",
+    "photo.caption":"صورة شخصية","dpg.group":"صورة مجموعة المتطوعين ↗",
     "scope.study":"المسار الأكاديمي النشط",
     "path.title":"اتجاه واحد، مساران أكاديميان",
     "path.intro":"مسار علوم البيانات في IIT Madras جزء من السجل الأكاديمي هنا، بينما تبقى الإلكترونيات الاتجاه الهندسي الموازي الذي يشكّل الهدف على المدى الأطول.",
@@ -96,7 +96,7 @@ const COPY_PATCH={
     "mode.home":"ライト","mode.lab":"ダーク",
     "hero.academic":"高校12年相当のPCMと並行してIIT Madras BS Data Science and Applicationsの進学プロセスを進めながら、長期的には電子工学とハードウェア・ソフトウェア協調設計へ向かっています。",
     "hero.iitm":"IITM BS DS&A · pathway",
-    "photo.caption":"DPG Dialogues 2025 · ボランティア集合写真",
+    "photo.caption":"プロフィール写真","dpg.group":"ボランティア集合写真 ↗",
     "scope.study":"現在の学術トラック",
     "path.title":"一つの方向、二つの学術トラック",
     "path.intro":"IIT Madrasのデータサイエンス進学トラックを現在の学術記録として示し、電子工学を長期的な工学方向として並行して育てています。",
@@ -191,12 +191,12 @@ const sectionObserver=new IntersectionObserver(entries=>{
 },{rootMargin:"-20% 0px -55% 0px",threshold:[0,.2,.5,.8]});
 tracked.forEach(s=>sectionObserver.observe(s));
 
-const revealTargets=[...document.querySelectorAll(".indexed .section-head,.path-card,.identity article,.origin-grid article,.case,.research-card,.dpg-media,.timeline article,.matrix article,.credential-grid article,.split,.thoughts p,.route,.question-index a,.project-archive")];
+const revealTargets=[...document.querySelectorAll(".hero .profile-card,.indexed .section-head,.path-card,.identity article,.origin-grid article,.case,.research-card,.dpg-media,.media-card,.timeline article,.matrix article,.credential-grid article,.split,.thoughts p,.route,.question-index a,.project-archive")];
 if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
   revealTargets.forEach(el=>el.classList.add("reveal"));
   const revealObserver=new IntersectionObserver(entries=>entries.forEach(e=>{
     if(e.isIntersecting){e.target.classList.add("is-visible");revealObserver.unobserve(e.target);}
-  }),{rootMargin:"0px 0px -8% 0px",threshold:.08});
+  }),{rootMargin:"0px 0px -8% 0px",threshold:.12});
   revealTargets.forEach(el=>revealObserver.observe(el));
 }else{
   revealTargets.forEach(el=>el.classList.add("is-visible"));

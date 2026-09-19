@@ -1,0 +1,27 @@
+name: Portfolio external link health
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "scripts/check_external_links.py"
+      - ".github/workflows/external-links.yml"
+  schedule:
+    - cron: "23 4 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  external-links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check public external links
+        run: python scripts/check_external_links.py

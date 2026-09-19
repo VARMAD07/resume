@@ -143,7 +143,8 @@ html{scroll-padding-top:86px;scrollbar-gutter:stable}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .72s var(--ease-out),transform .72s var(--ease-out)}
 .reveal.is-visible{opacity:1;transform:none}
 [data-spotlight]{position:relative;overflow:hidden;isolation:isolate}
-[data-spotlight]::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(420px circle at var(--spot-x,50%) var(--spot-y,50%),color-mix(in srgb,var(--accent) 7%,transparent),transparent 62%);opacity:0;transition:opacity .25s ease}
+[data-spotlight]::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(420px circle at var(--spot-x,50%) var(--spot-y,50%),color-mix(in srgb,var(--accent) 7%,transparent),transparent 62%);opacity:0;transition:opacity .25s ease}
+[data-spotlight]>*{position:relative;z-index:1}
 [data-spotlight]:hover::after{opacity:1}
 .layers>div{transition:background .25s,transform .25s var(--ease-out)}
 .layers>div:hover{background:color-mix(in srgb,var(--accent) 12%,var(--panel));transform:translateY(-3px)}

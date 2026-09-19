@@ -781,15 +781,11 @@ html[dir="rtl"] .reviewer-mode-note span{flex-direction:row-reverse}
 }
 .section-head > p:first-child{
   grid-area:index;
-  grid-column:auto;
-  grid-row:auto;
   margin:5px 0 0;
   min-width:0;
 }
 .section-head > h2{
   grid-area:title;
-  grid-column:auto;
-  grid-row:auto;
   margin:0;
   max-width:980px;
   min-width:0;
@@ -797,8 +793,6 @@ html[dir="rtl"] .reviewer-mode-note span{flex-direction:row-reverse}
 }
 .section-head > h2 + p{
   grid-area:intro;
-  grid-column:auto;
-  grid-row:auto;
   margin:0;
   max-width:780px;
   min-width:0;
@@ -807,8 +801,6 @@ html[dir="rtl"] .reviewer-mode-note span{flex-direction:row-reverse}
 }
 .section-head > .verification-stamp{
   grid-area:meta;
-  grid-column:auto;
-  grid-row:auto;
   justify-self:start;
   margin:2px 0 0;
 }
@@ -820,13 +812,6 @@ html[dir="rtl"] .section-head{
     "title index"
     "intro ."
     "meta .";
-}
-html[dir="rtl"] .section-head > p:first-child,
-html[dir="rtl"] .section-head > h2,
-html[dir="rtl"] .section-head > h2 + p,
-html[dir="rtl"] .section-head > .verification-stamp{
-  grid-column:auto;
-  grid-row:auto;
 }
 
 /* At phone width the editorial grid becomes a deliberate vertical stack. */

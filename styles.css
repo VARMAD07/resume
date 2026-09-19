@@ -586,3 +586,56 @@ html{scroll-padding-top:86px;scrollbar-gutter:stable}
 @media(prefers-reduced-motion:reduce){
   .highlight-card,.quick-read nav a,.credential-grid article{transition:none!important}
 }
+
+
+/* 2026-09-20 final engineering pass */
+html,body{max-width:100%;overflow-x:clip}
+img{max-width:100%}
+.verification-stamp{
+  grid-column:2;
+  width:max-content;
+  margin-top:4px;
+  padding:6px 8px;
+  border:1px solid var(--line);
+  font:700 9px/1.3 ui-monospace,monospace;
+  letter-spacing:.08em;
+  color:var(--muted);
+}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible,[tabindex]:focus-visible{
+  outline:3px solid var(--accent);
+  outline-offset:4px;
+  border-radius:2px;
+}
+.search-panel header button{min-width:42px;min-height:42px}
+.search-result:focus-visible{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 5%,var(--panel))}
+.portfolio-banner img,.profile-card img,.group-photo-card img,.dpg-certificate-card img,.credential-art{height:auto}
+.profile-card img{aspect-ratio:2/3;object-fit:cover}
+@media(max-width:720px){
+  .section-indicator{display:none}
+  .search-button{right:12px;bottom:12px}
+  .portfolio-banner{overflow:hidden}
+  .portfolio-banner img{min-height:150px;object-fit:cover}
+  .verification-stamp{grid-column:auto}
+}
+@media print{
+  @page{margin:14mm}
+  html,body{background:#fff!important;color:#111!important}
+  .portfolio-banner,.quick-read,.selected-highlights,.section-indicator,.scroll-progress,
+  .topbar,.mobile-nav,.search-button,.grid-bg,.resume-arrival,#search-dialog,.toast,
+  .network-graphic,.question-index,.route,.languages,.theme,.menu{display:none!important}
+  main{width:100%!important;max-width:none!important;padding:0!important}
+  .hero{grid-template-columns:1fr!important;min-height:auto!important;padding:0 0 18px!important}
+  .hero-side{display:none!important}
+  .academic-strip,.path-card,.case,.research-card,.credential-grid article,.timeline article,.evidence-table{box-shadow:none!important}
+  .indexed{padding:18px 0!important;break-inside:auto}
+  .section-head{margin-bottom:18px!important}
+  .section-head h2{font-size:19pt!important}
+  .project-grid,.path-grid,.identity,.matrix,.credential-grid{grid-template-columns:1fr 1fr!important}
+  .case,.research-card,.credential-grid article,.timeline article,.path-card{break-inside:avoid}
+  .credential-image-wrap{height:90px!important}
+  .credential-art{max-height:74px!important}
+  .btn,.text-btn,.case-links{display:none!important}
+  .dpg-grid{grid-template-columns:1fr!important}
+  .dpg-media{display:none!important}
+  footer{width:100%!important;padding:18px 0 0!important;border-top:1px solid #bbb!important}
+}

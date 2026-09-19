@@ -116,6 +116,14 @@ async function assert(name,condition,details={}){
     const loc=page.locator(sel); await loc.scrollIntoViewIfNeeded(); await page.waitForTimeout(200); await loc.screenshot({path:`${OUT}/${file}`});
   }
 
+  // Dark-mode regression shots for the exact editorial sections most likely to expose assembly issues.
+  await page.locator("#theme").click();
+  await page.waitForTimeout(120);
+  for(const [sel,file] of [["#next","desktop-dark-system-layers.png"],[".dpg","desktop-dark-dpg.png"],["#evidence","desktop-dark-evidence.png"]]){
+    const loc=page.locator(sel); await loc.scrollIntoViewIfNeeded(); await page.waitForTimeout(150); await loc.screenshot({path:`${OUT}/${file}`});
+  }
+  await page.locator("#theme").click();
+
   report.desktop={
     title:await page.title(),
     documentHeight:await page.evaluate(()=>document.documentElement.scrollHeight),

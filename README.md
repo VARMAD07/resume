@@ -1,2 +1,26 @@
-# resume
-Multilingual résumé and portfolio of Mohammad Hammad Faridi
+# Mohammad Hammad Faridi — Portfolio
+
+Evidence-first multilingual academic + engineering portfolio designed for GitHub Pages.
+
+## Public site
+https://varmad07.github.io/resume/
+
+## Architecture
+- `index.html` — semantic content and evidence-linked portfolio
+- `styles.css` — responsive HOME/LAB visual system, RTL support, print styles
+- `script.js` — EN/AR/JA interface, theme, local search, copy actions, resume-ref context
+- `404.html` — custom project-pages-safe error page
+- `manifest.webmanifest` + `sw.js` — lightweight installability / offline shell
+- `assets/icons/icon.svg` — site icon
+
+## Integrity rules
+The site distinguishes public issuer records, project repositories, supplied documents and self-reported claims. It does not describe the JMIR manuscript as a journal publication. Recommendation letters, report cards, marksheets and private correspondence are source-only and are not published.
+
+## GitHub Pages
+Repository settings should publish the `main` branch from the repository root. Relative paths are used so the site works at `/resume/` and on a future custom domain.
+
+## QR
+Use the stable canonical destination:
+`https://varmad07.github.io/resume/?ref=resume`
+
+The resume file itself can change without changing the printed QR destination.

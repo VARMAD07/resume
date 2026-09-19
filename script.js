@@ -1,5 +1,6 @@
 const D={
 en:{
+"evidence.jump":"Evidence ↓","evidence.suppliedFiles":"Supplied research files",
 "reviewer.label":"REVIEWER VIEW","reviewer.note":"Focused academic path · work · research · systems · evidence","reviewer.exit":"Exit reviewer view","footer.reviewer":"Reviewer view",
 "evidence.reviewed":"Evidence reviewed · September 2026",
 "hero.role":"Student · Systems thinker · Future engineer",
@@ -28,6 +29,7 @@ en:{
 "resume.title":"Compressed record, expanded here","resume.text":"The résumé is the short version. This site carries the context, evidence, limits and learning behind it.","resume.view":"View résumé","resume.files":"Résumé files","resume.print":"Print profile","footer.location":"Kanpur, India","copy.orcid":"Copy ORCID","footer.line":"Built as a living record of work, evidence and learning.","search.label":"Search record","search.title":"Search the record"
 },
 ar:{
+"evidence.jump":"الدليل ↓","evidence.suppliedFiles":"ملفات بحث مقدمة",
 "reviewer.label":"عرض المراجع","reviewer.note":"مسار أكاديمي مركز · أعمال · بحث · أنظمة · أدلة","reviewer.exit":"الخروج من عرض المراجع","footer.reviewer":"عرض المراجع",
 "evidence.reviewed":"تمت مراجعة الأدلة · سبتمبر 2026",
 "hero.role":"طالب · مفكر في الأنظمة · مهندس مستقبلي",
@@ -56,6 +58,7 @@ ar:{
 "resume.title":"سجل مختصر، وتفاصيل موسعة هنا","resume.text":"السيرة الذاتية هي النسخة المختصرة. هذا الموقع يحمل السياق والأدلة والحدود والدروس وراءها.","resume.view":"عرض السيرة الذاتية","resume.files":"ملفات السيرة الذاتية","resume.print":"طباعة الملف","footer.location":"كانبور، الهند","copy.orcid":"نسخ ORCID","footer.line":"سجل حي للأعمال والأدلة والتعلم.","search.label":"البحث في السجل","search.title":"البحث في السجل"
 },
 ja:{
+"evidence.jump":"証拠 ↓","evidence.suppliedFiles":"提出済み研究ファイル",
 "reviewer.label":"レビュー用表示","reviewer.note":"学習経路 · 制作 · 研究 · システム · 証拠に集中","reviewer.exit":"通常表示に戻る","footer.reviewer":"レビュー用表示",
 "evidence.reviewed":"証拠確認済み · 2026年9月",
 "hero.role":"高校生 · システム思考 · 将来のエンジニア",

@@ -191,30 +191,36 @@ if("serviceWorker" in navigator){window.addEventListener("load",()=>{const regis
 
 
 // Reference-led interaction layer: precise, restrained, keyboard-friendly.
+const desktopViewport=matchMedia("(min-width: 1051px)").matches;
 const progressBar=document.querySelector("#scroll-progress-bar");
-const sectionIndex=document.querySelector("#section-index");
-const sectionLabel=document.querySelector("#section-label");
-const navLinks=[...document.querySelectorAll(".desktop-nav a")];
-const tracked=[...document.querySelectorAll("main section[id]")];
 
-const onScroll=()=>{
-  const max=document.documentElement.scrollHeight-innerHeight;
-  const p=max>0?scrollY/max:0;
-  if(progressBar) progressBar.style.transform=`scaleX(${Math.min(1,Math.max(0,p))})`;
-};
-addEventListener("scroll",onScroll,{passive:true}); onScroll();
+if(matchMedia("(min-width: 721px)").matches){
+  const onScroll=()=>{
+    const max=document.documentElement.scrollHeight-innerHeight;
+    const p=max>0?scrollY/max:0;
+    if(progressBar) progressBar.style.transform=`scaleX(${Math.min(1,Math.max(0,p))})`;
+  };
+  addEventListener("scroll",onScroll,{passive:true});
+  onScroll();
+}
 
-const sectionObserver=new IntersectionObserver(entries=>{
-  const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
-  if(!visible) return;
-  const sec=visible.target;
-  const pos=tracked.indexOf(sec);
-  const heading=sec.querySelector("h2,h1");
-  if(sectionIndex) sectionIndex.textContent=String(Math.max(0,pos)).padStart(2,"0");
-  if(sectionLabel) sectionLabel.textContent=(heading?.textContent||sec.id||"SECTION").trim().toUpperCase().slice(0,34);
-  navLinks.forEach(a=>{const active=a.getAttribute("href")==="#"+sec.id;a.classList.toggle("active",active);if(active)a.setAttribute("aria-current","location");else a.removeAttribute("aria-current");});
-},{rootMargin:"-20% 0px -55% 0px",threshold:[0,.2,.5,.8]});
-tracked.forEach(s=>sectionObserver.observe(s));
+if(desktopViewport){
+  const sectionIndex=document.querySelector("#section-index");
+  const sectionLabel=document.querySelector("#section-label");
+  const navLinks=[...document.querySelectorAll(".desktop-nav a")];
+  const tracked=[...document.querySelectorAll("main section[id]")];
+  const sectionObserver=new IntersectionObserver(entries=>{
+    const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+    if(!visible) return;
+    const sec=visible.target;
+    const pos=tracked.indexOf(sec);
+    const heading=sec.querySelector("h2,h1");
+    if(sectionIndex) sectionIndex.textContent=String(Math.max(0,pos)).padStart(2,"0");
+    if(sectionLabel) sectionLabel.textContent=(heading?.textContent||sec.id||"SECTION").trim().toUpperCase().slice(0,34);
+    navLinks.forEach(a=>{const active=a.getAttribute("href")==="#"+sec.id;a.classList.toggle("active",active);if(active)a.setAttribute("aria-current","location");else a.removeAttribute("aria-current");});
+  },{rootMargin:"-20% 0px -55% 0px",threshold:[0,.2,.5,.8]});
+  tracked.forEach(s=>sectionObserver.observe(s));
+}
 
 const setupVisualEnhancements=()=>{
   const fineDesktop=matchMedia("(min-width: 900px) and (pointer:fine) and (prefers-reduced-motion: no-preference)").matches;

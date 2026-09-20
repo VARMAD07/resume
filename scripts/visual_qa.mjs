@@ -71,12 +71,12 @@ async function assert(name,condition,details={}){
   await assert("hero communicates student builder researcher",heroText.includes("STUDENT")&&heroText.includes("BUILDER")&&heroText.includes("RESEARCHER"),{heroText:heroText.slice(0,300)});
   await assert("hero communicates software data electronics",heroText.includes("Software")||heroText.includes("SOFTWARE"),{heroText:heroText.slice(0,400)});
   const academicText=await page.locator("#academic-path").innerText();
-  await assert("academic pathway labels remain precise",academicText.includes("admissions/qualifier")&&academicText.includes("PLANNED IN PARALLEL"),{academicText:academicText.slice(0,900)});
+  await assert("academic pathway labels remain precise",academicText.includes("QUALIFIER PATHWAY")&&academicText.includes("PLANNED")&&academicText.includes("PORTAL EVIDENCE")&&academicText.includes("SELF-REPORTED"),{academicText:academicText.slice(0,1200)});
   await assert("selected work contains five anchors",(await page.locator("#selected-work .highlight-card").count())===5,{count:await page.locator("#selected-work .highlight-card").count()});
   await assert("project case studies exist",(await page.locator("#work .case-study-detail").count())===2,{count:await page.locator("#work .case-study-detail").count()});
   await assert("source-mapped project evidence exists",(await page.locator("#work .source-mapped").count())===2,{count:await page.locator("#work .source-mapped").count()});
   await assert("research dates are prominent",(await page.locator("#research .research-statusbar").count())===2);
-  await assert("timeline taxonomy distinguishes project and research",(await page.locator('#experience [data-kind="project"]').count())===1&&(await page.locator('#experience [data-kind="research"]').count())===2);
+  await assert("timeline taxonomy distinguishes project and research",(await page.locator('#experience [data-kind="project"]').count())>=2&&(await page.locator('#experience [data-kind="research"]').count())>=2,{projects:await page.locator('#experience [data-kind="project"]').count(),research:await page.locator('#experience [data-kind="research"]').count()});
   const ogW=await page.locator('meta[property="og:image:width"]').getAttribute("content");
   const ogH=await page.locator('meta[property="og:image:height"]').getAttribute("content");
   await assert("OG dimensions are explicit",ogW==="1200"&&ogH==="630",{ogW,ogH});

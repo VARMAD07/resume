@@ -7,6 +7,7 @@ const D={en:EN_BASE};
 const LANGS=new Set(["en","ar","ja"]);
 let lang=localStorage.getItem("mhf-lang")||"en";
 let theme=localStorage.getItem("mhf-theme")||"home";
+let langInitialized=false;
 
 async function languageMap(code){
   if(D[code]) return D[code];
@@ -23,6 +24,10 @@ async function applyLang(next){
   document.documentElement.lang=lang;
   document.documentElement.dir=lang==="ar"?"rtl":"ltr";
   document.querySelectorAll(".languages button").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+  if(requested==="en"&&!langInitialized){
+    langInitialized=true;
+    return;
+  }
   try{
     const map=await languageMap(lang);
     if(lang!==requested) return;
@@ -30,6 +35,7 @@ async function applyLang(next){
       const value=map[el.dataset.i18n] ?? EN_BASE[el.dataset.i18n];
       if(value!=null) el.textContent=value;
     });
+    langInitialized=true;
   }catch{
     if(requested!=="en"){
       lang="en";

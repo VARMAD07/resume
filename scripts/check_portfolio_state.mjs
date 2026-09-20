@@ -24,7 +24,8 @@ for(const [groupName,group] of groups){
     if(!requiredStatuses.has(item.status)) errors.push(path+": unsupported status "+item.status);
     if(!evidenceTypes.has(item.evidence?.type)) errors.push(path+": unsupported evidence type "+String(item.evidence?.type));
     if(!nonEmpty(item.statusDate)) errors.push(path+": statusDate must be non-empty");
-    if(item.nextState!=null&&!requiredStatuses.has(item.nextState)) errors.push(path+": unsupported nextState "+item.nextState);
+    if(Object.prototype.hasOwnProperty.call(item,"nextState")) errors.push(path+": nextState must be derived from transitionModel, not stored");
+    if(item.transitionModel&&!state.transitionModels?.[item.transitionModel]) errors.push(path+": unknown transitionModel "+item.transitionModel);
     if(!Array.isArray(item.history)||!item.history.length){
       errors.push(path+": history missing");
       continue;
@@ -49,6 +50,13 @@ for(const field of ["stage","stageDate","schoolSystem","status","location"]){
 if(!requiredStatuses.has(state.profile?.status)) errors.push("profile.status: unsupported status");
 if(!evidenceTypes.has(state.profile?.evidence?.type)) errors.push("profile.evidence.type: unsupported evidence type");
 
+for(const [modelName,model] of Object.entries(state.transitionModels||{})){
+  if(!model||typeof model!=="object") { errors.push("transitionModels."+modelName+": invalid model"); continue; }
+  for(const [from,to] of Object.entries(model)){
+    if(!requiredStatuses.has(from)) errors.push("transitionModels."+modelName+": unsupported source status "+from);
+    if(to!=null&&!requiredStatuses.has(to)) errors.push("transitionModels."+modelName+": unsupported target status "+to);
+  }
+}
 for(const [key,item] of Object.entries(state.projects||{})){
   if(!nonEmpty(item.role)) errors.push("projects."+key+".role: missing");
 }

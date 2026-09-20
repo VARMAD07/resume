@@ -1,48 +1,479 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "verifiedAt": "SEP 2026",
+  "reviewDue": "SEP 2027",
   "authority": "IIT Madras BS Degree in Data Science and Applications",
+  "authorityRule": "Official IIT Madras programme documentation takes precedence over this portfolio snapshot.",
   "sources": [
     {
       "label": "Official Academics / Curriculum",
       "url": "https://study.iitm.ac.in/ds/academics.html",
-      "scope": "Programme levels, course names, credits, prerequisites and degree-level core/elective structure"
+      "scope": "Programme levels, current course names, credits, prerequisites, degree-level core courses and current elective availability."
     },
     {
       "label": "Official Admissions / Qualifier Process",
       "url": "https://study.iitm.ac.in/ds/admissions.html",
-      "scope": "Qualifier-stage process and the four foundational courses used in qualifier preparation"
+      "scope": "Qualifier-stage process and the four Foundation course areas used in regular-entry qualifier preparation."
     }
   ],
-  "programmeFacts": {
+  "officialStructure": {
     "foundation": {
+      "label": "Foundation Level",
       "credits": 32,
-      "courses": 8
+      "courseCodes": [
+        "BSMA1001",
+        "BSMA1002",
+        "BSCS1001",
+        "BSHS1001",
+        "BSMA1003",
+        "BSMA1004",
+        "BSCS1002",
+        "BSHS1002"
+      ]
     },
     "diplomaProgramming": {
+      "label": "Diploma in Programming",
       "credits": 27,
-      "courses": 6,
-      "projects": 2
+      "courseCodes": [
+        "BSCS2001",
+        "BSCS2002",
+        "BSCS2003",
+        "BSCS2003P",
+        "BSCS2005",
+        "BSCS2006",
+        "BSCS2006P",
+        "BSSE2001"
+      ]
     },
     "diplomaDataScience": {
+      "label": "Diploma in Data Science",
       "credits": 27,
-      "courses": 6,
-      "projects": 2
+      "mandatoryCodes": [
+        "BSCS2004",
+        "BSMS2001",
+        "BSCS2007",
+        "BSCS2008",
+        "BSCS2008P",
+        "BSSE2002"
+      ],
+      "optionTracks": [
+        {
+          "label": "Business Analytics option",
+          "courseCodes": [
+            "BSMS2002",
+            "BSMS2001P"
+          ]
+        },
+        {
+          "label": "Deep Learning & Generative AI option",
+          "courseCodes": [
+            "BSDA2001",
+            "BSDA2001P"
+          ]
+        }
+      ],
+      "note": "The official curriculum currently requires the mandatory data-science set plus one of the two 6-credit option tracks."
     },
-    "bscDegreeLevel": {
-      "credits": 28,
-      "totalCreditsAtExit": 114
+    "degreeLevel": {
+      "label": "BSc / BS Degree Level",
+      "bscCredits": 28,
+      "bsCredits": 28,
+      "bscTotalCreditsAtExit": 114,
+      "bsTotalCreditsAtExit": 142,
+      "coreCodes": [
+        "BSCS3001",
+        "BSCS3002",
+        "BSCS3003",
+        "BSCS3004",
+        "BSGN3001"
+      ],
+      "electivePolicy": "IIT Madras states that the elective list may change each term depending on availability.",
+      "representativeElectiveSnapshot": [
+        "BSCS4001",
+        "BSMS4001",
+        "BSCS4003",
+        "BSDA5001",
+        "BSMA3012",
+        "BSCS4021",
+        "BSMA3014",
+        "BSCS3031",
+        "BSCS3005",
+        "BSMA2001",
+        "BSDA5004",
+        "BSDA5005",
+        "BSDA5006",
+        "BSDA5013",
+        "BSCS4022",
+        "BSDA5002",
+        "BSDA5003",
+        "BSDA5014",
+        "BSDA4001",
+        "BSCS4010",
+        "BSCS4024",
+        "BSCS3021",
+        "BSDA5007",
+        "BSCS4032",
+        "BSMA3001",
+        "BSDA6004",
+        "BSMA3015"
+      ],
+      "snapshotNote": "Representative current official electives are stored for portfolio architecture and must be re-verified before being presented as current availability after the review date."
+    }
+  },
+  "courses": {
+    "BSMA1001": {
+      "name": "Mathematics for Data Science I",
+      "credits": 4,
+      "officialLevel": "Foundation Level",
+      "type": "CORE"
     },
-    "bsDegreeLevel": {
-      "credits": 28,
-      "totalCreditsAtExit": 142
+    "BSMA1002": {
+      "name": "Statistics for Data Science I",
+      "credits": 4,
+      "officialLevel": "Foundation Level",
+      "type": "CORE"
     },
-    "note": "The official programme page states that elective availability may change by term."
+    "BSCS1001": {
+      "name": "Computational Thinking",
+      "credits": 4,
+      "officialLevel": "Foundation Level",
+      "type": "CORE"
+    },
+    "BSHS1001": {
+      "name": "English I",
+      "credits": 4,
+      "officialLevel": "Foundation Level",
+      "type": "CORE"
+    },
+    "BSMA1003": {
+      "name": "Mathematics for Data Science II",
+      "credits": 4,
+      "officialLevel": "Foundation Level",
+      "type": "CORE"
+    },
+    "BSMA1004": {
+      "name": "Statistics for Data Science II",
+      "credits": 4,
+      "officialLevel": "Foundation Level",
+      "type": "CORE"
+    },
+    "BSCS1002": {
+      "name": "Programming in Python",
+      "credits": 4,
+      "officialLevel": "Foundation Level",
+      "type": "CORE"
+    },
+    "BSHS1002": {
+      "name": "English II",
+      "credits": 4,
+      "officialLevel": "Foundation Level",
+      "type": "CORE"
+    },
+    "BSCS2001": {
+      "name": "Database Management Systems",
+      "credits": 4,
+      "officialLevel": "Diploma in Programming",
+      "type": "CORE"
+    },
+    "BSCS2002": {
+      "name": "Programming, Data Structures and Algorithms using Python",
+      "credits": 4,
+      "officialLevel": "Diploma in Programming",
+      "type": "CORE"
+    },
+    "BSCS2003": {
+      "name": "Modern Application Development I",
+      "credits": 4,
+      "officialLevel": "Diploma in Programming",
+      "type": "CORE"
+    },
+    "BSCS2003P": {
+      "name": "Modern Application Development I - Project",
+      "credits": 2,
+      "officialLevel": "Diploma in Programming",
+      "type": "PROJECT"
+    },
+    "BSCS2005": {
+      "name": "Programming Concepts using Java",
+      "credits": 4,
+      "officialLevel": "Diploma in Programming",
+      "type": "CORE"
+    },
+    "BSCS2006": {
+      "name": "Modern Application Development II",
+      "credits": 4,
+      "officialLevel": "Diploma in Programming",
+      "type": "CORE"
+    },
+    "BSCS2006P": {
+      "name": "Modern Application Development II - Project",
+      "credits": 2,
+      "officialLevel": "Diploma in Programming",
+      "type": "PROJECT"
+    },
+    "BSSE2001": {
+      "name": "System Commands",
+      "credits": 3,
+      "officialLevel": "Diploma in Programming",
+      "type": "SKILL ENHANCEMENT"
+    },
+    "BSCS2004": {
+      "name": "Machine Learning Foundations",
+      "credits": 4,
+      "officialLevel": "Diploma in Data Science",
+      "type": "CORE"
+    },
+    "BSMS2001": {
+      "name": "Business Data Management",
+      "credits": 4,
+      "officialLevel": "Diploma in Data Science",
+      "type": "CORE"
+    },
+    "BSCS2007": {
+      "name": "Machine Learning Techniques",
+      "credits": 4,
+      "officialLevel": "Diploma in Data Science",
+      "type": "CORE"
+    },
+    "BSCS2008": {
+      "name": "Machine Learning Practice",
+      "credits": 4,
+      "officialLevel": "Diploma in Data Science",
+      "type": "CORE"
+    },
+    "BSCS2008P": {
+      "name": "Machine Learning Practice - Project",
+      "credits": 2,
+      "officialLevel": "Diploma in Data Science",
+      "type": "PROJECT"
+    },
+    "BSSE2002": {
+      "name": "Tools in Data Science",
+      "credits": 3,
+      "officialLevel": "Diploma in Data Science",
+      "type": "SKILL ENHANCEMENT"
+    },
+    "BSMS2002": {
+      "name": "Business Analytics",
+      "credits": 4,
+      "officialLevel": "Diploma in Data Science",
+      "type": "OPTION"
+    },
+    "BSMS2001P": {
+      "name": "Business Data Management - Project",
+      "credits": 2,
+      "officialLevel": "Diploma in Data Science",
+      "type": "PROJECT / OPTION"
+    },
+    "BSDA2001": {
+      "name": "Introduction to Deep Learning and Generative AI",
+      "credits": 4,
+      "officialLevel": "Diploma in Data Science",
+      "type": "OPTION"
+    },
+    "BSDA2001P": {
+      "name": "Deep Learning and Generative AI - Project",
+      "credits": 2,
+      "officialLevel": "Diploma in Data Science",
+      "type": "PROJECT / OPTION"
+    },
+    "BSCS3001": {
+      "name": "Software Engineering",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "CORE"
+    },
+    "BSCS3002": {
+      "name": "Software Testing",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "CORE"
+    },
+    "BSCS3003": {
+      "name": "AI: Search Methods for Problem Solving",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "CORE"
+    },
+    "BSCS3004": {
+      "name": "Deep Learning",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "CORE"
+    },
+    "BSGN3001": {
+      "name": "Strategies for Professional Growth",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "MANDATORY"
+    },
+    "BSCS4001": {
+      "name": "Data Visualization Design",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSMS4001": {
+      "name": "Industry 4.0",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSCS4003": {
+      "name": "Privacy & Security in Online Social Media",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSDA5001": {
+      "name": "Introduction to Big Data",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSMA3012": {
+      "name": "Linear Statistical Models",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSCS4021": {
+      "name": "Advanced Algorithms",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSMA3014": {
+      "name": "Statistical Computing",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSCS3031": {
+      "name": "Computer Systems Design",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSCS3005": {
+      "name": "Programming in C",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSMA2001": {
+      "name": "Mathematical Thinking",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSDA5004": {
+      "name": "Large Language Models",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSDA5005": {
+      "name": "Introduction to Natural Language Processing (i-NLP)",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSDA5006": {
+      "name": "Deep Learning for Computer Vision",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSDA5013": {
+      "name": "Deep Learning Practice",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSCS4022": {
+      "name": "Operating Systems",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSDA5002": {
+      "name": "Mathematical Foundations of Generative AI",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSDA5003": {
+      "name": "Algorithms for Data Science (ADS)",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSDA5014": {
+      "name": "Machine Learning Operations (MLOps)",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSDA4001": {
+      "name": "Data Science and AI Lab",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSCS4010": {
+      "name": "App Dev Lab",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSCS4024": {
+      "name": "Computer Networks",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSCS3021": {
+      "name": "Theory of Computation",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSDA5007": {
+      "name": "Reinforcement Learning",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSCS4032": {
+      "name": "Compiler Design",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSMA3001": {
+      "name": "Discrete Mathematics",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSDA6004": {
+      "name": "Sequential Decision Making",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    },
+    "BSMA3015": {
+      "name": "Linear Models with Applications",
+      "credits": 4,
+      "officialLevel": "BSc / BS Degree Level",
+      "type": "ELECTIVE"
+    }
   },
   "qualifierContext": {
     "label": "QUALIFIER PROCESS CONTENT",
     "note": "The regular-entry qualifier process uses four weeks of content from four Foundation Level courses. This does not by itself mean those courses are completed or formally registered.",
-    "courses": [
+    "courseCodes": [
       "BSHS1001",
       "BSMA1001",
       "BSMA1002",
@@ -62,249 +493,120 @@
     "sourceOfTruth": "data/portfolio-state.json → academics.iitm.courseStatuses",
     "note": "Only override a course from PLANNED when an academic record supports the change."
   },
+  "learningArchitecture": {
+    "label": "PORTFOLIO LEARNING ARCHITECTURE · DERIVED FROM OFFICIAL CURRICULUM",
+    "note": "These six groups are a portfolio explanation, not official IIT Madras level names. Course names and official levels remain attached to the underlying source data.",
+    "groups": [
+      {
+        "id": "foundation",
+        "label": "FOUNDATION",
+        "purpose": "Mathematics, statistics, computational thinking, programming and communication foundations.",
+        "representativeCourseCodes": [
+          "BSMA1001",
+          "BSMA1002",
+          "BSCS1001",
+          "BSCS1002",
+          "BSMA1003",
+          "BSMA1004"
+        ],
+        "connection": "Builds the formal base beneath later programming, data analysis and machine-learning coursework."
+      },
+      {
+        "id": "programming",
+        "label": "PROGRAMMING",
+        "purpose": "Programming, algorithms and application development.",
+        "representativeCourseCodes": [
+          "BSCS1002",
+          "BSCS2002",
+          "BSCS2005",
+          "BSCS2003",
+          "BSCS2006",
+          "BSCS2003P",
+          "BSCS2006P"
+        ],
+        "connection": "Connects conceptually to the software-building evidence already visible in Halim Nexus AI and StudySyncEngine."
+      },
+      {
+        "id": "data-science",
+        "label": "DATA SCIENCE",
+        "purpose": "Data management, analytical tooling, business/data interpretation and applied data workflows.",
+        "representativeCourseCodes": [
+          "BSCS2001",
+          "BSMS2001",
+          "BSSE2002",
+          "BSMS2002",
+          "BSCS4001",
+          "BSDA5001",
+          "BSMA3014"
+        ],
+        "connection": "Provides structured data-management and analysis foundations without reducing the programme to AI alone."
+      },
+      {
+        "id": "ml-ai",
+        "label": "MACHINE LEARNING / AI",
+        "purpose": "Machine-learning foundations, techniques, practice, AI search, deep learning and later AI electives.",
+        "representativeCourseCodes": [
+          "BSCS2004",
+          "BSCS2007",
+          "BSCS2008",
+          "BSCS2008P",
+          "BSDA2001",
+          "BSCS3003",
+          "BSCS3004",
+          "BSDA5004",
+          "BSDA5007"
+        ],
+        "connection": "Relates conceptually to AI-assisted project work and healthcare-AI research; it is not presented as current ML-engineering expertise."
+      },
+      {
+        "id": "systems",
+        "label": "SYSTEMS",
+        "purpose": "Databases, system commands, software engineering, testing and computing-system foundations.",
+        "representativeCourseCodes": [
+          "BSCS2001",
+          "BSSE2001",
+          "BSCS3001",
+          "BSCS3002",
+          "BSCS3031",
+          "BSCS4022",
+          "BSCS4024",
+          "BSCS4010"
+        ],
+        "connection": "Links academic computing discipline to the architecture, persistence and automation concerns already demonstrated in public projects."
+      },
+      {
+        "id": "advanced-electives",
+        "label": "ELECTIVE / ADVANCED LEARNING",
+        "purpose": "Current degree-level electives extend into advanced statistics, algorithms, AI, systems and application labs.",
+        "representativeCourseCodes": [
+          "BSMA3012",
+          "BSCS4021",
+          "BSDA5002",
+          "BSDA5003",
+          "BSDA5014",
+          "BSDA4001",
+          "BSDA5005",
+          "BSDA5006",
+          "BSMA3015"
+        ],
+        "connection": "Represents later optional depth. Availability can change by term and none of these courses are claimed as completed unless the personal academic record says so.",
+        "volatile": true
+      }
+    ]
+  },
   "conceptualProgression": {
     "label": "PORTFOLIO SYNTHESIS · NOT AN OFFICIAL IITM SEQUENCE LABEL",
     "steps": [
+      "FOUNDATION",
       "PROGRAMMING",
-      "MATHEMATICAL FOUNDATIONS",
-      "STATISTICS",
-      "DATA HANDLING",
-      "DATABASES",
-      "DATA ANALYSIS",
-      "MACHINE LEARNING",
-      "ARTIFICIAL INTELLIGENCE",
-      "ADVANCED / DEGREE-LEVEL DATA SCIENCE",
+      "DATA SCIENCE",
+      "MACHINE LEARNING / AI",
+      "SYSTEMS",
+      "ELECTIVE / ADVANCED LEARNING",
       "APPLICATION / PROJECT WORK"
     ],
-    "note": "This progression is a portfolio-level explanation of how official curriculum areas relate; official course prerequisites and level requirements remain authoritative."
+    "note": "The portfolio groups official curriculum components into an understandable technical progression. Official prerequisites and programme-level requirements remain authoritative."
   },
-  "layers": [
-    {
-      "id": "foundations",
-      "label": "FOUNDATIONS",
-      "officialLevel": "Foundation Level",
-      "interpretation": "Builds the mathematical, statistical, computational and programming base used later in the programme.",
-      "curriculumMeaning": [
-        {
-          "area": "PROGRAMMING",
-          "why": "Problem solving, algorithms and software foundations"
-        },
-        {
-          "area": "MATHEMATICS",
-          "why": "Modelling, linear algebra, calculus and optimisation foundations"
-        },
-        {
-          "area": "STATISTICS",
-          "why": "Probability, uncertainty, inference and data interpretation"
-        },
-        {
-          "area": "COMPUTATIONAL THINKING",
-          "why": "Structured problem decomposition before implementation"
-        }
-      ],
-      "courses": [
-        {
-          "code": "BSMA1001",
-          "name": "Mathematics for Data Science I",
-          "credits": 4
-        },
-        {
-          "code": "BSMA1002",
-          "name": "Statistics for Data Science I",
-          "credits": 4
-        },
-        {
-          "code": "BSCS1001",
-          "name": "Computational Thinking",
-          "credits": 4
-        },
-        {
-          "code": "BSHS1001",
-          "name": "English I",
-          "credits": 4
-        },
-        {
-          "code": "BSMA1003",
-          "name": "Mathematics for Data Science II",
-          "credits": 4
-        },
-        {
-          "code": "BSMA1004",
-          "name": "Statistics for Data Science II",
-          "credits": 4
-        },
-        {
-          "code": "BSCS1002",
-          "name": "Programming in Python",
-          "credits": 4
-        },
-        {
-          "code": "BSHS1002",
-          "name": "English II",
-          "credits": 4
-        }
-      ]
-    },
-    {
-      "id": "programming-data-systems",
-      "label": "PROGRAMMING + DATA SYSTEMS",
-      "officialLevel": "Diploma in Programming",
-      "interpretation": "Moves from programming foundations into databases, data structures, application development and systems tooling.",
-      "courses": [
-        {
-          "code": "BSCS2001",
-          "name": "Database Management Systems",
-          "credits": 4
-        },
-        {
-          "code": "BSCS2002",
-          "name": "Programming, Data Structures and Algorithms using Python",
-          "credits": 4
-        },
-        {
-          "code": "BSCS2003",
-          "name": "Modern Application Development I",
-          "credits": 4
-        },
-        {
-          "code": "BSCS2003P",
-          "name": "Modern Application Development I - Project",
-          "credits": 2,
-          "kind": "PROJECT"
-        },
-        {
-          "code": "BSCS2005",
-          "name": "Programming Concepts using Java",
-          "credits": 4
-        },
-        {
-          "code": "BSCS2006",
-          "name": "Modern Application Development II",
-          "credits": 4
-        },
-        {
-          "code": "BSCS2006P",
-          "name": "Modern Application Development II - Project",
-          "credits": 2,
-          "kind": "PROJECT"
-        },
-        {
-          "code": "BSSE2001",
-          "name": "System Commands",
-          "credits": 3
-        }
-      ]
-    },
-    {
-      "id": "data-science-core",
-      "label": "DATA SCIENCE CORE",
-      "officialLevel": "Diploma in Data Science",
-      "interpretation": "Develops data management, machine-learning foundations, model practice and practical data-science tooling.",
-      "courses": [
-        {
-          "code": "BSCS2004",
-          "name": "Machine Learning Foundations",
-          "credits": 4
-        },
-        {
-          "code": "BSMS2001",
-          "name": "Business Data Management",
-          "credits": 4
-        },
-        {
-          "code": "BSCS2007",
-          "name": "Machine Learning Techniques",
-          "credits": 4
-        },
-        {
-          "code": "BSCS2008",
-          "name": "Machine Learning Practice",
-          "credits": 4
-        },
-        {
-          "code": "BSCS2008P",
-          "name": "Machine Learning Practice - Project",
-          "credits": 2,
-          "kind": "PROJECT"
-        },
-        {
-          "code": "BSSE2002",
-          "name": "Tools in Data Science",
-          "credits": 3
-        }
-      ],
-      "optionTracks": [
-        {
-          "label": "OPTION 1 · BUSINESS ANALYTICS",
-          "courses": [
-            {
-              "code": "BSMS2002",
-              "name": "Business Analytics",
-              "credits": 4
-            },
-            {
-              "code": "BSMS2001P",
-              "name": "Business Data Management - Project",
-              "credits": 2,
-              "kind": "PROJECT"
-            }
-          ]
-        },
-        {
-          "label": "OPTION 2 · DEEP LEARNING & GENERATIVE AI",
-          "courses": [
-            {
-              "code": "BSDA2001",
-              "name": "Introduction to Deep Learning and Generative AI",
-              "credits": 4
-            },
-            {
-              "code": "BSDA2001P",
-              "name": "Deep Learning and Generative AI - Project",
-              "credits": 2,
-              "kind": "PROJECT"
-            }
-          ]
-        }
-      ],
-      "optionNote": "The official curriculum page states that Diploma in Data Science learners choose one of these two 6-credit option tracks."
-    },
-    {
-      "id": "degree-core",
-      "label": "DEGREE-LEVEL COMPUTING + AI",
-      "officialLevel": "BSc / BS Degree Level",
-      "interpretation": "Adds software-engineering discipline and degree-level AI/deep-learning core work; electives vary by term.",
-      "coreCourses": [
-        {
-          "code": "BSCS3001",
-          "name": "Software Engineering",
-          "credits": 4
-        },
-        {
-          "code": "BSCS3002",
-          "name": "Software Testing",
-          "credits": 4
-        },
-        {
-          "code": "BSCS3003",
-          "name": "AI: Search Methods for Problem Solving",
-          "credits": 4
-        },
-        {
-          "code": "BSCS3004",
-          "name": "Deep Learning",
-          "credits": 4
-        },
-        {
-          "code": "BSGN3001",
-          "name": "Strategies for Professional Growth",
-          "credits": 4,
-          "kind": "MANDATORY"
-        }
-      ],
-      "electivePolicy": "The official programme page states that the elective list may change each term depending on availability; the portfolio therefore does not present the current elective catalogue as guaranteed future coursework."
-    }
-  ],
   "academicConnections": [
     {
       "area": "PROGRAMMING",
@@ -313,24 +615,24 @@
         "project-halim",
         "project-study"
       ],
-      "note": "Both public projects already use Python/software systems. The curriculum provides a formal programming and algorithms pathway; this is a conceptual connection, not a claim that IITM coursework caused the projects."
+      "note": "Both public projects already use Python/software systems. IITM provides a formal programming and algorithms pathway; this is conceptual overlap, not a chronology claim."
     },
     {
-      "area": "DATABASES",
+      "area": "DATABASES / DATA SYSTEMS",
       "relation": "ACADEMIC CONNECTION",
       "targets": [
         "project-halim"
       ],
-      "note": "Halim Nexus AI uses SQLite persistence. Database Management Systems is an official later curriculum component."
+      "note": "Halim Nexus AI uses SQLite persistence. Database Management Systems appears in the official Diploma in Programming curriculum."
     },
     {
-      "area": "DATA / STATISTICS",
+      "area": "STATISTICS / DATA INTERPRETATION",
       "relation": "ACADEMIC CONNECTION",
       "targets": [
         "research-healthcare",
         "research-metabasis"
       ],
-      "note": "Statistical reasoning and data interpretation are relevant to research-method decisions; this does not claim completed statistics coursework."
+      "note": "Statistical reasoning is relevant to evidence interpretation and research methods; no completed IITM statistics coursework is claimed until verified."
     },
     {
       "area": "AI / MACHINE LEARNING",
@@ -339,16 +641,16 @@
         "project-halim",
         "research-healthcare"
       ],
-      "note": "The project and research record already engage AI-related questions. Machine-learning and AI courses appear later in the official curriculum; the relationship is conceptual until coursework is verified."
+      "note": "Existing work already engages AI-related questions. IITM's ML/AI curriculum adds academic depth later; the relationship remains conceptual until coursework is verified."
     },
     {
-      "area": "SOFTWARE SYSTEMS",
+      "area": "SOFTWARE / SYSTEMS",
       "relation": "ACADEMIC CONNECTION",
       "targets": [
         "project-halim",
         "project-study"
       ],
-      "note": "Existing projects provide system-building evidence; Software Engineering and Software Testing appear at degree level."
+      "note": "Existing projects demonstrate system-building practice; IITM's programming, software-engineering and systems courses provide a formal academic counterpart."
     }
   ],
   "longTermIntersection": {

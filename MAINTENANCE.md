@@ -4,6 +4,8 @@ This repository is intended to stay evidence-first. Update factual status before
 
 ## Update immediately when any of these change
 
+Central current states live in `data/portfolio-state.json`. Update that record first; the hero stage, reviewer summary, status dashboard, academic cards, research/project labels and timeline should derive from it rather than being rewritten independently.
+
 - **Class 12 / school status:** revise current-stage wording once the 2026–27 school year ends.
 - **IIT Madras BS DS&A status:** update qualifier/application wording as soon as the portal stage changes. Do not present a qualifier-stage record as completed degree enrolment.
 - **Research status:** revise the healthcare-AI entry if the manuscript, archive, methodology or publication status changes.
@@ -21,6 +23,7 @@ Prefer these labels consistently:
 - **ISSUER RECORD** — issuer-backed public credential record.
 - **PUBLIC SOURCE** — public repository, archive or profile.
 - **SUPPLIED DOCUMENT** — document reviewed for this portfolio but not necessarily public.
+- **PORTAL EVIDENCE** — private account/portal evidence reviewed for public status; sensitive account details remain unpublished.
 - **SELF-REPORTED** — claim currently supported only by the applicant’s supplied record.
 
 ## Quality gates

@@ -6,6 +6,8 @@ The live portfolio is designed so normal milestone updates happen from one sourc
 
 ## Normal update workflow
 
+The same state file also controls the concise reviewer summary and current-status dashboard. `profile.stage`, `profile.stageDate` and `academics.school` carry the current school stage. Future-only paths such as `academics.engineering` use `dashboard: false` until they become a verified current academic state.
+
 1. Change the relevant item's `status`, `statusDate`, `evidence` and optional `note`.
 2. Append the previous/current state to that item's `history` instead of deleting meaningful history.
 3. Set `nextState` only to the next *possible verified state*. It is not a prediction.

@@ -998,3 +998,16 @@ html[dir="rtl"] .section-head{
   .contact-rail a{border-right:0!important;border-bottom:1px solid var(--line)!important}
   .contact-rail a:last-child{border-bottom:0!important}
 }
+
+
+/* 2026-09-20 first-impression hierarchy */
+main .portfolio-banner{
+  width:100%;
+  margin:10px auto 70px;
+}
+@media(max-width:720px){
+  main .portfolio-banner{
+    width:100%;
+    margin:4px auto 46px;
+  }
+}

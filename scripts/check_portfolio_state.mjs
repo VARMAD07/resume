@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const fs=require("fs");
+import fs from "node:fs";
 const state=JSON.parse(fs.readFileSync("data/portfolio-state.json","utf8"));
 
 const requiredStatuses=new Set([

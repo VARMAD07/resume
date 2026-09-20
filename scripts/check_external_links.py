@@ -4,11 +4,15 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
+import json
 import ssl
-import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 HTML = ROOT / "index.html"
+JSON_SOURCES = [
+    ROOT / "data" / "portfolio-state.json",
+    ROOT / "data" / "iitm-curriculum.json",
+]
 SOFT_HTTP = {401, 403, 405, 429}
 DEAD_HTTP = {404, 410}
 TIMEOUT = 15
@@ -24,9 +28,19 @@ class LinkCollector(HTMLParser):
             if value and value.startswith(("http://", "https://")):
                 self.links.add(value)
 
+def collect_json_urls(value, links):
+    if isinstance(value, dict):
+        for child in value.values():
+            collect_json_urls(child, links)
+    elif isinstance(value, list):
+        for child in value:
+            collect_json_urls(child, links)
+    elif isinstance(value, str) and value.startswith(("http://", "https://")):
+        links.add(value)
+
 def probe(url):
     headers = {
-        "User-Agent": "Mozilla/5.0 (compatible; MHF-Portfolio-LinkCheck/1.0)",
+        "User-Agent": "Mozilla/5.0 (compatible; MHF-Portfolio-LinkCheck/1.1)",
         "Accept": "*/*",
     }
     for method in ("HEAD", "GET"):
@@ -53,9 +67,14 @@ def probe(url):
 def main():
     parser = LinkCollector()
     parser.feed(HTML.read_text(encoding="utf-8"))
-    links = sorted(parser.links)
+    links = set(parser.links)
+    for path in JSON_SOURCES:
+        if path.exists():
+            collect_json_urls(json.loads(path.read_text(encoding="utf-8")), links)
+
+    links = sorted(links)
     dead = []
-    print(f"Checking {len(links)} external URLs...")
+    print(f"Checking {len(links)} public external URLs from HTML + centralized data...")
     for url in links:
         status, state = probe(url)
         host = urlparse(url).netloc

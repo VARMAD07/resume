@@ -187,6 +187,95 @@ const V2_COPY={
 };
 for(const [lng,map] of Object.entries(V2_COPY)){Object.assign(D[lng],map);}
 
+const V3_COPY={
+  en:{
+    "selected.halim":"Role-based educational software using Python, SQLite, Gemini-assisted evaluation and notification pathways.",
+    "selected.study":"Local academic-workspace automation using filesystem events, OCR, rules and a lightweight desktop UI.",
+    "selected.health":"Independent synthesis of 18 studies, with the editorial critique and methodological gaps kept visible.",
+    "selected.dpg":"Volunteer exposure that widened the frame from software features to public infrastructure, governance and accessibility.",
+    "selected.iitm":"Admissions/qualifier-stage evidence, paired with a separate planned on-campus Electronics/ECE/Mechatronics degree.",
+    "track.current.label":"CURRENT EXPERIENCE","track.current.title":"SOFTWARE + AI-ASSISTED TOOLS","track.current.text":"Python · automation · local systems · practical project work",
+    "track.active.label":"ACTIVE STUDY","track.active.title":"DATA SCIENCE","track.active.text":"IIT Madras BS DS&A · admissions/qualifier pathway",
+    "track.bridge.label":"INTELLECTUAL BRIDGE","track.bridge.title":"INTELLIGENT / EMBEDDED SYSTEMS","track.bridge.text":"Where computation begins meeting physical constraints",
+    "track.planned.label":"PLANNED LEARNING","track.planned.title":"ELECTRONICS / ECE / MECHATRONICS","track.planned.text":"Formal on-campus engineering degree pursued in parallel",
+    "case.open":"Open technical case study",
+    "halim.case.why":"Institutional student, instructor and guardian workflows were treated as one system problem rather than three disconnected screens.",
+    "halim.case.ai":"The Google GenAI layer is used for academic evaluation/tutoring and weakness tracking; it is one component inside a broader role, persistence and notification system.",
+    "halim.case.decision":"SQLite keeps the prototype relational and local; workspaces isolate Student, Instructor and Guardian views.",
+    "halim.case.dependencies":"Gemini and Twilio require configured external credentials/services; Twilio trial accounts restrict outbound SMS to verified numbers.",
+    "halim.case.limit":"Prototype. The public repository demonstrates architecture and implementation; it is not presented here as a production-ready institutional platform.",
+    "study.case.why":"The project treats study-file clutter as an event-driven local workflow problem rather than another cloud upload task.",
+    "study.case.decision":"Tkinter keeps the desktop utility lightweight; Watchdog reacts to filesystem events; a pub/sub broker was introduced after direct UI updates caused freezes during larger scans.",
+    "study.case.limit":"OCR accuracy depends on image quality, the current build is Windows-oriented, and large batch scans can temporarily slow the interface.",
+    "study.case.next":"The repository lists semantic classification, cloud synchronisation, cross-device persistence and improved handwritten-note OCR as future work.",
+    "fact.question":"QUESTION","fact.method":"METHOD","fact.scope":"SCOPE","fact.status":"STATUS","fact.contribution":"CONTRIBUTION","fact.limitations":"LIMITATIONS",
+    "r1.fact.question":"How should AI-assisted healthcare systems be judged beyond technical promise?","r1.fact.method":"Independent literature review / synthesis","r1.fact.scope":"18 peer-reviewed studies across clinical support, documentation, patient engagement, accessibility and governance","r1.fact.status":"PREPRINT · not a peer-reviewed journal publication","r1.fact.contribution":"Implementation-focused framing around human oversight and adoption barriers","r1.fact.limitations":"Small evidence base for the breadth of the review, single-reviewer bias, missing search-date parameters and insufficient quality appraisal",
+    "r2.fact.question":"What can be lost when long-form information is compressed into short-form media?","r2.fact.method":"Conceptual research manuscript organised around a Media-Cognition-Quality framework","r2.fact.status":"MANUSCRIPT · independent work","r2.fact.contribution":"Proposes “context compression” as a useful concept for further testing","r2.fact.limitations":"The concept is provisional and requires empirical validation; it is not presented as an established theory",
+    "evidence.help.title":"How to read the evidence labels","evidence.help.public":"Directly inspectable public repository, archive or profile.","evidence.help.issuer":"Credential verification hosted by the issuing organisation or its verification provider.","evidence.help.supplied":"Supporting document reviewed for this portfolio; not necessarily available as a public issuer record.","evidence.help.portal":"Private account/portal evidence reviewed for status; sensitive screenshots are not republished.","evidence.help.self":"Currently supported only by the applicant-supplied record and therefore given lower verification weight.",
+    "skills.evidenceIntro":"Primary capabilities link to public work or issuer-backed learning. Tools without comparable public evidence remain visible, but at lower evidence weight.",
+    "contact.purpose":"Admissions · research · collaboration · technical opportunities",
+    "record.type.competition":"COMPETITION","record.type.work":"WORK / OPERATIONS","record.type.volunteering":"VOLUNTEERING","record.type.contribution":"CONTRIBUTION","record.type.academic":"ACADEMIC PATHWAY","record.type.learning":"PROJECTS / RESEARCH / LEARNING"
+  },
+  ar:{
+    "selected.halim":"نظام تعليمي قائم على الأدوار باستخدام Python وSQLite وتقييم مساعد بـGemini ومسارات للإشعارات.",
+    "selected.study":"أتمتة محلية لمساحة الدراسة باستخدام أحداث نظام الملفات وOCR والقواعد وواجهة سطح مكتب خفيفة.",
+    "selected.health":"تلخيص مستقل لـ18 دراسة مع إبقاء النقد التحريري والفجوات المنهجية ظاهرة.",
+    "selected.dpg":"تجربة تطوعية وسّعت النظرة من ميزات البرمجيات إلى البنية التحتية العامة والحوكمة وإمكانية الوصول.",
+    "selected.iitm":"دليل لمرحلة القبول/التأهيل، مع درجة حضورية منفصلة مخطط لها في الإلكترونيات/ECE/الميكاترونكس.",
+    "track.current.label":"خبرة حالية","track.current.title":"برمجيات + أدوات مدعومة بالذكاء الاصطناعي","track.current.text":"Python · أتمتة · أنظمة محلية · مشاريع عملية",
+    "track.active.label":"دراسة نشطة","track.active.title":"علوم البيانات","track.active.text":"IIT Madras BS DS&A · مسار القبول/التأهيل",
+    "track.bridge.label":"جسر فكري","track.bridge.title":"أنظمة ذكية / مدمجة","track.bridge.text":"حيث تبدأ الحوسبة بمواجهة القيود الفيزيائية",
+    "track.planned.label":"تعلم مخطط","track.planned.title":"إلكترونيات / ECE / ميكاترونكس","track.planned.text":"درجة هندسية حضورية مخطط لمتابعتها بالتوازي",
+    "case.open":"فتح دراسة الحالة التقنية",
+    "halim.case.why":"تم التعامل مع سير عمل الطالب والمدرس وولي الأمر كمشكلة نظام واحدة بدلاً من ثلاث شاشات منفصلة.",
+    "halim.case.ai":"تُستخدم طبقة Google GenAI للتقييم/التدريس وتتبع نقاط الضعف؛ وهي مكوّن داخل نظام أوسع للأدوار والتخزين والإشعارات.",
+    "halim.case.decision":"يحافظ SQLite على نموذج أولي علائقي ومحلي؛ وتفصل مساحات العمل بين الطالب والمدرس وولي الأمر.",
+    "halim.case.dependencies":"تتطلب Gemini وTwilio بيانات اعتماد وخدمات خارجية مهيأة؛ كما تقيّد حسابات Twilio التجريبية الرسائل بالأرقام الموثقة.",
+    "halim.case.limit":"نموذج أولي. يوضح المستودع العام البنية والتنفيذ، ولا يُقدَّم هنا كنظام مؤسسي جاهز للإنتاج.",
+    "study.case.why":"يتعامل المشروع مع فوضى ملفات الدراسة كمشكلة سير عمل محلي قائم على الأحداث بدلاً من رفع كل شيء إلى السحابة.",
+    "study.case.decision":"تم اختيار Tkinter لخفة الأداة؛ ويراقب Watchdog أحداث الملفات؛ وأضيف وسيط pub/sub بعد أن سببت التحديثات المباشرة للواجهة تجمداً أثناء عمليات المسح الكبيرة.",
+    "study.case.limit":"تعتمد دقة OCR على جودة الصورة، والبناء الحالي موجه لويندوز، وقد تبطئ عمليات المسح الكبيرة الواجهة مؤقتاً.",
+    "study.case.next":"يسرد المستودع التصنيف الدلالي والمزامنة السحابية واستمرارية الجلسات عبر الأجهزة وتحسين OCR للملاحظات المكتوبة بخط اليد كأعمال مستقبلية.",
+    "fact.question":"السؤال","fact.method":"المنهج","fact.scope":"النطاق","fact.status":"الحالة","fact.contribution":"المساهمة","fact.limitations":"القيود",
+    "r1.fact.question":"كيف ينبغي تقييم أنظمة الرعاية الصحية المدعومة بالذكاء الاصطناعي بما يتجاوز الوعود التقنية؟","r1.fact.method":"مراجعة مستقلة للأدبيات / تلخيص","r1.fact.scope":"18 دراسة محكمة في الدعم السريري والتوثيق وإشراك المرضى وإمكانية الوصول والحوكمة","r1.fact.status":"مسودة منشورة قبل التحكيم · ليست منشوراً في مجلة محكمة","r1.fact.contribution":"تركيز على التنفيذ والإشراف البشري وعوائق التبنّي","r1.fact.limitations":"قاعدة أدلة صغيرة مقارنة باتساع المراجعة، ومراجع واحد، ومعلمات تاريخ البحث غير مكتملة، وتقييم جودة غير كافٍ",
+    "r2.fact.question":"ما الذي يمكن أن يُفقد عند ضغط المعلومات الطويلة إلى وسائط قصيرة؟","r2.fact.method":"مخطوطة بحثية مفاهيمية منظمة حول إطار Media-Cognition-Quality","r2.fact.status":"مخطوطة · عمل مستقل","r2.fact.contribution":"تقترح «ضغط السياق» كمفهوم مفيد للاختبار لاحقاً","r2.fact.limitations":"المفهوم مؤقت ويحتاج إلى تحقق تجريبي؛ ولا يُقدَّم كنظرية علمية مستقرة",
+    "evidence.help.title":"كيف تقرأ تسميات الأدلة","evidence.help.public":"مستودع أو أرشيف أو ملف عام يمكن فحصه مباشرة.","evidence.help.issuer":"تحقق من الشهادة مستضاف لدى الجهة المصدرة أو مزود التحقق الخاص بها.","evidence.help.supplied":"وثيقة داعمة تمت مراجعتها لهذا الملف؛ وقد لا تكون لها صفحة تحقق عامة لدى الجهة المصدرة.","evidence.help.portal":"دليل من حساب/بوابة خاصة تمت مراجعته للحالة؛ ولا تُنشر اللقطات الحساسة علناً.","evidence.help.self":"مدعوم حالياً فقط بالسجل المقدم من صاحب الملف، لذلك يُعطى وزناً أقل في التحقق.",
+    "skills.evidenceIntro":"ترتبط القدرات الأساسية بعمل عام أو تعلم موثق من الجهة المصدرة. تبقى الأدوات التي لا تملك دليلاً عاماً مماثلاً ظاهرة لكن بوزن أدلة أقل.",
+    "contact.purpose":"قبول جامعي · بحث · تعاون · فرص تقنية",
+    "record.type.competition":"مسابقة","record.type.work":"عمل / عمليات","record.type.volunteering":"تطوع","record.type.contribution":"مساهمة","record.type.academic":"مسار أكاديمي","record.type.learning":"مشاريع / بحث / تعلم"
+  },
+  ja:{
+    "selected.halim":"Python、SQLite、Gemini支援評価、通知経路を使った役割別の教育ソフトウェア。",
+    "selected.study":"ファイルシステムイベント、OCR、ルール、軽量デスクトップUIを使うローカル学習ワークスペース自動化。",
+    "selected.health":"18本の研究を独立に整理し、編集上の批評と方法論的課題も公開した研究記録。",
+    "selected.dpg":"ソフトウェア機能から公共インフラ、ガバナンス、アクセシビリティへ視点を広げたボランティア経験。",
+    "selected.iitm":"入学/Qualifier段階の証拠と、別個に計画している電子工学/ECE/メカトロニクスの対面学位。",
+    "track.current.label":"現在の経験","track.current.title":"ソフトウェア + AI支援ツール","track.current.text":"Python · 自動化 · ローカルシステム · 実践プロジェクト",
+    "track.active.label":"現在の学習","track.active.title":"データサイエンス","track.active.text":"IIT Madras BS DS&A · 入学/Qualifier経路",
+    "track.bridge.label":"知的な橋渡し","track.bridge.title":"インテリジェント / 組込みシステム","track.bridge.text":"計算が物理的制約と出会い始める領域",
+    "track.planned.label":"計画中の学習","track.planned.title":"電子工学 / ECE / メカトロニクス","track.planned.text":"並行して進める予定の対面工学学位",
+    "case.open":"技術ケーススタディを開く",
+    "halim.case.why":"学生・教員・保護者のワークフローを、3つの独立画面ではなく1つのシステム問題として扱いました。",
+    "halim.case.ai":"Google GenAI層は学習評価/チュータリングと弱点追跡に使われ、役割・永続化・通知を含むより大きなシステムの一要素です。",
+    "halim.case.decision":"SQLiteでプロトタイプをローカルなリレーショナル構成に保ち、Student・Instructor・Guardianの作業空間を分離します。",
+    "halim.case.dependencies":"GeminiとTwilioには外部サービスと認証情報が必要で、Twilioの試用アカウントでは送信先が確認済み番号に制限されます。",
+    "halim.case.limit":"プロトタイプです。公開リポジトリは構成と実装を示しますが、本番運用可能な学校情報システムとしては提示していません。",
+    "study.case.why":"学習ファイルの散乱を、クラウドへの追加アップロードではなくイベント駆動のローカルワークフロー問題として扱います。",
+    "study.case.decision":"Tkinterで軽量なデスクトップツールを維持し、Watchdogでファイルイベントを検知します。大規模スキャン時に直接UI更新が固まる問題を受け、pub/subブローカーを導入しました。",
+    "study.case.limit":"OCR精度は画像品質に依存し、現在はWindows向けに最適化され、大量スキャンでは一時的にUIが遅くなることがあります。",
+    "study.case.next":"リポジトリでは、意味的分類、クラウド同期、デバイス間セッション保持、手書きノートOCR改善を今後の課題として挙げています。",
+    "fact.question":"問い","fact.method":"方法","fact.scope":"範囲","fact.status":"状態","fact.contribution":"貢献","fact.limitations":"限界",
+    "r1.fact.question":"AI支援医療システムを、技術的な期待だけでなくどう評価すべきか。","r1.fact.method":"独立した文献レビュー / 統合","r1.fact.scope":"臨床支援、記録、患者参加、アクセシビリティ、ガバナンスにわたる査読済み研究18件","r1.fact.status":"プレプリント · 査読付き学術誌の掲載論文ではない","r1.fact.contribution":"人間による監督と導入障壁に焦点を当てた実装中心の整理","r1.fact.limitations":"レビュー範囲に対して証拠数が少ないこと、単独レビュー、検索日付パラメータ不足、品質評価不足",
+    "r2.fact.question":"長文情報が短編メディアに圧縮されると何が失われ得るか。","r2.fact.method":"Media-Cognition-Quality枠組みに基づく概念的研究原稿","r2.fact.status":"研究原稿 · 独立研究","r2.fact.contribution":"「文脈圧縮」を今後検証する概念として提案","r2.fact.limitations":"この概念は暫定的で実証検証が必要であり、確立された理論としては扱いません",
+    "evidence.help.title":"証拠ラベルの読み方","evidence.help.public":"直接確認できる公開リポジトリ、アーカイブ、またはプロフィール。","evidence.help.issuer":"発行機関または認証事業者が提供する資格確認記録。","evidence.help.supplied":"このポートフォリオのために確認した提出資料。必ずしも公開の発行元記録ではありません。","evidence.help.portal":"状態確認のために確認した非公開ポータル資料。機密性のある画面は公開しません。","evidence.help.self":"現時点では本人提出記録のみが根拠であるため、検証上の重みを低くしています。",
+    "skills.evidenceIntro":"主要な能力は公開作品または発行元が確認できる学習記録に結び付けます。同等の公開証拠がないツールも残しますが、証拠上の重みは低く示します。",
+    "contact.purpose":"入学審査 · 研究 · 協働 · 技術的な機会",
+    "record.type.competition":"コンテスト","record.type.work":"業務 / オペレーション","record.type.volunteering":"ボランティア","record.type.contribution":"貢献","record.type.academic":"学術経路","record.type.learning":"プロジェクト / 研究 / 学習"
+  }
+};
+for(const [lng,map] of Object.entries(V3_COPY)){Object.assign(D[lng],map);}
+
+
 
 const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
 let lang=localStorage.getItem("mhf-lang")||"en";

@@ -28,7 +28,10 @@
     "SELF-REPORTED": "Supported only by applicant-supplied record.",
     "LEARNING DIRECTION": "Area of study or technical direction; not claimed expertise.",
     "PROTOTYPE": "Implemented prototype; not presented as production deployment.",
-    "OPEN SOURCE": "Public source repository available."
+    "OPEN SOURCE": "Public source repository available.",
+    "ACCEPTED": "Formally accepted by the stated venue or programme; publication/enrolment is a separate later state.",
+    "IN DEVELOPMENT": "Actively being developed.",
+    "MAINTAINED": "Completed enough for use and still being maintained."
   },
   "academics": {
     "iitm": {

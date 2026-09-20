@@ -201,6 +201,8 @@ async function assert(name,condition,details={}){
   );
   await page.locator("#credentials").screenshot({path:`${OUT}/mobile-credentials.png`});
 
+  await page.locator(".portfolio-banner").scrollIntoViewIfNeeded();
+  await page.waitForTimeout(250);
   const mobileImages=await imageStatus(page);
   const broken=mobileImages.filter(i=>!i.complete||i.naturalWidth===0);
   await assert("mobile images load",broken.length===0,{broken});

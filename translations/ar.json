@@ -156,8 +156,8 @@
   "international.title": "عبر بيئات مختلفة، دون أن يحددني مقصد واحد",
   "international.saudi": "سنوات مبكرة وتعليم أولي",
   "international.india": "قاعدة التعليم الحالية",
-  "international.next": "دراسة دولية",
-  "international.nextText": "تعليم هندسي وتعرّض للبحث",
+  "international.next": "اتجاه دولي",
+  "international.nextText": "اهتمامات مستقبلية في التعليم الهندسي والبحث",
   "lang.pro": "كفاءة مهنية عملية",
   "lang.limited": "كفاءة عملية محدودة",
   "lang.beginner": "مبتدئ / قيد التعلم",
@@ -331,5 +331,6 @@
   "review.direction": "يتجه نحو",
   "review.directionValue": "الإلكترونيات + الأنظمة المدمجة",
   "review.evidence": "الأدلة",
-  "review.evidenceValue": "GitHub · Zenodo · سجلات الجهات المصدرة"
+  "review.evidenceValue": "GitHub · Zenodo · سجلات الجهات المصدرة",
+  "lang.assessment": "اللغات · تقييم ذاتي"
 }

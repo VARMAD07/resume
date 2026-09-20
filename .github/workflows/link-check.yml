@@ -13,6 +13,7 @@ on:
       - "scripts/check_internal_links.py"
       - "scripts/check_public_privacy.py"
       - "scripts/check_portfolio_state.mjs"
+      - "scripts/update_status.mjs"
       - "data/portfolio-state.json"
       - "scripts/update_iitm_course.mjs"
       - "scripts/check_iitm_curriculum.mjs"
@@ -53,5 +54,9 @@ jobs:
         run: python scripts/check_public_privacy.py
       - name: Check centralized portfolio state
         run: node scripts/check_portfolio_state.mjs
+      - name: Check status-helper syntax
+        run: |
+          node scripts/update_status.mjs academics.iitm --help
+          node scripts/update_iitm_course.mjs BSMA1001 --help
       - name: Check IITM curriculum and course-state integrity
         run: node scripts/check_iitm_curriculum.mjs

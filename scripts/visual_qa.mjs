@@ -63,6 +63,12 @@ async function assert(name,condition,details={}){
   await assert("academic pathway labels remain precise",academicText.includes("admissions/qualifier")&&academicText.includes("PLANNED IN PARALLEL"),{academicText:academicText.slice(0,900)});
   await assert("selected work contains five anchors",(await page.locator("#selected-work .highlight-card").count())===5,{count:await page.locator("#selected-work .highlight-card").count()});
   await assert("project case studies exist",(await page.locator("#work .case-study-detail").count())===2,{count:await page.locator("#work .case-study-detail").count()});
+  await assert("source-mapped project evidence exists",(await page.locator("#work .source-mapped").count())===2,{count:await page.locator("#work .source-mapped").count()});
+  await assert("research dates are prominent",(await page.locator("#research .research-statusbar").count())===2);
+  await assert("timeline taxonomy distinguishes project and research",(await page.locator('#experience [data-kind="project"]').count())===1&&(await page.locator('#experience [data-kind="research"]').count())===2);
+  const ogW=await page.locator('meta[property="og:image:width"]').getAttribute("content");
+  const ogH=await page.locator('meta[property="og:image:height"]').getAttribute("content");
+  await assert("OG dimensions are explicit",ogW==="1200"&&ogH==="630",{ogW,ogH});
   await assert("research status remains explicit",(await page.locator("#research").innerText()).includes("PREPRINT")&&(await page.locator("#research").innerText()).includes("MANUSCRIPT"));
   await assert("evidence definitions available",await page.locator("#evidence .evidence-help").count()===1);
   const ogImage=await page.locator('meta[property="og:image"]').getAttribute("content");
@@ -107,7 +113,12 @@ async function assert(name,condition,details={}){
   const broken=images.filter(i=>!i.complete||i.naturalWidth===0);
   await assert("all displayed images load",broken.length===0,{broken});
 
-  await page.keyboard.press("Control+K");
+  await page.evaluate(()=>{window.scrollTo(0,0);document.activeElement?.blur();});
+  await page.keyboard.press("Tab");
+  await assert("skip link is first keyboard target",(await page.evaluate(()=>document.activeElement?.classList.contains("skip")))===true,{active:await page.evaluate(()=>document.activeElement?.outerHTML)});
+  await page.keyboard.press("Enter");
+  await assert("skip link moves focus to main",(await page.evaluate(()=>document.activeElement?.id))==="main",{active:await page.evaluate(()=>document.activeElement?.id)});
+    await page.keyboard.press("Control+K");
   await page.waitForTimeout(80);
   await assert("search dialog opens",await page.locator("#search-dialog").evaluate(d=>d.open));
   await assert("search input receives focus",(await page.evaluate(()=>document.activeElement?.id))==="search-input",{activeElement:await page.evaluate(()=>document.activeElement?.id)});
@@ -131,6 +142,15 @@ async function assert(name,condition,details={}){
     nav:await page.locator(".desktop-nav a").first().innerText()
   });
   await page.locator('button[data-lang="en"]').click();
+  await page.emulateMedia({reducedMotion:"reduce"});
+  const reducedMotion=await page.evaluate(()=>{
+    const el=document.querySelector(".case");
+    const style=getComputedStyle(el);
+    return {transitionDuration:style.transitionDuration,animationDuration:style.animationDuration,scrollBehavior:getComputedStyle(document.documentElement).scrollBehavior};
+  });
+  await assert("reduced motion disables transitions",reducedMotion.transitionDuration==="0s"&&reducedMotion.animationDuration==="0s",{reducedMotion});
+  await assert("reduced motion disables smooth scrolling",reducedMotion.scrollBehavior==="auto",{reducedMotion});
+  await page.emulateMedia({reducedMotion:"no-preference"});
 
   const badges=await page.locator("#credentials .credential-art").evaluateAll(imgs=>imgs.map(i=>({src:i.currentSrc||i.src,w:i.naturalWidth,h:i.naturalHeight})));
   await assert("five credential badges render",badges.length===5 && badges.every(x=>x.w>0),{badges});

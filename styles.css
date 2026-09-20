@@ -601,6 +601,7 @@ img{max-width:100%}
   letter-spacing:.08em;
   color:var(--muted);
 }
+.verification-stamp b{font:inherit;color:var(--accent)}
 a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible,[tabindex]:focus-visible{
   outline:3px solid var(--accent);
   outline-offset:4px;

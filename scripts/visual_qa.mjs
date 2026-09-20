@@ -55,6 +55,16 @@ async function assert(name,condition,details={}){
   await assert("academic copy has no stale exam prediction",!(await page.locator("#academic-path").innerText()).match(/will sit|I plan to|next month|next year|preparing to/i));
   await assert("capability state buckets render",(await page.locator(".capability-state-grid article").count())===3,{count:await page.locator(".capability-state-grid article").count()});
   await assert("portfolio changelog renders",(await page.locator("#portfolio-changelog li").count())>=1,{count:await page.locator("#portfolio-changelog li").count()});
+  await page.waitForFunction(()=>document.documentElement.dataset.iitmLearningReady==="true");
+  const curriculum=await page.evaluate(()=>fetch("data/iitm-curriculum.json",{cache:"no-cache"}).then(r=>r.json()));
+  await assert("IITM curriculum data loads",Boolean(curriculum&&curriculum.layers?.length===4&&curriculum.sources?.every(x=>x.url.startsWith("https://study.iitm.ac.in/ds/"))),{verifiedAt:curriculum?.verifiedAt,layers:curriculum?.layers?.length});
+  await assert("IITM learning trajectory reflects current programme state",(await page.locator("#iitm-learning [data-state-status=\"academics.iitm.status\"]").first().innerText()).trim()===state.academics.iitm.status);
+  await assert("qualifier-stage trajectory does not claim registered current courses",(await page.locator("#iitm-current-courses .course-state-item").count())===0,{text:await page.locator("#iitm-current-courses").innerText()});
+  await assert("qualifier context names official four-course preparation",(await page.locator("#iitm-qualifier-context").innerText()).includes("Mathematics for Data Science I")&&(await page.locator("#iitm-qualifier-context").innerText()).includes("Statistics for Data Science I")&&(await page.locator("#iitm-qualifier-context").innerText()).includes("Computational Thinking")&&(await page.locator("#iitm-qualifier-context").innerText()).includes("English I"),{text:await page.locator("#iitm-qualifier-context").innerText()});
+  await assert("IITM learning is grouped into four layers",(await page.locator("#iitm-learning-layers .iitm-layer").count())===4,{count:await page.locator("#iitm-learning-layers .iitm-layer").count()});
+  await assert("official course lists are collapsed by default",(await page.locator("#iitm-learning-layers details[open]").count())===0);
+  await assert("academic connections are explicit",(await page.locator("#iitm-academic-connections article").count())===5,{count:await page.locator("#iitm-academic-connections article").count()});
+  await assert("long-term IITM/electronics intersection is direction-only",(await page.locator("#iitm-long-term-intersection").innerText()).includes("no current-expertise claim")||(await page.locator("#iitm-long-term-intersection").innerText()).includes("Direction only"));
   const heroBeforeBanner=await page.evaluate(()=>{
     const hero=document.querySelector("#profile");
     const banner=document.querySelector(".portfolio-banner");
@@ -152,9 +162,11 @@ async function assert(name,condition,details={}){
     nav:await page.locator(".desktop-nav a").first().innerText()
   });
   await assert("second-audit status labels translate to Arabic",(await page.locator(".academic-status-legend span").first().innerText()).trim()==="خبرة حالية",{label:await page.locator(".academic-status-legend span").first().innerText()});
+  await assert("IITM trajectory translates to Arabic",(await page.locator("#iitm-learning .section-head h2").innerText()).trim()==="ما الذي يضيفه المنهج",{title:await page.locator("#iitm-learning .section-head h2").innerText()});
   await page.screenshot({path:`${OUT}/desktop-arabic.png`,fullPage:false});
   await page.locator('button[data-lang="ja"]').click();
   await assert("second-audit status labels translate to Japanese",(await page.locator(".academic-status-legend span").first().innerText()).trim()==="現在の経験",{label:await page.locator(".academic-status-legend span").first().innerText()});
+  await assert("IITM trajectory translates to Japanese",(await page.locator("#iitm-learning .section-head h2").innerText()).trim()==="このカリキュラムが加えるもの",{title:await page.locator("#iitm-learning .section-head h2").innerText()});
   await assert("Japanese language switch works",(await page.locator("html").getAttribute("lang"))==="ja",{
     dir:await page.locator("html").getAttribute("dir"),
     nav:await page.locator(".desktop-nav a").first().innerText()
@@ -173,7 +185,7 @@ async function assert(name,condition,details={}){
   const badges=await page.locator("#credentials .credential-art").evaluateAll(imgs=>imgs.map(i=>({src:i.currentSrc||i.src,w:i.naturalWidth,h:i.naturalHeight})));
   await assert("five credential badges render",badges.length===5 && badges.every(x=>x.w>0),{badges});
 
-  for(const [sel,file] of [["#current-status","desktop-current-status.png"],["#academic-path","desktop-academic-path.png"],["#next","desktop-system-layers.png"],["#research","desktop-research.png"],[".dpg","desktop-dpg.png"],["#credentials","desktop-credentials.png"],["#evidence","desktop-evidence.png"]]){
+  for(const [sel,file] of [["#current-status","desktop-current-status.png"],["#academic-path","desktop-academic-path.png"],["#iitm-learning","desktop-iitm-learning.png"],["#next","desktop-system-layers.png"],["#research","desktop-research.png"],[".dpg","desktop-dpg.png"],["#credentials","desktop-credentials.png"],["#evidence","desktop-evidence.png"]]){
     const loc=page.locator(sel); await loc.scrollIntoViewIfNeeded(); await page.waitForTimeout(200); await loc.screenshot({path:`${OUT}/${file}`});
   }
 
@@ -241,6 +253,12 @@ async function assert(name,condition,details={}){
     {grid:await page.locator("#credentials .credential-grid").evaluate(e=>getComputedStyle(e).gridTemplateColumns)}
   );
   await page.locator("#credentials").screenshot({path:`${OUT}/mobile-credentials.png`});
+
+  await page.locator("#iitm-learning").scrollIntoViewIfNeeded();
+  await page.waitForTimeout(150);
+  const mobileLayer=await page.locator("#iitm-learning-layers .iitm-layer").first().boundingBox();
+  await assert("mobile IITM learning layers stack",Boolean(mobileLayer&&mobileLayer.width>330&&mobileLayer.width<390),{mobileLayer});
+  await page.locator("#iitm-learning").screenshot({path:`${OUT}/mobile-iitm-learning.png`});
 
   await page.locator(".portfolio-banner").scrollIntoViewIfNeeded();
   await page.waitForTimeout(250);

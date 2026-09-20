@@ -135,8 +135,10 @@ async function assert(name,condition,details={}){
     lang:await page.locator("html").getAttribute("lang"),
     nav:await page.locator(".desktop-nav a").first().innerText()
   });
+  await assert("second-audit status labels translate to Arabic",(await page.locator(".academic-status-legend span").first().innerText()).trim()==="خبرة حالية",{label:await page.locator(".academic-status-legend span").first().innerText()});
   await page.screenshot({path:`${OUT}/desktop-arabic.png`,fullPage:false});
   await page.locator('button[data-lang="ja"]').click();
+  await assert("second-audit status labels translate to Japanese",(await page.locator(".academic-status-legend span").first().innerText()).trim()==="現在の経験",{label:await page.locator(".academic-status-legend span").first().innerText()});
   await assert("Japanese language switch works",(await page.locator("html").getAttribute("lang"))==="ja",{
     dir:await page.locator("html").getAttribute("dir"),
     nav:await page.locator(".desktop-nav a").first().innerText()

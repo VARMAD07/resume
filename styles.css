@@ -1128,6 +1128,7 @@ html:not([data-state-ready]) [data-state-list-inline]{color:var(--muted)}
 .record-subhead small{color:var(--muted);font-size:9px}
 .status-timeline article{grid-template-columns:120px minmax(0,1fr) auto 32px}
 .status-timeline article.current-milestone{box-shadow:inset 3px 0 0 var(--accent);background:color-mix(in srgb,var(--accent) 3%,var(--panel))}
+.status-timeline article.latest-milestone{border-top-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent),0 0 0 1px color-mix(in srgb,var(--accent) 12%,transparent)}
 .status-timeline article p{margin:6px 0 0;color:var(--muted);font-size:11px}
 .status-timeline article p b{font:700 9px ui-monospace,monospace;color:var(--accent)}
 .status-timeline article p small{font-size:10px;line-height:1.45}

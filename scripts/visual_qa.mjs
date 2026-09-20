@@ -47,8 +47,15 @@ async function assert(name,condition,details={}){
   await page.waitForFunction(()=>document.documentElement.dataset.stateReady==="true");
   const state=await page.evaluate(()=>fetch("data/portfolio-state.json",{cache:"no-cache"}).then(r=>r.json()));
   await assert("central portfolio state loads",Boolean(state&&state.academics&&state.research&&state.projects),{asOf:state?.asOf});
-  await assert("hero is timeless",!(await page.locator("#profile").innerText()).match(/Class 12|QUALIFIER PATHWAY|PLANNED|will sit|I plan to/i),{heroText:(await page.locator("#profile").innerText()).slice(0,900)});
-  await assert("current status dashboard renders",await page.locator("#current-status").count()===1&&!(await page.locator("#current-status").innerText()).includes("—"),{text:(await page.locator("#current-status").innerText()).slice(0,1200)});
+  const heroStateText=(await page.locator("#profile").innerText()).slice(0,1200);
+  await assert("hero current stage propagates from source of truth",heroStateText.includes(state.profile.stage),{heroStateText,stateStage:state.profile.stage});
+  await assert("hero avoids stale or unverified academic predictions",!heroStateText.match(/will sit|I plan to|QUALIFIED|ADMITTED|ENROLLED/i),{heroStateText});
+  await assert("current status dashboard renders",await page.locator("#current-status").count()===1&&!(await page.locator("#current-status").innerText()).includes("—"),{text:(await page.locator("#current-status").innerText()).slice(0,1400)});
+  await assert("30-second reviewer snapshot renders",(await page.locator("#current-status .reviewer-snapshot article").count())===6,{count:await page.locator("#current-status .reviewer-snapshot article").count()});
+  await assert("reviewer snapshot WHO is state-driven",(await page.locator("#current-status .reviewer-snapshot article").first().innerText()).includes(state.profile.stage),{who:await page.locator("#current-status .reviewer-snapshot article").first().innerText()});
+  const academicDashboardText=await page.locator("#current-academics").innerText();
+  await assert("current academics includes school and IITM",academicDashboardText.includes(state.academics.school.shortLabel)&&academicDashboardText.includes(state.academics.iitm.shortLabel),{academicDashboardText});
+  await assert("future engineering path stays out of current academics",!academicDashboardText.includes(state.academics.engineering.shortLabel),{academicDashboardText});
   await assert("IITM current status propagates from source of truth",(await page.locator('[data-state-status="academics.iitm.status"]').first().innerText()).trim()===state.academics.iitm.status,{dom:await page.locator('[data-state-status="academics.iitm.status"]').first().innerText(),state:state.academics.iitm.status});
   await assert("engineering current status propagates from source of truth",(await page.locator('[data-state-status="academics.engineering.status"]').first().innerText()).trim()===state.academics.engineering.status,{dom:await page.locator('[data-state-status="academics.engineering.status"]').first().innerText(),state:state.academics.engineering.status});
   await assert("status milestone timeline is generated",(await page.locator("#status-timeline article").count())>=6,{count:await page.locator("#status-timeline article").count()});
@@ -90,6 +97,7 @@ async function assert(name,condition,details={}){
   await assert("academic pathway labels remain precise",academicText.includes("QUALIFIER PATHWAY")&&academicText.includes("PLANNED")&&academicText.includes("PORTAL EVIDENCE")&&academicText.includes("SELF-REPORTED"),{academicText:academicText.slice(0,1200)});
   await assert("selected work contains five anchors",(await page.locator("#selected-work .highlight-card").count())===5,{count:await page.locator("#selected-work .highlight-card").count()});
   await assert("project case studies exist",(await page.locator("#work .case-study-detail").count())===2,{count:await page.locator("#work .case-study-detail").count()});
+  await assert("project roles are explicit",(await page.locator('#project-halim dt').allTextContents()).includes("ROLE")&&(await page.locator('#project-study dt').allTextContents()).includes("ROLE"));
   await assert("source-mapped project evidence exists",(await page.locator("#work .source-mapped").count())===2,{count:await page.locator("#work .source-mapped").count()});
   await assert("research dates are prominent",(await page.locator("#research .research-statusbar").count())===2);
   await assert("timeline taxonomy distinguishes project and research",(await page.locator('#experience [data-kind="project"]').count())>=2&&(await page.locator('#experience [data-kind="research"]').count())>=2,{projects:await page.locator('#experience [data-kind="project"]').count(),research:await page.locator('#experience [data-kind="research"]').count()});
@@ -103,6 +111,7 @@ async function assert(name,condition,details={}){
   await assert("OG asset is physically 1200x630",ogPhysical.w===1200&&ogPhysical.h===630,ogPhysical);
   await assert("research status remains explicit",(await page.locator("#research").innerText()).includes("PREPRINT")&&(await page.locator("#research").innerText()).includes("MANUSCRIPT"));
   await assert("evidence definitions available",await page.locator("#evidence .evidence-help").count()===1);
+  await assert("current school evidence is classified",(await page.locator("#ev-edu-002").innerText()).includes("SUPPLIED DOCUMENT")&&(await page.locator("#ev-edu-002").innerText()).includes(state.academics.school.status),{text:await page.locator("#ev-edu-002").innerText()});
   const ogImage=await page.locator('meta[property="og:image"]').getAttribute("content");
   await assert("OG image points to dedicated 1200x630 asset",Boolean(ogImage&&ogImage.includes("assets/images/og/mhf-og-v3.webp")),{ogImage});
 

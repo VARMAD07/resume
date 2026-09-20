@@ -1333,3 +1333,17 @@ html:not([data-state-ready]) [data-state-list-inline]{color:var(--muted)}
   .iitm-learning-layers{grid-template-columns:1fr 1fr}
   .academic-connections-grid{grid-template-columns:1fr 1fr}
 }
+
+/* IITM program lockup */
+.iitm-program-lockup{
+  display:grid;grid-template-columns:170px minmax(0,1fr);gap:6px 22px;
+  padding:18px;border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--panel);margin-bottom:12px
+}
+.iitm-program-lockup>span{grid-row:1/3;font:700 10px/1.5 ui-monospace,monospace;letter-spacing:.11em;color:var(--accent)}
+.iitm-program-lockup h3{margin:0;font-size:clamp(20px,2.1vw,30px);line-height:1.05}
+.iitm-program-lockup p{margin:0;max-width:800px;color:var(--muted);font-size:12.5px;line-height:1.6}
+@media(max-width:720px){
+  .iitm-program-lockup{display:block}
+  .iitm-program-lockup>span{display:block;margin-bottom:7px}
+  .iitm-program-lockup h3{margin-bottom:9px}
+}

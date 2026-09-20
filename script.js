@@ -130,7 +130,7 @@ function renderPortfolioState(state){
   });
 
   const academics=$("#current-academics"),building=$("#current-building"),research=$("#current-research"),learning=$("#current-learning");
-  if(academics){academics.replaceChildren();renderStatusLine(academics,state.academics.iitm.shortLabel,state.academics.iitm.status,state.academics.iitm.statusDate,state.academics.iitm.evidence?.type);renderStatusLine(academics,state.academics.engineering.shortLabel,state.academics.engineering.status,state.academics.engineering.statusDate,state.academics.engineering.evidence?.type);}
+  if(academics){academics.replaceChildren();for(const item of Object.values(state.academics||{}))renderStatusLine(academics,item.shortLabel||item.label,item.status,item.statusDate,item.evidence?.type);}
   if(building){building.replaceChildren();for(const item of Object.values(state.projects||{}))renderStatusLine(building,item.label,item.status,item.statusDate,item.evidence?.type);}
   if(research){research.replaceChildren();for(const item of Object.values(state.research||{}))renderStatusLine(research,item.label,item.status,item.statusDate,item.evidence?.type);}
   if(learning){learning.replaceChildren();for(const item of state.capabilities?.activeLearning||[]){const p=document.createElement("p");const span=document.createElement("span");span.textContent=item;p.append(span);learning.append(p);}}

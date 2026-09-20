@@ -966,3 +966,35 @@ html[dir="rtl"] .section-head{
   .case-study-grid,.research-facts,.evidence-definitions{grid-template-columns:1fr}
   .reviewer-links{display:none}
 }
+
+
+/* 2026-09-20 mobile hierarchy and nav integrity */
+@media(max-width:1180px){
+  .desktop-nav{display:none!important}
+  .menu{display:inline-block!important}
+}
+@media(max-width:720px){
+  .hero{padding-top:48px}
+  .hero-side{gap:12px}
+  .profile-card.portrait{width:min(100%,420px);margin-inline:auto}
+  .profile-card.portrait img{aspect-ratio:4/4.7;max-height:520px;object-position:center 14%}
+  .instrument{padding:14px}
+  .instrument dl{display:grid;grid-template-columns:1fr 1fr}
+  .instrument dl>div{padding:12px 10px;border-right:1px solid var(--line)}
+  .instrument dl>div:nth-child(even){border-right:0}
+  .instrument dl>div:nth-last-child(-n+2){border-bottom:0}
+  .instrument dd{font-size:11px}
+  .contact-rail{display:grid;grid-template-columns:1fr 1fr}
+  .contact-rail a{display:grid;grid-template-columns:1fr;gap:4px;padding:10px;border-right:1px solid var(--line)}
+  .contact-rail a:nth-child(even){border-right:0}
+  .contact-rail a:nth-child(3){border-bottom:0}
+  .contact-rail b{font-size:10px}
+}
+@media(max-width:360px){
+  .instrument dl{grid-template-columns:1fr}
+  .instrument dl>div{border-right:0!important;border-bottom:1px solid var(--line)!important}
+  .instrument dl>div:last-child{border-bottom:0!important}
+  .contact-rail{grid-template-columns:1fr}
+  .contact-rail a{border-right:0!important;border-bottom:1px solid var(--line)!important}
+  .contact-rail a:last-child{border-bottom:0!important}
+}

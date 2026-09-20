@@ -58,8 +58,138 @@ function applyTheme(next){
   $("#theme").setAttribute("aria-pressed",String(theme==="lab"));
 }
 
+let portfolioState=null;
+const getState=(path,root=portfolioState)=>path.split(".").reduce((value,key)=>value?.[key],root);
+const statusSlug=value=>String(value||"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const isExternalHref=href=>/^https?:\/\//.test(href||"");
+
+function renderStatusLine(container,label,status,date){
+  const row=document.createElement("p");
+  const name=document.createElement("span"); name.textContent=label;
+  const badge=document.createElement("b"); badge.textContent=status; badge.dataset.status=statusSlug(status);
+  const when=document.createElement("small"); when.textContent=date||"";
+  row.append(name,badge,when);
+  container.append(row);
+}
+function renderHistory(el,item){
+  el.replaceChildren();
+  (item?.history||[]).forEach((entry,index,arr)=>{
+    const li=document.createElement("li");
+    if(index===arr.length-1&&entry.status===item.status) li.classList.add("current");
+    const date=document.createElement("time"); date.textContent=entry.date;
+    const status=document.createElement("b"); status.textContent=entry.status; status.dataset.status=statusSlug(entry.status);
+    const evidence=document.createElement("span"); evidence.textContent=entry.evidenceType;
+    li.append(date,status,evidence);
+    if(entry.note){const note=document.createElement("small");note.textContent=entry.note;li.append(note);}
+    el.append(li);
+  });
+}
+function collectMilestones(state){
+  const groups=[state.academics,state.projects,state.research];
+  const rows=[];
+  for(const group of groups){
+    for(const item of Object.values(group||{})){
+      (item.history||[]).forEach((entry,index,arr)=>rows.push({
+        label:item.label,category:item.category,status:entry.status,date:entry.date,
+        sortKey:entry.sortKey||0,evidenceType:entry.evidenceType,note:entry.note||"",
+        href:item.evidence?.href||"",current:index===arr.length-1&&entry.status===item.status
+      }));
+    }
+  }
+  return rows.sort((a,b)=>(b.sortKey||0)-(a.sortKey||0));
+}
+function renderPortfolioState(state){
+  portfolioState=state;
+  document.documentElement.dataset.stateReady="true";
+  document.querySelectorAll("[data-state]").forEach(el=>{
+    const value=getState(el.dataset.state,state);
+    el.textContent=value??"—";
+  });
+  document.querySelectorAll("[data-state-status]").forEach(el=>{
+    const value=getState(el.dataset.stateStatus,state)??"—";
+    el.textContent=value;
+    el.dataset.status=statusSlug(value);
+  });
+  document.querySelectorAll("[data-state-href]").forEach(el=>{
+    const href=getState(el.dataset.stateHref,state);
+    if(href){el.setAttribute("href",href);if(isExternalHref(href)){el.setAttribute("target","_blank");el.setAttribute("rel","noopener");}}
+  });
+  document.querySelectorAll("[data-state-list-inline]").forEach(el=>{
+    const value=getState(el.dataset.stateListInline,state);
+    el.textContent=Array.isArray(value)?value.join(" · "):"—";
+  });
+  document.querySelectorAll("[data-state-list]").forEach(el=>{
+    const value=getState(el.dataset.stateList,state);
+    el.replaceChildren();
+    (Array.isArray(value)?value:[]).forEach(item=>{const li=document.createElement("li");li.textContent=item;el.append(li);});
+  });
+  document.querySelectorAll("[data-history-source]").forEach(el=>renderHistory(el,getState(el.dataset.historySource,state)));
+  document.querySelectorAll("[data-next-state-wrap]").forEach(el=>{
+    const dynamic=el.querySelector("[data-state]");
+    el.hidden=!dynamic||!dynamic.textContent||dynamic.textContent==="—";
+  });
+
+  const academics=$("#current-academics"),building=$("#current-building"),research=$("#current-research"),learning=$("#current-learning");
+  if(academics){academics.replaceChildren();renderStatusLine(academics,state.academics.iitm.shortLabel,state.academics.iitm.status,state.academics.iitm.statusDate);renderStatusLine(academics,state.academics.engineering.shortLabel,state.academics.engineering.status,state.academics.engineering.statusDate);}
+  if(building){building.replaceChildren();for(const item of Object.values(state.projects||{}))renderStatusLine(building,item.label,item.status,item.statusDate);}
+  if(research){research.replaceChildren();for(const item of Object.values(state.research||{}))renderStatusLine(research,item.label,item.status,item.statusDate);}
+  if(learning){learning.replaceChildren();for(const item of state.capabilities?.activeLearning||[]){const p=document.createElement("p");const span=document.createElement("span");span.textContent=item;p.append(span);learning.append(p);}}
+
+  const reviewer=$("#reviewer-current-state");
+  if(reviewer) reviewer.textContent=`${state.asOf} · ${state.academics.iitm.shortLabel}: ${state.academics.iitm.status} · ${state.profile.stage} ${state.profile.stageDate}`;
+
+  const timeline=$("#status-timeline");
+  if(timeline){
+    timeline.replaceChildren();
+    for(const item of collectMilestones(state)){
+      const article=document.createElement("article");
+      article.dataset.kind=String(item.category||"record").toLowerCase().replace(/[^a-z0-9]+/g,"-");
+      if(item.current) article.classList.add("current-milestone");
+      const time=document.createElement("time");time.textContent=item.date;
+      const body=document.createElement("div");
+      const type=document.createElement("span");type.className="record-type";type.textContent=item.category;
+      const title=document.createElement("h3");title.textContent=item.label;
+      const meta=document.createElement("p");
+      const stateBadge=document.createElement("b");stateBadge.textContent=item.status;stateBadge.dataset.status=statusSlug(item.status);
+      const sep=document.createTextNode(" · ");
+      const evidence=document.createElement("span");evidence.textContent=item.evidenceType;
+      meta.append(stateBadge,sep,evidence);
+      if(item.note){const note=document.createElement("small");note.textContent=item.note;meta.append(document.createElement("br"),note);}
+      body.append(type,title,meta);
+      const badge=document.createElement("span");badge.className="badge";badge.textContent=item.evidenceType;
+      if(item.href){
+        const link=document.createElement("a");link.className="milestone-link";link.href=item.href;link.textContent="↗";link.setAttribute("aria-label",`Open evidence for ${item.label}`);
+        if(isExternalHref(item.href)){link.target="_blank";link.rel="noopener";}
+        article.append(time,body,badge,link);
+      }else article.append(time,body,badge);
+      timeline.append(article);
+    }
+  }
+
+  const changelog=$("#portfolio-changelog");
+  if(changelog){
+    changelog.replaceChildren();
+    [...(state.changelog||[])].sort((a,b)=>(b.sortKey||0)-(a.sortKey||0)).forEach(entry=>{
+      const li=document.createElement("li");const time=document.createElement("time");time.textContent=entry.date;const span=document.createElement("span");span.textContent=entry.text;li.append(time,span);changelog.append(li);
+    });
+  }
+}
+async function loadPortfolioState(){
+  try{
+    const response=await fetch("data/portfolio-state.json",{cache:"no-cache"});
+    if(!response.ok) throw new Error(`status HTTP ${response.status}`);
+    renderPortfolioState(await response.json());
+  }catch(error){
+    console.error("Portfolio status data unavailable",error);
+    document.documentElement.dataset.stateReady="error";
+    const current=$("#current-status");
+    if(current){const note=document.createElement("p");note.className="status-load-error";note.textContent="Current status data could not be loaded. Stable portfolio content remains available below.";current.append(note);}
+  }
+}
+
 applyTheme(theme);
 void applyLang(lang);
+void loadPortfolioState();
 const skipLink=$(".skip");
 if(skipLink){
   skipLink.addEventListener("click",event=>{
@@ -89,7 +219,8 @@ $$("[data-copy]").forEach(b=>b.addEventListener("click",async()=>{try{await navi
 const dialog=$("#search-dialog"),input=$("#search-input"),results=$("#search-results");
 const index=[
 {label:"Selected work",meta:"FAST PATH / projects / research / academics",href:"#selected-work"},
-{label:"Academic status",meta:"IIT MADRAS / qualifier / planned engineering",href:"#academic-path"},
+{label:"Current status",meta:"VERIFIED STATE / academics / projects / research",href:"#current-status"},
+{label:"Academic status",meta:"IIT MADRAS / engineering pathway / status history",href:"#academic-path"},
 {label:"Credentials",meta:"ISSUER RECORDS / NASA / Google / Google Cloud",href:"#credentials"},
 {label:"Résumé",meta:"COMPRESSED RECORD / PDF",href:"#resume"},
 {label:"Contact",meta:"EMAIL / LinkedIn / GitHub / ORCID",href:"#contact"},
@@ -97,12 +228,12 @@ const index=[
 {label:"StudySyncEngine",meta:"PROJECT / OCR / local automation / privacy",href:"#work"},
 {label:"AI-Assisted Healthcare Systems",meta:"RESEARCH / preprint / methodology / Zenodo",href:"#research"},
 {label:"METABASIS / Books vs. Reels",meta:"RESEARCH / context compression",href:"#research"},
-{label:"IIT Madras BS Data Science and Applications",meta:"ACADEMIC / admissions pathway / supplied portal evidence",href:"#academic-path"},
+{label:"IIT Madras BS Data Science and Applications",meta:"ACADEMIC / current state / portal evidence",href:"#academic-path"},
 {label:"DPG Dialogues 2025",meta:"EXPERIENCE / public-interest systems",href:"#experience"},
 {label:"NASA Open Science Essentials",meta:"CREDENTIAL / open science",href:"#credentials"},
 {label:"Google AI Professional Certificate",meta:"CREDENTIAL / AI",href:"#credentials"},
 {label:"Verification centre",meta:"EVIDENCE / ORCID / GitHub / issuer records",href:"#evidence"},
-{label:"Electronics / VLSI / semiconductors",meta:"NEXT / learning direction",href:"#next"},
+{label:"Electronics / VLSI / semiconductors",meta:"FUTURE DIRECTION / not claimed mastery",href:"#next"},
 {label:"Python / OCR / SQLite / Google Cloud",meta:"SKILLS / linked to work",href:"#work"}
 ];
 function render(q=""){

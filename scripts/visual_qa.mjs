@@ -80,7 +80,7 @@ async function assert(name,condition,details={}){
   }));
   const badHeaders=headerChecks.filter(h=>h.titleLabelOverlap||h.titleIntroOverlap||h.introMetaOverlap||!h.alignedIntro||!h.titleInContentColumn);
   await assert("section headers assemble without overlap",badHeaders.length===0,{badHeaders});
-  const nextHeader=headerChecks.find(h=>h.title?.includes("From software to silicon"));
+  const nextHeader=headerChecks.find(h=>h.title?.includes("Across software and silicon"));
   await assert("system layers title has usable desktop width",Boolean(nextHeader&&nextHeader.titleBox.width>420),{nextHeader});
   const evidenceHeader=headerChecks.find(h=>h.title?.includes("Verification centre"));
   await assert("verification metadata sits below introduction",Boolean(evidenceHeader&&evidenceHeader.metaBox&&evidenceHeader.introBox&&evidenceHeader.metaBox.y>=evidenceHeader.introBox.y+evidenceHeader.introBox.height-1),{evidenceHeader});

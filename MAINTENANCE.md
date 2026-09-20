@@ -12,7 +12,7 @@ Central current states live in `data/portfolio-state.json`. Update that record f
 - **Credentials:** add a credential only when the issuer record or supplied certificate is available.
 - **Résumé:** keep the public résumé link and QR destination synchronized with the latest file.
 - **Projects:** update repository/live-app links when projects move, archive or materially change.
-- **Evidence review date:** refresh the visible “Evidence reviewed” month after a verification pass.
+- **Evidence review date:** refresh the centralized `lastVerified` value after a real verification pass.
 - **Sitemap:** update `<lastmod>` when a substantial public update ships.
 - **Social preview:** replace `assets/images/social-preview.webp` only when the portfolio identity/banner changes.
 
@@ -35,3 +35,7 @@ GitHub Actions checks:
 3. Lighthouse category floors for performance, accessibility, best practices and SEO.
 
 A visual update should not be merged if it makes the page harder to verify, slower to use, less accessible or less precise.
+
+## Production rule
+
+The visual identity is considered stable. Future changes should normally be factual state/evidence updates, verified credentials, genuine project/research changes, or bug fixes. Do not redesign the portfolio merely because a status changes.

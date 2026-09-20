@@ -47,6 +47,12 @@ async function assert(name,condition,details={}){
   await page.waitForFunction(()=>document.documentElement.dataset.stateReady==="true");
   const state=await page.evaluate(()=>fetch("data/portfolio-state.json",{cache:"no-cache"}).then(r=>r.json()));
   await assert("central portfolio state loads",Boolean(state&&state.academics&&state.research&&state.projects),{asOf:state?.asOf});
+  await assert("production state schema is current",state.schemaVersion===2,{schemaVersion:state.schemaVersion});
+  const dynamicAudit=await page.locator("[data-state],[data-state-status],[data-state-list-inline]").evaluateAll(nodes=>nodes.map(el=>({
+    selector:el.getAttribute("data-state")||el.getAttribute("data-state-status")||el.getAttribute("data-state-list-inline"),
+    text:(el.textContent||"").trim()
+  })).filter(x=>!x.text||x.text==="—"||/^(?:Loading|undefined|null|NaN|Unknown|TODO|TBD|PLACEHOLDER|N\/A)\b/i.test(x.text)));
+  await assert("no unresolved dynamic placeholders after state load",dynamicAudit.length===0,{dynamicAudit});
   const heroStateText=(await page.locator("#profile").innerText()).slice(0,1200);
   await assert("hero current stage propagates from source of truth",heroStateText.includes(state.profile.stage),{heroStateText,stateStage:state.profile.stage});
   await assert("hero avoids stale or unverified academic predictions",!heroStateText.match(/will sit|I plan to|QUALIFIED|ADMITTED|ENROLLED/i),{heroStateText});
@@ -57,6 +63,9 @@ async function assert(name,condition,details={}){
   await assert("current academics includes school and IITM",academicDashboardText.includes(state.academics.school.shortLabel)&&academicDashboardText.includes(state.academics.iitm.shortLabel),{academicDashboardText});
   await assert("future engineering path stays out of current academics",!academicDashboardText.includes(state.academics.engineering.shortLabel),{academicDashboardText});
   await assert("IITM current status propagates from source of truth",(await page.locator('[data-state-status="academics.iitm.status"]').first().innerText()).trim()===state.academics.iitm.status,{dom:await page.locator('[data-state-status="academics.iitm.status"]').first().innerText(),state:state.academics.iitm.status});
+  const expectedIitmActivity=state.presentationModels?.[state.academics.iitm.activityModel]?.[state.academics.iitm.status];
+  const renderedIitmActivity=(await page.locator('[data-state-status="academics.iitm.activityStatus"]').innerText()).trim();
+  await assert("IITM qualifier activity presentation is derived",renderedIitmActivity===expectedIitmActivity&&renderedIitmActivity==="PREPARING",{expectedIitmActivity,renderedIitmActivity});
   await assert("IITM next state is not duplicated in source data",!Object.prototype.hasOwnProperty.call(state.academics.iitm,"nextState"),{rawIitm:state.academics.iitm});
   const expectedIitmNext=state.transitionModels?.[state.academics.iitm.transitionModel]?.[state.academics.iitm.status]??null;
   const renderedIitmNext=(await page.locator('[data-state="academics.iitm.nextState"]').first().innerText()).trim();
@@ -66,11 +75,17 @@ async function assert(name,condition,details={}){
   await assert("academic copy has no stale exam prediction",!(await page.locator("#academic-path").innerText()).match(/will sit|I plan to|next month|next year|preparing to/i));
   await assert("site has no stale qualifier-exam prediction",!(await page.locator("body").innerText()).match(/I plan to sit the qualifier|will sit the qualifier examination/i));
   await assert("capability state buckets render",(await page.locator(".capability-state-grid article").count())===3,{count:await page.locator(".capability-state-grid article").count()});
-  await assert("portfolio changelog renders",(await page.locator("#portfolio-changelog li").count())>=1,{count:await page.locator("#portfolio-changelog li").count()});
+  await assert("portfolio changelog renders",(await page.locator("#portfolio-changelog li").count())>=4,{count:await page.locator("#portfolio-changelog li").count()});
+  await assert("final production pass is recorded",(await page.locator("#portfolio-changelog").innerText()).includes("FINAL PRODUCTION PASS"),{text:await page.locator("#portfolio-changelog").innerText()});
+  await assert("international section is future-facing",(await page.locator("text=INTERNATIONAL DIRECTION").count())===1&&!(await page.locator("body").innerText()).includes("INTERNATIONAL STUDY"),{international:await page.locator(".route").innerText()});
+  await assert("language proficiency is labelled self-assessment",(await page.locator(".language-assessment").innerText()).includes("SELF-ASSESSMENT"),{label:await page.locator(".language-assessment").innerText()});
   await page.locator("#iitm-learning").scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>document.documentElement.dataset.iitmLearningReady==="true");
   const curriculum=await page.evaluate(()=>fetch("data/iitm-curriculum.json",{cache:"no-cache"}).then(r=>r.json()));
   await assert("IITM curriculum data loads",Boolean(curriculum&&curriculum.schemaVersion===2&&curriculum.learningArchitecture?.groups?.length===6&&curriculum.sources?.every(x=>x.url.startsWith("https://study.iitm.ac.in/ds/"))),{verifiedAt:curriculum?.verifiedAt,groups:curriculum?.learningArchitecture?.groups?.length});
+  await assert("IITM curriculum source check date is current",curriculum.verifiedAt==="20 SEP 2026"&&(await page.locator("#iitm-curriculum-verified").innerText()).trim()==="20 SEP 2026",{verifiedAt:curriculum.verifiedAt,rendered:await page.locator("#iitm-curriculum-verified").innerText()});
+  const iitmMetaAudit=await page.locator("#iitm-learning-mode,#iitm-curriculum-verified").evaluateAll(nodes=>nodes.map(el=>(el.textContent||"").trim()).filter(x=>!x||x==="—"||/^(?:Loading|undefined|null|NaN|Unknown|TODO|TBD|PLACEHOLDER|N\/A)\b/i.test(x)));
+  await assert("IITM metadata has no unfinished placeholders",iitmMetaAudit.length===0,{iitmMetaAudit});
   await assert("IITM learning trajectory reflects current programme state",(await page.locator("#iitm-learning [data-state-status=\"academics.iitm.status\"]").first().innerText()).trim()===state.academics.iitm.status);
   await assert("IITM programme lockup is explicit",(await page.locator("#iitm-learning .iitm-program-lockup").innerText()).includes("IIT MADRAS")&&(await page.locator("#iitm-learning .iitm-program-lockup").innerText()).includes("BS in Data Science and Applications"));
   await assert("qualifier-stage trajectory does not claim registered current courses",(await page.locator("#iitm-current-courses .course-state-item").count())===0,{text:await page.locator("#iitm-current-courses").innerText()});
@@ -102,18 +117,25 @@ async function assert(name,condition,details={}){
   await assert("selected work contains five anchors",(await page.locator("#selected-work .highlight-card").count())===5,{count:await page.locator("#selected-work .highlight-card").count()});
   await assert("project case studies exist",(await page.locator("#work .case-study-detail").count())===2,{count:await page.locator("#work .case-study-detail").count()});
   await assert("project roles are explicit",(await page.locator('#project-halim dt').allTextContents()).includes("ROLE")&&(await page.locator('#project-study dt').allTextContents()).includes("ROLE"));
+  await assert("project states are populated",state.projects.halim.status==="PROTOTYPE"&&state.projects.studysync.status==="OPEN SOURCE",{halim:state.projects.halim.status,studysync:state.projects.studysync.status});
+  await assert("project lifecycle transitions are centralized",Object.values(state.projects).every(item=>item.transitionModel==="project"&&state.transitionModels.project?.[item.status]),{projects:state.projects,model:state.transitionModels.project});
   await assert("source-mapped project evidence exists",(await page.locator("#work .source-mapped").count())===2,{count:await page.locator("#work .source-mapped").count()});
   await assert("research dates are prominent",(await page.locator("#research .research-statusbar").count())===2);
   await assert("timeline taxonomy distinguishes project and research",(await page.locator('#experience [data-kind="project"]').count())>=2&&(await page.locator('#experience [data-kind="research"]').count())>=2,{projects:await page.locator('#experience [data-kind="project"]').count(),research:await page.locator('#experience [data-kind="research"]').count()});
   const ogW=await page.locator('meta[property="og:image:width"]').getAttribute("content");
   const ogH=await page.locator('meta[property="og:image:height"]').getAttribute("content");
   await assert("OG dimensions are explicit",ogW==="1200"&&ogH==="630",{ogW,ogH});
+  await assert("SEO title is production title",(await page.title())==="Mohammad Hammad Faridi · Student, Builder, Researcher",{title:await page.title()});
+  await assert("canonical URL is production URL",(await page.locator('link[rel="canonical"]').getAttribute("href"))==="https://varmad07.github.io/resume/",{canonical:await page.locator('link[rel="canonical"]').getAttribute("href")});
+  await assert("meta description is precise",(await page.locator('meta[name="description"]').getAttribute("content"))==="Portfolio of Mohammad Hammad Faridi, a Class 12 PCM student exploring software, data science, AI and electronics through projects, research and structured learning.",{description:await page.locator('meta[name="description"]').getAttribute("content")});
   const ogPhysical=await page.evaluate(async()=>{
     const src=document.querySelector('meta[property="og:image"]')?.content;
     return await new Promise(resolve=>{const img=new Image();img.onload=()=>resolve({w:img.naturalWidth,h:img.naturalHeight,src});img.onerror=()=>resolve({w:0,h:0,src});img.src=src;});
   });
   await assert("OG asset is physically 1200x630",ogPhysical.w===1200&&ogPhysical.h===630,ogPhysical);
   await assert("research status remains explicit",(await page.locator("#research").innerText()).includes("PREPRINT")&&(await page.locator("#research").innerText()).includes("MANUSCRIPT"));
+  const researchStatusText=await page.locator("#research-healthcare .research-statusbar").innerText();
+  await assert("healthcare research status is fully populated",["PREPRINT","JUN 2026","Zenodo","NOT PEER-REVIEWED","JOURNAL SUBMISSION NOT ACCEPTED"].every(x=>researchStatusText.includes(x)),{researchStatusText});
   await assert("evidence definitions available",await page.locator("#evidence .evidence-help").count()===1);
   await assert("current school evidence is classified",(await page.locator("#ev-edu-002").innerText()).includes("SUPPLIED DOCUMENT")&&(await page.locator("#ev-edu-002").innerText()).includes(state.academics.school.status),{text:await page.locator("#ev-edu-002").innerText()});
   const ogImage=await page.locator('meta[property="og:image"]').getAttribute("content");
@@ -158,7 +180,15 @@ async function assert(name,condition,details={}){
   const broken=images.filter(i=>!i.complete||i.naturalWidth===0);
   await assert("all displayed images load",broken.length===0,{broken});
 
-  await page.evaluate(()=>{window.scrollTo(0,0);document.activeElement?.blur();});
+  const headingAudit=await page.evaluate(()=>{
+    const headings=[...document.querySelectorAll("h1,h2,h3,h4,h5,h6")].filter(el=>getComputedStyle(el).display!=="none");
+    const levels=headings.map(el=>Number(el.tagName[1]));
+    const skips=[];
+    for(let i=1;i<levels.length;i++) if(levels[i]>levels[i-1]+1) skips.push({from:headings[i-1].textContent.trim(),to:headings[i].textContent.trim(),fromLevel:levels[i-1],toLevel:levels[i]});
+    return {h1:headings.filter(el=>el.tagName==="H1").length,skips};
+  });
+  await assert("heading hierarchy has one H1 and no level skips",headingAudit.h1===1&&headingAudit.skips.length===0,headingAudit);
+    await page.evaluate(()=>{window.scrollTo(0,0);document.activeElement?.blur();});
   await page.keyboard.press("Tab");
   await assert("skip link is first keyboard target",(await page.evaluate(()=>document.activeElement?.classList.contains("skip")))===true,{active:await page.evaluate(()=>document.activeElement?.outerHTML)});
   await page.keyboard.press("Enter");

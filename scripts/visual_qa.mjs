@@ -44,6 +44,17 @@ async function assert(name,condition,details={}){
   await assert("desktop no page errors",pageErrors.length===0,{pageErrors});
   await assert("desktop no console errors",consoleErrors.length===0,{consoleErrors});
   await assert("desktop no failed requests",failedRequests.length===0,{failedRequests});
+  const heroText=await page.locator("#profile").innerText();
+  await assert("hero communicates student builder researcher",heroText.includes("STUDENT")&&heroText.includes("BUILDER")&&heroText.includes("RESEARCHER"),{heroText:heroText.slice(0,300)});
+  await assert("hero communicates software data electronics",heroText.includes("Software")||heroText.includes("SOFTWARE"),{heroText:heroText.slice(0,400)});
+  const academicText=await page.locator("#academic-path").innerText();
+  await assert("academic pathway labels remain precise",academicText.includes("admissions/qualifier")&&academicText.includes("PLANNED IN PARALLEL"),{academicText:academicText.slice(0,900)});
+  await assert("selected work contains five anchors",(await page.locator("#selected-work .highlight-card").count())===5,{count:await page.locator("#selected-work .highlight-card").count()});
+  await assert("project case studies exist",(await page.locator("#work .case-study-detail").count())===2,{count:await page.locator("#work .case-study-detail").count()});
+  await assert("research status remains explicit",(await page.locator("#research").innerText()).includes("PREPRINT")&&(await page.locator("#research").innerText()).includes("MANUSCRIPT"));
+  await assert("evidence definitions available",await page.locator("#evidence .evidence-help").count()===1);
+  const ogImage=await page.locator('meta[property="og:image"]').getAttribute("content");
+  await assert("OG image points to dedicated 1200x630 asset",Boolean(ogImage&&ogImage.includes("assets/images/og/mhf-og-v3.webp")),{ogImage});
 
   const headerChecks=await page.locator(".section-head").evaluateAll(headers=>headers.map((h,index)=>{
     const title=h.querySelector("h2");
@@ -192,6 +203,36 @@ async function assert(name,condition,details={}){
   await assert("print hides navigation",(await page.locator(".topbar").evaluate(e=>getComputedStyle(e).display))==="none");
   await assert("print hides decorative banner",(await page.locator(".portfolio-banner").evaluate(e=>getComputedStyle(e).display))==="none");
   await assert("print hides hero side",(await page.locator(".hero-side").evaluate(e=>getComputedStyle(e).display))==="none");
+  await page.close();
+}
+
+
+// Production responsive matrix: explicit breakpoints required by the portfolio spec.
+const requiredViewports=[
+  {name:"320",width:320,height:760},
+  {name:"375",width:375,height:812},
+  {name:"430",width:430,height:932},
+  {name:"768",width:768,height:1024},
+  {name:"1024",width:1024,height:900},
+  {name:"1920",width:1920,height:1080}
+];
+for(const vp of requiredViewports){
+  const {page,consoleErrors,pageErrors,failedRequests}=await makePage({width:vp.width,height:vp.height});
+  const response=await page.goto(BASE,{waitUntil:"networkidle"});
+  const dims=await page.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,innerWidth,scrollHeight:document.documentElement.scrollHeight}));
+  await assert(`viewport ${vp.name} HTTP 200`,response?.status()===200,{status:response?.status()});
+  await assert(`viewport ${vp.name} no horizontal overflow`,dims.scrollWidth<=dims.innerWidth+1,dims);
+  await assert(`viewport ${vp.name} no page errors`,pageErrors.length===0,{pageErrors});
+  await assert(`viewport ${vp.name} no console errors`,consoleErrors.length===0,{consoleErrors});
+  await assert(`viewport ${vp.name} no failed requests`,failedRequests.length===0,{failedRequests});
+  const heroBox=await page.locator("#profile").boundingBox();
+  const heroTitle=await page.locator("#profile h1").boundingBox();
+  await assert(`viewport ${vp.name} hero title visible`,Boolean(heroBox&&heroTitle&&heroTitle.width>0&&heroTitle.height>0),{heroBox,heroTitle});
+  const selected=page.locator("#selected-work");
+  await selected.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(100);
+  const firstCard=await selected.locator(".highlight-card").first().boundingBox();
+  await assert(`viewport ${vp.name} selected work readable`,Boolean(firstCard&&firstCard.width>=Math.min(260,vp.width-40)),{firstCard});
   await page.close();
 }
 

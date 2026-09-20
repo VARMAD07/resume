@@ -3,9 +3,16 @@
   "asOf": "SEP 2026",
   "validityWindow": "SEP 2026 → SEP 2027",
   "profile": {
-    "stage": "PRE-UNIVERSITY",
-    "stageDate": "2026",
-    "location": "Kanpur, India"
+    "stage": "CLASS 12 · PCM",
+    "stageDate": "2026–27",
+    "location": "Kanpur, India",
+    "schoolSystem": "CBSE",
+    "status": "ACTIVE",
+    "evidence": {
+      "type": "SUPPLIED DOCUMENT",
+      "label": "Current school / academic record reviewed",
+      "href": "#ev-edu-002"
+    }
   },
   "statusDefinitions": {
     "PLANNED": "Not yet applied or started; direction only.",
@@ -34,6 +41,30 @@
     "MAINTAINED": "Completed enough for use and still being maintained."
   },
   "academics": {
+    "school": {
+      "id": "school",
+      "category": "ACADEMIC",
+      "label": "CBSE · Class 12 PCM",
+      "shortLabel": "CBSE Class 12 PCM",
+      "status": "ACTIVE",
+      "statusDate": "2026–27",
+      "dashboard": true,
+      "evidence": {
+        "type": "SUPPLIED DOCUMENT",
+        "href": "#ev-edu-002",
+        "label": "Current school / academic record reviewed"
+      },
+      "note": "Current senior-secondary study in Physics, Chemistry and Mathematics. This is a present school-stage record, not a completed Class 12 result.",
+      "history": [
+        {
+          "status": "ACTIVE",
+          "date": "2026–27",
+          "sortKey": 20260901,
+          "evidenceType": "SUPPLIED DOCUMENT",
+          "note": "Class 12 PCM academic year 2026–27."
+        }
+      ]
+    },
     "iitm": {
       "id": "iitm",
       "category": "ACADEMIC",
@@ -63,7 +94,8 @@
         "verifiedAt": "SEP 2026",
         "officialPage": "https://study.iitm.ac.in/ds/academics.html",
         "qualifierPage": "https://study.iitm.ac.in/ds/admissions.html"
-      }
+      },
+      "dashboard": true
     },
     "engineering": {
       "id": "engineering",
@@ -87,7 +119,8 @@
           "evidenceType": "SELF-REPORTED",
           "note": "Direction only; not an earned or admitted qualification."
         }
-      ]
+      ],
+      "dashboard": false
     }
   },
   "projects": {
@@ -110,7 +143,8 @@
           "evidenceType": "PUBLIC SOURCE",
           "note": "Public repository and live application available."
         }
-      ]
+      ],
+      "role": "Builder / developer"
     },
     "studysync": {
       "id": "studysync",
@@ -131,7 +165,8 @@
           "evidenceType": "PUBLIC SOURCE",
           "note": "Public source repository available."
         }
-      ]
+      ],
+      "role": "Builder / developer"
     }
   },
   "research": {
@@ -200,21 +235,25 @@
       "Python",
       "Automation",
       "Streamlit",
+      "SQLite",
       "AI integration",
       "OCR",
       "Systems development"
     ],
     "activeLearning": [
-      "Data Science",
-      "Open Science",
-      "Electronics foundations"
+      "Data Science + AI",
+      "Open Science practice",
+      "Electronics foundations · self-directed"
     ],
     "futureDirection": [
       "Embedded Systems",
       "Digital Logic",
+      "Circuits",
+      "Computer Architecture",
       "VLSI",
       "Semiconductors",
-      "Microelectronics"
+      "Microelectronics",
+      "Hardware-Software Co-design"
     ]
   },
   "changelog": [
@@ -227,6 +266,11 @@
       "date": "SEP 2026",
       "sortKey": 20260920,
       "text": "IIT Madras learning trajectory added from the current official curriculum, with personal course states kept evidence-gated."
+    },
+    {
+      "date": "20 SEP 2026",
+      "sortKey": 20260920.5,
+      "text": "Status, reviewer-summary, QA and evidence-maintenance architecture tightened without changing the visual identity."
     }
   ]
 }

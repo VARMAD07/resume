@@ -142,9 +142,15 @@
         "label": "Zenodo public archive"
       },
       "peerReview": "NOT PEER-REVIEWED",
-      "reviewOutcome": "JOURNAL SUBMISSION NOT ACCEPTED",
       "note": "Preprint and research-learning record; not presented as a peer-reviewed journal publication.",
       "history": [
+        {
+          "status": "SUBMITTED",
+          "date": "2026",
+          "sortKey": 20260001,
+          "evidenceType": "SUPPLIED DOCUMENT",
+          "note": "Submitted to JMIR AI; that submission was not accepted for journal publication."
+        },
         {
           "status": "PREPRINT",
           "date": "JUN 2026",
@@ -152,7 +158,8 @@
           "evidenceType": "PUBLIC SOURCE",
           "note": "Public preprint available on Zenodo."
         }
-      ]
+      ],
+      "priorSubmissionOutcome": "JOURNAL SUBMISSION NOT ACCEPTED"
     },
     "metabasis": {
       "id": "metabasis",

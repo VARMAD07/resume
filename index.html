@@ -144,24 +144,13 @@
   </div>
 </section>
 
-<section class="quick-read" aria-label="How to read this portfolio">
-  <div><span class="quick-kicker" data-i18n="quick.label">QUICK READ</span><strong data-i18n="quick.title">Five stops through the record</strong></div>
-  <nav aria-label="Portfolio reading path">
-    <a href="#work"><b>01</b><span data-i18n="quick.build">Build</span></a>
-    <a href="#research"><b>02</b><span data-i18n="quick.research">Research</span></a>
-    <a href="#public-systems"><b>03</b><span data-i18n="quick.systems">Systems</span></a>
-    <a href="#evidence"><b>04</b><span data-i18n="quick.evidence">Evidence</span></a>
-    <a href="#next"><b>05</b><span data-i18n="quick.next">Next</span></a>
-  </nav>
-</section>
-
 <section id="resume-arrival" class="resume-arrival" hidden aria-live="polite"><b data-i18n="arrival">ARRIVED FROM RÉSUMÉ</b><a href="#evidence" data-i18n="nav.evidence">Evidence</a><a href="#research" data-i18n="nav.research">Research</a><a href="#work" data-i18n="nav.work">Work</a><a href="#credentials" data-i18n="credentials.title">Credentials</a></section>
 
 <section class="selected-highlights" id="selected-work" aria-labelledby="highlights-title">
   <header>
-    <p data-i18n="highlights.kicker">START HERE / 30-SECOND REVIEW</p>
+    <p data-i18n="highlights.kicker">30-SECOND REVIEW / SELECTED EVIDENCE</p>
     <h2 id="highlights-title" data-i18n="highlights.title">Selected work</h2>
-    <span data-i18n="highlights.intro">Five anchors for a fast review: two builds, one research record, one public-systems experience and the current academic path.</span>
+    <span data-i18n="highlights.intro">Five evidence-backed anchors. Open any item for the deeper 3-minute record.</span>
   </header>
   <div class="highlight-grid">
     <a href="#project-halim" class="highlight-card">
@@ -177,7 +166,7 @@
       <span class="highlight-proof">PUBLIC SOURCE · EV-PROJECT-002</span><b data-i18n="highlights.open">Inspect work ↗</b>
     </a>
     <a href="#research-healthcare" class="highlight-card">
-      <span class="highlight-type">RESEARCH · PREPRINT</span>
+      <span class="highlight-type">RESEARCH · PREPRINT · 23 JUN 2026</span>
       <h3>Healthcare AI review</h3>
       <p data-i18n="selected.health">Independent synthesis of 18 studies, with the editorial critique and methodological gaps kept visible.</p>
       <span class="highlight-proof">PUBLIC SOURCE · EV-RESEARCH-001</span><b data-i18n="highlights.open">Inspect record ↗</b>
@@ -204,6 +193,12 @@
 
 <section class="indexed" id="academic-path">
   <header class="section-head"><p>00 / ACADEMIC PATH</p><h2 data-i18n="path.title">Parallel academic strategy</h2><p data-i18n="path.intro">The IIT Madras data-science pathway and the planned on-campus Electronics/ECE/Mechatronics degree are parallel tracks intended to be pursued concurrently.</p></header>
+  <div class="academic-status-legend" aria-label="Academic and technical status legend">
+    <span class="status-current" data-i18n="status.current">CURRENT EXPERIENCE</span>
+    <span class="status-active" data-i18n="status.active">ACTIVE STUDY</span>
+    <span class="status-planned" data-i18n="status.planned">PLANNED LEARNING</span>
+    <span class="status-interest" data-i18n="status.interest">LONG-TERM INTEREST</span>
+  </div>
   <div class="path-grid">
     <article class="path-card active-track">
       <div class="case-top"><span>TRACK A / ACTIVE</span><span class="badge">ACADEMIC PATHWAY</span></div>
@@ -273,40 +268,68 @@
   <header class="section-head"><p>04 / BUILD</p><h2 data-i18n="work.title">Project case files</h2><p data-i18n="work.intro">Projects are shown with the same things that matter in engineering: problem, architecture, decisions, limitations and evidence.</p></header>
   <div class="project-grid">
     <article class="case" id="project-halim" data-search="Halim Nexus AI Python Streamlit SQLite Gemini Twilio">
-      <div class="case-top"><span>PROJECT / 01</span><span class="badge">PROTOTYPE</span></div><h3>Halim Nexus AI</h3><p class="sub" data-i18n="halim.sub">Educational software system</p>
+      <div class="case-top"><span>PROJECT / 01 · <time datetime="2026-05">MAY 2026</time></span><span class="badge">PROTOTYPE</span></div><h3>Halim Nexus AI</h3><p class="sub" data-i18n="halim.sub">Educational software system</p>
       <dl><div><dt data-i18n="case.problem">PROBLEM</dt><dd data-i18n="halim.problem">Reduce friction across student, instructor and guardian workflows while keeping roles separated.</dd></div><div><dt data-i18n="case.system">SYSTEM</dt><dd data-i18n="halim.system">Role-based workspaces, local relational persistence, AI-assisted evaluation and notification pathways.</dd></div><div><dt data-i18n="case.stack">STACK</dt><dd>Python · Streamlit · SQLite3 · Google GenAI SDK · Gemini · Twilio</dd></div><div><dt data-i18n="case.learned">WHAT I LEARNED</dt><dd data-i18n="halim.learned">A feature is only one layer; role boundaries, persistence, notification failures and data flow shape the system around it.</dd></div></dl>
       <details class="case-study-detail">
-        <summary data-i18n="case.open">Open technical case study</summary>
+        <summary data-i18n="case.open">Inspect architecture + source map</summary>
         <div class="case-study-body">
-          <div class="case-study-block"><span>WHY THIS EXISTED</span><p data-i18n="halim.case.why">Institutional student, instructor and guardian workflows were treated as one system problem rather than three disconnected screens.</p></div>
           <div class="case-study-block"><span>AI ROLE</span><p data-i18n="halim.case.ai">The Google GenAI layer is used for academic evaluation/tutoring and weakness tracking; it is one component inside a broader role, persistence and notification system.</p></div>
-          <div class="architecture-panel"><span>HALIM / ARCHITECTURE</span><ol class="arch-flow"><li>Database Manager</li><li>Roster Engine</li><li>Dashboard Matrix</li><li>Notifier Core</li><li>Twilio Gateway</li></ol><div class="arch-branch"><b>Dashboard Matrix</b><i>↓</i><span>GenAI Evaluator → Weakness Analytics Map</span></div></div>
+          <div class="architecture-panel source-mapped">
+            <div class="architecture-head"><span>HALIM / SOURCE-MAPPED ARCHITECTURE</span><small>PUBLIC REPOSITORY · MAY 2026</small></div>
+            <div class="source-flow" aria-label="Halim Nexus AI architecture mapped to public source files">
+              <a href="https://github.com/VARMAD07/halim-nexus-ai/blob/main/database/storage/db_manager.py" target="_blank" rel="noopener"><b>SQLite persistence</b><small>database/storage/db_manager.py</small></a>
+              <i>→</i>
+              <a href="https://github.com/VARMAD07/halim-nexus-ai/tree/main/app/dashboards" target="_blank" rel="noopener"><b>Role workspaces</b><small>app/dashboards/</small></a>
+              <i>→</i>
+              <a href="https://github.com/VARMAD07/halim-nexus-ai/blob/main/core/ai_engine/ai_tutor.py" target="_blank" rel="noopener"><b>Gemini tutor</b><small>core/ai_engine/ai_tutor.py</small></a>
+              <i>→</i>
+              <a href="https://github.com/VARMAD07/halim-nexus-ai/blob/main/core/analytics/weakness_detector.py" target="_blank" rel="noopener"><b>Weakness detection</b><small>core/analytics/weakness_detector.py</small></a>
+              <i>→</i>
+              <a href="https://github.com/VARMAD07/halim-nexus-ai/blob/main/app/dashboards/notifier.py" target="_blank" rel="noopener"><b>Notification path</b><small>app/dashboards/notifier.py</small></a>
+            </div>
+            <p class="authenticity-note" data-i18n="halim.evidenceNote">The public repository currently contains no committed UI screenshot assets. This diagram links directly to the implementation files, and the live Streamlit app is linked below. No synthetic screenshot is presented as evidence.</p>
+          </div>
           <div class="case-study-grid"><p><b>DECISION</b><span data-i18n="halim.case.decision">SQLite keeps the prototype relational and local; workspaces isolate Student, Instructor and Guardian views.</span></p><p><b>DEPENDENCIES</b><span data-i18n="halim.case.dependencies">Gemini and Twilio require configured external credentials/services; Twilio trial accounts restrict outbound SMS to verified numbers.</span></p><p><b>STATUS / LIMIT</b><span data-i18n="halim.case.limit">Prototype. The public repository demonstrates architecture and implementation; it is not presented here as a production-ready institutional platform.</span></p></div>
         </div>
       </details>
       <div class="case-links"><a href="https://github.com/VARMAD07/halim-nexus-ai" target="_blank" rel="noopener">Repository ↗</a><a href="https://halimai.streamlit.app/" target="_blank" rel="noopener">Live app ↗</a><a class="evidence-ref" href="#ev-project-001"><span>EV-PROJECT-001</span><b data-i18n="evidence.jump">Evidence ↓</b></a></div>
     </article>
     <article class="case" id="project-study" data-search="StudySyncEngine Python Tkinter Watchdog OCR local privacy">
-      <div class="case-top"><span>PROJECT / 02</span><span class="badge">OPEN SOURCE</span></div><h3>StudySyncEngine</h3><p class="sub" data-i18n="study.sub">Local automation / academic workspace utility</p>
+      <div class="case-top"><span>PROJECT / 02 · <time datetime="2026-05">MAY 2026</time></span><span class="badge">OPEN SOURCE</span></div><h3>StudySyncEngine</h3><p class="sub" data-i18n="study.sub">Local automation / academic workspace utility</p>
       <dl><div><dt data-i18n="case.problem">PROBLEM</dt><dd data-i18n="study.problem">Reduce study-file clutter and repeated manual organisation without requiring a cloud runtime.</dd></div><div><dt data-i18n="case.system">SYSTEM</dt><dd data-i18n="study.system">Filesystem events flow through scanning, OCR, rules, a pub/sub broker, local statistics and a lightweight focus controller.</dd></div><div><dt data-i18n="case.stack">STACK</dt><dd>Python · Tkinter · Watchdog · OCR · local processing</dd></div><div><dt data-i18n="case.limits">KNOWN LIMITS</dt><dd data-i18n="study.limits">OCR depends on image quality, the project is Windows-oriented, and large batch scans may slow the interface.</dd></div></dl>
       <details class="case-study-detail">
-        <summary data-i18n="case.open">Open technical case study</summary>
+        <summary data-i18n="case.open">Inspect architecture + source map</summary>
         <div class="case-study-body">
-          <div class="case-study-block"><span>WHY THIS EXISTED</span><p data-i18n="study.case.why">The project treats study-file clutter as an event-driven local workflow problem rather than another cloud upload task.</p></div>
-          <div class="architecture-panel"><span>STUDYSYNC / PIPELINE</span><ol class="arch-flow"><li>Watchdog</li><li>Scanner / OCR</li><li>Broker</li><li>Rules Engine</li><li>Organisation</li><li>Statistics / UI</li></ol><div class="arch-branch"><b>Broker</b><i>↓</i><span>Focus Guard</span></div></div>
+          <div class="architecture-panel source-mapped">
+            <div class="architecture-head"><span>STUDYSYNC / SOURCE-MAPPED WORKFLOW</span><small>PUBLIC REPOSITORY · MAY 2026</small></div>
+            <div class="source-flow study-flow" aria-label="StudySyncEngine workflow mapped to public source files">
+              <a href="https://github.com/VARMAD07/study-sync-engine/blob/main/src/watcher.py" target="_blank" rel="noopener"><b>Filesystem watch</b><small>src/watcher.py</small></a>
+              <i>→</i>
+              <a href="https://github.com/VARMAD07/study-sync-engine/blob/main/src/scanner.py" target="_blank" rel="noopener"><b>Scan / OCR</b><small>src/scanner.py</small></a>
+              <i>→</i>
+              <a href="https://github.com/VARMAD07/study-sync-engine/blob/main/src/broker.py" target="_blank" rel="noopener"><b>Event broker</b><small>src/broker.py</small></a>
+              <i>→</i>
+              <a href="https://github.com/VARMAD07/study-sync-engine/blob/main/src/engine.py" target="_blank" rel="noopener"><b>Classify + move</b><small>src/engine.py</small></a>
+              <i>→</i>
+              <a href="https://github.com/VARMAD07/study-sync-engine/blob/main/src/gui.py" target="_blank" rel="noopener"><b>Desktop UI</b><small>src/gui.py</small></a>
+            </div>
+            <div class="source-branch"><span>OPTIONAL WINDOWS FOCUS PATH</span><a href="https://github.com/VARMAD07/study-sync-engine/blob/main/src/focus.py" target="_blank" rel="noopener">src/focus.py ↗</a></div>
+            <p class="authenticity-note" data-i18n="study.evidenceNote">The public repository currently contains no committed screenshot assets. The workflow above is mapped to inspectable source files rather than reconstructed as a synthetic UI screenshot.</p>
+          </div>
           <div class="case-study-grid"><p><b>DECISION</b><span data-i18n="study.case.decision">Tkinter keeps the desktop utility lightweight; Watchdog reacts to filesystem events; a pub/sub broker was introduced after direct UI updates caused freezes during larger scans.</span></p><p><b>LIMITS</b><span data-i18n="study.case.limit">OCR accuracy depends on image quality, the current build is Windows-oriented, and large batch scans can temporarily slow the interface.</span></p><p><b>NEXT</b><span data-i18n="study.case.next">The repository lists semantic classification, cloud synchronisation, cross-device persistence and improved handwritten-note OCR as future work.</span></p></div>
         </div>
       </details>
       <div class="case-links"><a href="https://github.com/VARMAD07/study-sync-engine" target="_blank" rel="noopener">Repository ↗</a><a class="evidence-ref" href="#ev-project-002"><span>EV-PROJECT-002</span><b data-i18n="evidence.jump">Evidence ↓</b></a></div>
     </article>
   </div>
-  <div class="project-archive"><span>PROJECT ARCHIVE</span><p>Featured case files stay limited to projects with enough context to explain responsibly. Smaller experiments and source work remain available on GitHub.</p><a href="https://github.com/VARMAD07?tab=repositories" target="_blank" rel="noopener">Browse repositories ↗</a></div>
+  <div class="project-archive"><span>PROJECT ARCHIVE</span><p>Only projects with enough evidence to explain responsibly are featured here; smaller source work remains on GitHub.</p><a href="https://github.com/VARMAD07?tab=repositories" target="_blank" rel="noopener">Browse repositories ↗</a></div>
 </section>
 
 <section class="indexed" id="research">
   <header class="section-head"><p>05 / RESEARCH NOTEBOOK</p><h2 data-i18n="research.title">Research, including what did not survive review</h2><p data-i18n="research.intro">The point of the record is not to hide critique. It is to show what changed because of it.</p></header>
   <article class="research-card" id="research-healthcare" data-search="AI-Assisted Healthcare Systems preprint implementation gap human centred">
-    <div class="research-id"><span>RESEARCH / 01</span><span class="badge">PREPRINT</span></div><h3>AI-Assisted Healthcare Systems: Bridging the Implementation Gap Through a Human-Centered Perspective</h3><p data-i18n="r1.summary">An independent review of 18 peer-reviewed studies across clinical support, documentation, patient engagement, accessibility and governance, focused on human oversight and implementation barriers.</p>
+    <div class="research-id"><span>RESEARCH / 01</span><span class="badge">PREPRINT</span></div>
+    <div class="research-statusbar critical-status" aria-label="Research status"><span>POSTED <time datetime="2026-06-23">23 JUN 2026</time></span><span>NON-PEER-REVIEWED</span><span>JOURNAL SUBMISSION NOT ACCEPTED</span></div><h3>AI-Assisted Healthcare Systems: Bridging the Implementation Gap Through a Human-Centered Perspective</h3><p data-i18n="r1.summary">An independent review of 18 peer-reviewed studies across clinical support, documentation, patient engagement, accessibility and governance, focused on human oversight and implementation barriers.</p>
     <div class="research-facts healthcare-facts">
       <p><b data-i18n="fact.question">QUESTION</b><span data-i18n="r1.fact.question">How should AI-assisted healthcare systems be judged beyond technical promise?</span></p>
       <p><b data-i18n="fact.method">METHOD</b><span data-i18n="r1.fact.method">Independent literature review / synthesis</span></p>
@@ -320,7 +343,8 @@
     <div class="case-links"><a href="https://zenodo.org/records/20707263" target="_blank" rel="noopener">Zenodo archive ↗</a><a class="evidence-ref" href="#ev-research-001"><span>EV-RESEARCH-001</span><b data-i18n="evidence.jump">Evidence ↓</b></a></div>
   </article>
   <article class="research-card" id="research-metabasis" data-search="METABASIS Books Reels context compression Media Cognition Quality">
-    <div class="research-id"><span>RESEARCH / 02</span><span class="badge">MANUSCRIPT</span></div><h3>METABASIS / Books vs. Reels</h3><p data-i18n="r2.summary">A manuscript examining long-form reading and short-form video through attention, comprehension, processing depth and information quality, organised around a Media-Cognition-Quality framework.</p>
+    <div class="research-id"><span>RESEARCH / 02</span><span class="badge">MANUSCRIPT</span></div>
+    <div class="research-statusbar" aria-label="Research status"><span><time datetime="2026">2026</time></span><span>INDEPENDENT MANUSCRIPT</span><span>NOT PEER-REVIEWED</span></div><h3>METABASIS / Books vs. Reels</h3><p data-i18n="r2.summary">A manuscript examining long-form reading and short-form video through attention, comprehension, processing depth and information quality, organised around a Media-Cognition-Quality framework.</p>
     <div class="research-facts metabasis-facts">
       <p><b data-i18n="fact.question">QUESTION</b><span data-i18n="r2.fact.question">What can be lost when long-form information is compressed into short-form media?</span></p>
       <p><b data-i18n="fact.method">METHOD</b><span data-i18n="r2.fact.method">Conceptual research manuscript organised around a Media-Cognition-Quality framework</span></p>
@@ -359,23 +383,25 @@
 <section class="indexed defer-render" id="experience">
   <header class="section-head"><p>07 / RECORD</p><h2 data-i18n="record.title">Experience and evidence timeline</h2></header>
   <div class="timeline">
-    <article><time>2022</time><div><span class="record-type" data-i18n="record.type.competition">COMPETITION</span><h3 data-i18n="record.amu">AMU “Unity in Diversity” poetry participation</h3><p data-i18n="record.amuText">Online self-composed poem competition organised by Sarojini Naidu Hall, Aligarh Muslim University.</p></div><span class="badge">SUPPLIED DOCUMENT</span></article>
-    <article><time>NOV–DEC 2025</time><div><span class="record-type" data-i18n="record.type.work">WORK / OPERATIONS</span><h3 data-i18n="record.ops">Documentation & Client Operations Assistant</h3><p data-i18n="record.opsText">Processed 60+ government-related applications involving data collection, document validation, form completion and OTP-based authentication. Employer name is intentionally not invented.</p></div><span class="badge">SUPPLIED DOCUMENT</span></article>
-    <article><time>08 DEC 2025</time><div><span class="record-type" data-i18n="record.type.volunteering">VOLUNTEERING</span><h3>DPG Dialogues 2025 · Volunteer</h3><p data-i18n="record.dpgText">Supported event coordination and on-ground operations; certificate issued by the C4GT Organising Team.</p></div><span class="badge">SUPPLIED DOCUMENT</span></article>
-    <article><time>JAN 2026 →</time><div><span class="record-type" data-i18n="record.type.contribution">CONTRIBUTION</span><h3>United Nations Volunteers · Contributor</h3><p data-i18n="record.unvText">Listed in the supplied résumé as an active contributor. No public issuer record is currently linked here, so this item is not given a verification badge.</p></div><span class="badge self">SELF-REPORTED</span></article>
-    <article><time>AUG 2026 →</time><div><span class="record-type" data-i18n="record.type.academic">ACADEMIC PATHWAY</span><h3>IIT Madras · BS in Data Science and Applications · Qualifier level</h3><p data-i18n="record.iitmText">Registered in the qualifier-stage admissions pathway. Supplied IITM portal screenshots show the application fee paid, application accepted with documents under verification, and dashboard level marked QUALIFIER. I plan to sit the qualifier examination in November 2026.</p></div><span class="badge">PORTAL EVIDENCE</span></article>
-    <article><time>2026</time><div><span class="record-type" data-i18n="record.type.learning">PROJECTS / RESEARCH / LEARNING</span><h3 data-i18n="record.now">Software, research and open-science practice</h3><p data-i18n="record.nowText">Projects, research manuscripts, Google credentials, NASA Open Science Essentials, active IITM data-science qualification work, and a parallel plan for formal Electronics/ECE/Mechatronics study.</p></div><span class="badge">MIXED EVIDENCE</span></article>
+    <article data-kind="competition"><time>2022</time><div><span class="record-type" data-i18n="record.type.competition">COMPETITION</span><h3 data-i18n="record.amu">AMU “Unity in Diversity” poetry participation</h3><p data-i18n="record.amuText">Online self-composed poem competition organised by Sarojini Naidu Hall, Aligarh Muslim University.</p></div><span class="badge">SUPPLIED DOCUMENT</span></article>
+    <article data-kind="employment"><time>NOV–DEC 2025</time><div><span class="record-type" data-i18n="record.type.work">EMPLOYMENT / OPERATIONS</span><h3 data-i18n="record.ops">Documentation & Client Operations Assistant</h3><p data-i18n="record.opsText">Processed 60+ government-related applications involving data collection, document validation, form completion and OTP-based authentication. Employer name is intentionally not invented.</p></div><span class="badge">SUPPLIED DOCUMENT</span></article>
+    <article data-kind="volunteering"><time>08 DEC 2025</time><div><span class="record-type" data-i18n="record.type.volunteering">VOLUNTEERING</span><h3>DPG Dialogues 2025 · Volunteer</h3><p data-i18n="record.dpgText">Supported event coordination and on-ground operations; certificate issued by the C4GT Organising Team.</p></div><span class="badge">SUPPLIED DOCUMENT</span></article>
+    <article data-kind="self-reported"><time>JAN 2026 →</time><div><span class="record-type" data-i18n="record.type.contribution">CONTRIBUTION · SELF-REPORTED</span><h3>United Nations Volunteers · Contributor</h3><p data-i18n="record.unvText">Listed in the supplied résumé as an active contributor. No public issuer record is currently linked here, so this item is not given a verification badge.</p></div><span class="badge self">SELF-REPORTED</span></article>
+    <article data-kind="project"><time>MAY 2026</time><div><span class="record-type">PROJECT</span><h3>Halim Nexus AI + StudySyncEngine</h3><p>Two public repositories document the implementation; Halim Nexus AI also links to a live Streamlit app.</p></div><span class="badge">PUBLIC SOURCE</span></article>
+    <article data-kind="research"><time>23 JUN 2026</time><div><span class="record-type">RESEARCH</span><h3>Healthcare AI review · preprint</h3><p>Public, non-peer-reviewed preprint. The associated journal submission was not accepted.</p></div><span class="badge">PUBLIC SOURCE</span></article>
+    <article data-kind="research"><time>2026</time><div><span class="record-type">RESEARCH</span><h3>METABASIS / Books vs. Reels</h3><p>Independent manuscript; no peer-reviewed publication claim is made.</p></div><span class="badge">SUPPLIED DOCUMENT</span></article>
+    <article data-kind="academic"><time>AUG 2026 →</time><div><span class="record-type" data-i18n="record.type.academic">ACADEMIC PATHWAY</span><h3>IIT Madras · BS in Data Science and Applications · Qualifier level</h3><p data-i18n="record.iitmText">Registered in the qualifier-stage admissions pathway. Supplied IITM portal screenshots show the application fee paid, application accepted with documents under verification, and dashboard level marked QUALIFIER. I plan to sit the qualifier examination in November 2026.</p></div><span class="badge portal">PORTAL EVIDENCE</span></article>
   </div>
 </section>
 
 <section class="indexed defer-render" id="capabilities">
   <header class="section-head"><p>08 / CAPABILITY MATRIX</p><h2 data-i18n="skills.title">Skills tied to work, not percentages</h2><p data-i18n="skills.evidenceIntro">Primary capabilities link to public work or issuer-backed learning. Tools without comparable public evidence remain visible, but at lower evidence weight.</p></header>
   <div class="matrix evidence-matrix">
-    <article><span>PUBLIC PROJECTS</span><a href="#project-halim">Python</a><a href="#project-halim">Streamlit</a><a href="#project-halim">SQLite</a><a href="#project-study">Tkinter</a><a href="#project-study">Watchdog</a><a href="#project-study">OCR</a></article>
-    <article><span>AI / DATA</span><a href="#project-halim">Google GenAI SDK</a><a href="#project-halim">Gemini</a><a href="#project-halim">AI-assisted evaluation</a><a href="#academic-path">Data science · active pathway</a></article>
-    <article><span>SYSTEMS</span><a href="#project-study">Event-driven architecture</a><a href="#project-study">Pub/sub workflow</a><a href="#project-halim">Relational persistence</a><a href="#project-study">Local processing</a></article>
-    <article><span>ISSUER-BACKED LEARNING</span><a href="#cred-cloud-network">Google Cloud networking</a><a href="#cred-kubernetes">Kubernetes / GKE</a><a href="#cred-ai-pro">Google AI learning</a><a href="#cred-nasa">Open science</a></article>
-    <article><span>RESEARCH PRACTICE</span><a href="#research-healthcare">Literature synthesis</a><a href="#research-healthcare">Research writing</a><a href="#open-science">Open-science practice</a><a href="#research-metabasis">Concept development</a></article>
+    <article><span>PROJECT EVIDENCE</span><small class="matrix-source">EV-PROJECT-001 · EV-PROJECT-002</small><a href="#project-halim">Python</a><a href="#project-halim">Streamlit</a><a href="#project-halim">SQLite</a><a href="#project-study">Tkinter</a><a href="#project-study">Watchdog</a><a href="#project-study">OCR</a></article>
+    <article><span>AI / DATA</span><small class="matrix-source">EV-PROJECT-001 · EV-EDU-001</small><a href="#project-halim">Google GenAI SDK</a><a href="#project-halim">Gemini</a><a href="#project-halim">AI-assisted evaluation</a><a href="#academic-path">Data science · active pathway</a></article>
+    <article><span>SYSTEMS</span><small class="matrix-source">EV-PROJECT-001 · EV-PROJECT-002</small><a href="#project-study">Event-driven architecture</a><a href="#project-study">Pub/sub workflow</a><a href="#project-halim">Relational persistence</a><a href="#project-study">Local processing</a></article>
+    <article><span>ISSUER-BACKED LEARNING</span><small class="matrix-source">EV-CERT-001..005</small><a href="#cred-cloud-network">Google Cloud networking</a><a href="#cred-kubernetes">Kubernetes / GKE</a><a href="#cred-ai-pro">Google AI learning</a><a href="#cred-nasa">Open science</a></article>
+    <article><span>RESEARCH PRACTICE</span><small class="matrix-source">EV-RESEARCH-001 · EV-RESEARCH-002</small><a href="#research-healthcare">Literature synthesis</a><a href="#research-healthcare">Research writing</a><a href="#open-science">Open-science practice</a><a href="#research-metabasis">Concept development</a></article>
     <article class="secondary-skills"><span>SUPPLIED RECORD / LOWER EVIDENCE WEIGHT</span><i>TypeScript</i><i>Flutter</i><i>Docker</i><i>Linux</i></article>
   </div>
 </section>

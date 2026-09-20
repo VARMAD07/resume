@@ -20,19 +20,17 @@ Change:
 
 ```json
 "status": "QUALIFIER PATHWAY",
-"statusDate": "SEP 2026",
-"nextState": "QUALIFIED"
+"statusDate": "SEP 2026"
 ```
 
 to the verified state, for example:
 
 ```json
 "status": "QUALIFIED",
-"statusDate": "NOV 2026",
-"nextState": "ADMITTED"
+"statusDate": "NOV 2026"
 ```
 
-Then append a `QUALIFIED` history object with the actual evidence type/date. Do not remove the earlier `QUALIFIER PATHWAY` history.
+Then append a `QUALIFIED` history object with the actual evidence type/date. Do not remove the earlier `QUALIFIER PATHWAY` history. The next possible state is then derived automatically as `ADMITTED` from the centralized transition model.
 
 ## Non-negotiable
 
@@ -56,7 +54,6 @@ node scripts/update_status.mjs academics.iitm \
   --sort=20261100 \
   --evidence-type="PORTAL EVIDENCE" \
   --note="Qualifier milestone completed and supported by the updated portal record." \
-  --next="ADMITTED" \
   --as-of="NOV 2026" \
   --changelog="IIT Madras qualifier status updated"
 ```

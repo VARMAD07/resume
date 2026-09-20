@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from "node:fs";
-const state=JSON.parse(fs.readFileSync("data/portfolio-state.json","utf8"));\nif(state.schemaVersion!==2) throw new Error("Expected portfolio state schemaVersion 2.");
+const state=JSON.parse(fs.readFileSync("data/portfolio-state.json","utf8"));
+if(state.schemaVersion!==2) throw new Error("Expected portfolio state schemaVersion 2.");
 
 const requiredStatuses=new Set(Object.keys(state.statusDefinitions||{}));
 const evidenceTypes=new Set(["PUBLIC SOURCE","ISSUER RECORD","SUPPLIED DOCUMENT","PORTAL EVIDENCE","SELF-REPORTED"]);

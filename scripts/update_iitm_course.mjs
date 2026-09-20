@@ -37,12 +37,8 @@ const curriculum=JSON.parse(fs.readFileSync(CURRICULUM_FILE,"utf8"));
 const allowed=new Set(curriculum.personalCourseStatuses.allowed);
 if(!allowed.has(opts.status)) throw new Error("Unsupported IITM course status: "+opts.status);
 
-const allCourses=[];
-for(const layer of curriculum.layers||[]){
-  allCourses.push(...(layer.courses||[]),...(layer.coreCourses||[]));
-  for(const track of layer.optionTracks||[]) allCourses.push(...(track.courses||[]));
-}
-if(!allCourses.some(c=>c.code===code)) throw new Error("Course code not found in official curriculum data: "+code);
+const allCourseCodes=new Set(Object.keys(curriculum.courses||{}));
+if(!allCourseCodes.has(code)) throw new Error("Course code not found in official curriculum data: "+code);
 
 state.academics.iitm.courseStatuses=state.academics.iitm.courseStatuses||{};
 const current=state.academics.iitm.courseStatuses[code]||{history:[]};

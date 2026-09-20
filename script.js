@@ -229,7 +229,7 @@ const index=[
 {label:"Contact",meta:"EMAIL / LinkedIn / GitHub / ORCID",href:"#contact"},
 {label:"Halim Nexus AI",meta:"PROJECT / Python / AI / SQLite / Twilio",href:"#work"},
 {label:"StudySyncEngine",meta:"PROJECT / OCR / local automation / privacy",href:"#work"},
-{label:"AI-Assisted Healthcare Systems",meta:"RESEARCH / preprint / methodology / Zenodo",href:"#research"},
+{label:"AI-Assisted Healthcare Systems",meta:"RESEARCH / status history / methodology / Zenodo",href:"#research"},
 {label:"METABASIS / Books vs. Reels",meta:"RESEARCH / context compression",href:"#research"},
 {label:"IIT Madras BS Data Science and Applications",meta:"ACADEMIC / current state / portal evidence",href:"#academic-path"},
 {label:"DPG Dialogues 2025",meta:"EXPERIENCE / public-interest systems",href:"#experience"},

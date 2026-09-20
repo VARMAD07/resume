@@ -21,12 +21,19 @@ on:
   pull_request:
     paths:
       - "index.html"
+      - "styles.css"
+      - "script.js"
+      - "iitm-learning.js"
+      - "sw.js"
       - "assets/**"
+      - "data/**"
+      - "translations/**"
       - "scripts/check_internal_links.py"
-      - "data/portfolio-state.json"
-      - "data/iitm-curriculum.json"
+      - "scripts/check_public_privacy.py"
       - "scripts/check_portfolio_state.mjs"
       - "scripts/check_iitm_curriculum.mjs"
+      - "scripts/update_status.mjs"
+      - "scripts/update_iitm_course.mjs"
   workflow_dispatch:
 
 permissions:

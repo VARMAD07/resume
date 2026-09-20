@@ -57,6 +57,10 @@ async function assert(name,condition,details={}){
   await assert("current academics includes school and IITM",academicDashboardText.includes(state.academics.school.shortLabel)&&academicDashboardText.includes(state.academics.iitm.shortLabel),{academicDashboardText});
   await assert("future engineering path stays out of current academics",!academicDashboardText.includes(state.academics.engineering.shortLabel),{academicDashboardText});
   await assert("IITM current status propagates from source of truth",(await page.locator('[data-state-status="academics.iitm.status"]').first().innerText()).trim()===state.academics.iitm.status,{dom:await page.locator('[data-state-status="academics.iitm.status"]').first().innerText(),state:state.academics.iitm.status});
+  await assert("IITM next state is not duplicated in source data",!Object.prototype.hasOwnProperty.call(state.academics.iitm,"nextState"),{rawIitm:state.academics.iitm});
+  const expectedIitmNext=state.transitionModels?.[state.academics.iitm.transitionModel]?.[state.academics.iitm.status]??null;
+  const renderedIitmNext=(await page.locator('[data-state="academics.iitm.nextState"]').first().innerText()).trim();
+  await assert("IITM next state derives from one current status value",expectedIitmNext===renderedIitmNext,{expectedIitmNext,renderedIitmNext,current:state.academics.iitm.status});
   await assert("engineering current status propagates from source of truth",(await page.locator('[data-state-status="academics.engineering.status"]').first().innerText()).trim()===state.academics.engineering.status,{dom:await page.locator('[data-state-status="academics.engineering.status"]').first().innerText(),state:state.academics.engineering.status});
   await assert("status milestone timeline is generated",(await page.locator("#status-timeline article").count())>=6,{count:await page.locator("#status-timeline article").count()});
   await assert("academic copy has no stale exam prediction",!(await page.locator("#academic-path").innerText()).match(/will sit|I plan to|next month|next year|preparing to/i));

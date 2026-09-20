@@ -874,8 +874,9 @@ html[dir="rtl"] .section-head{
 .instrument dd{line-height:1.45}
 
 .selected-highlights{scroll-margin-top:90px}
-.highlight-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
-.highlight-card{min-height:272px}
+.highlight-grid{grid-template-columns:repeat(6,minmax(0,1fr))}
+.highlight-card{grid-column:span 2;min-height:272px}
+.highlight-card:nth-child(4),.highlight-card:nth-child(5){grid-column:span 3}
 .highlight-card p{font-size:12.5px}
 .highlight-card .highlight-type{min-height:28px}
 
@@ -941,7 +942,8 @@ html[dir="rtl"] .section-head{
 .contact-purpose{margin:5px 0 0;color:var(--muted);font-size:11px}
 
 @media(max-width:1280px){
-  .highlight-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .highlight-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .highlight-card,.highlight-card:nth-child(4),.highlight-card:nth-child(5){grid-column:auto}
   .track-logic{grid-template-columns:1fr auto 1fr}
   .track-logic>.track-step:nth-of-type(3),.track-logic>.track-step:nth-of-type(4){margin-top:0}
   .track-logic>i:nth-of-type(3){display:none}

@@ -60,7 +60,9 @@ if(state.academics?.iitm?.status==="QUALIFIER PATHWAY" && /admitted|enrolled|act
 if(!Array.isArray(state.capabilities?.currentExperience)||!state.capabilities.currentExperience.length) errors.push("capabilities.currentExperience must be a non-empty array");
 if(!Array.isArray(state.capabilities?.activeLearning)||!state.capabilities.activeLearning.length) errors.push("capabilities.activeLearning must be a non-empty array");
 if(!Array.isArray(state.capabilities?.futureDirection)||!state.capabilities.futureDirection.length) errors.push("capabilities.futureDirection must be a non-empty array");
-if(!nonEmpty(state.asOf)) errors.push("asOf missing");\nif(!nonEmpty(state.lastVerified)) errors.push("lastVerified missing");\nif(!nonEmpty(state.validityWindow)) errors.push("validityWindow missing");
+if(!nonEmpty(state.asOf)) errors.push("asOf missing");
+if(!nonEmpty(state.lastVerified)) errors.push("lastVerified missing");
+if(!nonEmpty(state.validityWindow)) errors.push("validityWindow missing");
 
 if(errors.length){
   console.error("Portfolio state validation failed:");

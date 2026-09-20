@@ -1347,3 +1347,14 @@ html:not([data-state-ready]) [data-state-list-inline]{color:var(--muted)}
   .iitm-program-lockup>span{display:block;margin-bottom:7px}
   .iitm-program-lockup h3{margin-bottom:9px}
 }
+
+.curriculum-architecture-note{
+  grid-column:1/-1;
+  margin:0;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  background:color-mix(in srgb,var(--panel) 96%,var(--bg));
+  color:var(--muted);
+  font:700 9px/1.55 ui-monospace,monospace;
+  letter-spacing:.05em
+}

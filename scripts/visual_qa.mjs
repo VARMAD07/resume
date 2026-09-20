@@ -76,9 +76,9 @@ async function assert(name,condition,details={}){
   await assert("site has no stale qualifier-exam prediction",!(await page.locator("body").innerText()).match(/I plan to sit the qualifier|will sit the qualifier examination/i));
   await assert("capability state buckets render",(await page.locator(".capability-state-grid article").count())===3,{count:await page.locator(".capability-state-grid article").count()});
   await assert("portfolio changelog renders",(await page.locator("#portfolio-changelog li").count())>=4,{count:await page.locator("#portfolio-changelog li").count()});
-  await assert("final production pass is recorded",(await page.locator("#portfolio-changelog").innerText()).includes("FINAL PRODUCTION PASS"),{text:await page.locator("#portfolio-changelog").innerText()});
+  const changelogText=await page.locator("#portfolio-changelog").textContent();\n  await assert("final production pass is recorded",(changelogText||"").includes("FINAL PRODUCTION PASS"),{text:changelogText});
   await assert("international section is future-facing",(await page.locator("text=INTERNATIONAL DIRECTION").count())===1&&!(await page.locator("body").innerText()).includes("INTERNATIONAL STUDY"),{international:await page.locator(".route").innerText()});
-  await assert("language proficiency is labelled self-assessment",(await page.locator(".language-assessment").innerText()).includes("SELF-ASSESSMENT"),{label:await page.locator(".language-assessment").innerText()});
+  const languageAssessmentText=await page.locator(".language-assessment").textContent();\n  await assert("language proficiency is labelled self-assessment",(languageAssessmentText||"").includes("SELF-ASSESSMENT"),{label:languageAssessmentText});
   await page.locator("#iitm-learning").scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>document.documentElement.dataset.iitmLearningReady==="true");
   const curriculum=await page.evaluate(()=>fetch("data/iitm-curriculum.json",{cache:"no-cache"}).then(r=>r.json()));

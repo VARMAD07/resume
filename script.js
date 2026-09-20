@@ -66,9 +66,14 @@ const getState=(path,root=portfolioState)=>path.split(".").reduce((value,key)=>v
 function deriveTransitions(state){
   for(const group of [state.academics,state.projects,state.research]){
     for(const item of Object.values(group||{})){
-      if(!item?.transitionModel) continue;
-      const model=state.transitionModels?.[item.transitionModel];
-      item.nextState=model&&Object.prototype.hasOwnProperty.call(model,item.status)?model[item.status]:null;
+      if(item?.transitionModel){
+        const model=state.transitionModels?.[item.transitionModel];
+        item.nextState=model&&Object.prototype.hasOwnProperty.call(model,item.status)?model[item.status]:null;
+      }
+      if(item?.activityModel){
+        const presentation=state.presentationModels?.[item.activityModel];
+        item.activityStatus=presentation?.[item.status]||item.status;
+      }
     }
   }
   return state;
@@ -94,6 +99,11 @@ async function loadIitmCurriculum(){
   }catch(error){
     console.error("IITM curriculum data unavailable",error);
     document.documentElement.dataset.iitmLearningReady="error";
+    const mode=$("#iitm-learning-mode");if(mode)mode.textContent="Curriculum view unavailable";
+    const verified=$("#iitm-curriculum-verified");if(verified)verified.textContent="See official source";
+    for(const id of ["#iitm-completed-courses","#iitm-current-courses","#iitm-upcoming-courses"]){
+      const el=$(id);if(el){el.replaceChildren();const p=document.createElement("p");p.className="course-state-empty";p.textContent="Curriculum data unavailable; use the official IIT Madras source above.";el.append(p);}
+    }
   }
 }
 
@@ -220,7 +230,15 @@ function renderPortfolioState(state){
   if(changelog){
     changelog.replaceChildren();
     [...(state.changelog||[])].sort((a,b)=>(b.sortKey||0)-(a.sortKey||0)).forEach(entry=>{
-      const li=document.createElement("li");const time=document.createElement("time");time.textContent=entry.date;const span=document.createElement("span");span.textContent=entry.text;li.append(time,span);changelog.append(li);
+      const li=document.createElement("li");
+      const time=document.createElement("time");time.textContent=entry.date;
+      const body=document.createElement("span");
+      if(entry.title){
+        const title=document.createElement("b");title.textContent=entry.title;
+        const text=document.createElement("small");text.textContent=entry.text;
+        body.append(title,text);
+      }else body.textContent=entry.text;
+      li.append(time,body);changelog.append(li);
     });
   }
 }
@@ -232,6 +250,14 @@ async function loadPortfolioState(){
   }catch(error){
     console.error("Portfolio status data unavailable",error);
     document.documentElement.dataset.stateReady="error";
+    document.querySelectorAll("[data-state],[data-state-status],[data-state-list-inline]").forEach(el=>{
+      el.textContent="Status unavailable";
+      el.removeAttribute("data-status");
+    });
+    document.querySelectorAll("[data-state-list]").forEach(el=>{
+      el.replaceChildren();
+      const li=document.createElement("li");li.textContent="Status unavailable";el.append(li);
+    });
     const current=$("#current-status");
     if(current){const note=document.createElement("p");note.className="status-load-error";note.textContent="Current status data could not be loaded. Stable portfolio content remains available below.";current.append(note);}
   }

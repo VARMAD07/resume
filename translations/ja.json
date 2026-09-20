@@ -332,5 +332,7 @@
   "review.directionValue": "電子工学＋組込みシステム",
   "review.evidence": "根拠",
   "review.evidenceValue": "GitHub · Zenodo · 発行元記録",
-  "lang.assessment": "言語 · 自己評価"
+  "lang.assessment": "言語 · 自己評価",
+  "iitmLearning.modeQualifier": "Qualifier準備 / カリキュラム表示",
+  "iitmLearning.verifiedUnavailable": "公式情報源を確認"
 }

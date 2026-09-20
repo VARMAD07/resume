@@ -6,7 +6,7 @@ The live portfolio is designed so normal milestone updates happen from one sourc
 
 ## Normal update workflow
 
-The same state file also controls the concise reviewer summary and current-status dashboard. `profile.stage`, `profile.stageDate` and `academics.school` carry the current school stage. Future-only paths such as `academics.engineering` use `dashboard: false` until they become a verified current academic state.
+The same state file also controls the concise reviewer summary and current-status dashboard. The IITM verified programme state remains the authoritative value; `presentationModels → iitmActivity` derives the human-readable current activity label (for example, `QUALIFIER PATHWAY` → `PREPARING`) without storing a second independent status. `profile.stage`, `profile.stageDate` and `academics.school` carry the current school stage. Future-only paths such as `academics.engineering` use `dashboard: false` until they become a verified current academic state.
 
 1. Change the relevant item's `status`, `statusDate`, `evidence` and optional `note`.
 2. Append the verified state to that item's `history` instead of deleting meaningful history.
@@ -67,7 +67,7 @@ The official curriculum snapshot used by the portfolio is:
 
 `data/iitm-curriculum.json`
 
-It was verified against the official IIT Madras BS Data Science and Applications Academics and Admissions pages in September 2026.
+It was verified against the official IIT Madras BS Data Science and Applications Academics and Admissions pages on 20 September 2026.
 
 Personal course states live only in:
 

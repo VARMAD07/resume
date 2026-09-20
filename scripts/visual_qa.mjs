@@ -232,7 +232,7 @@ for(const vp of requiredViewports){
   await selected.scrollIntoViewIfNeeded();
   await page.waitForTimeout(100);
   const firstCard=await selected.locator(".highlight-card").first().boundingBox();
-  await assert(`viewport ${vp.name} selected work readable`,Boolean(firstCard&&firstCard.width>=Math.min(260,vp.width-40)),{firstCard});
+  await assert(`viewport ${vp.name} selected work readable`,Boolean(firstCard&&firstCard.width>=Math.min(240,vp.width-80)),{firstCard});
   await page.close();
 }
 

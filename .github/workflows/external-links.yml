@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - "index.html"
+      - "data/portfolio-state.json"
+      - "data/iitm-curriculum.json"
       - "scripts/check_external_links.py"
       - ".github/workflows/external-links.yml"
   schedule:

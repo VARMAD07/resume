@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - "index.html"
+      - "sw.js"
+      - "styles.css"
+      - "iitm-learning.js"
+      - "script.js"
       - "assets/**"
       - "scripts/check_internal_links.py"
       - "scripts/check_public_privacy.py"

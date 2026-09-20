@@ -217,7 +217,7 @@
       <p data-state="academics.iitm.note">—</p>
       <div class="status-grid four-state"><span><b data-i18n="state.current">CURRENT STATUS</b><em data-state-status="academics.iitm.status">—</em></span><span><b data-i18n="state.date">STATUS DATE</b><em data-state="academics.iitm.statusDate">—</em></span><span><b data-i18n="state.evidence">EVIDENCE</b><em data-state="academics.iitm.evidence.type">—</em></span><span data-next-state-wrap><b data-i18n="state.next">NEXT STATUS IF VERIFIED</b><em data-state="academics.iitm.nextState">—</em></span></div>
       <details class="state-history"><summary data-i18n="state.history">Status history</summary><ol data-history-source="academics.iitm"></ol></details>
-      <div class="case-links"><a href="https://study.iitm.ac.in/ds/" target="_blank" rel="noopener" data-i18n="path.program">Official programme site ↗</a><a href="#ev-edu-001" data-i18n="path.evidence">Evidence status ↓</a></div>
+      <div class="case-links"><a href="https://study.iitm.ac.in/ds/" target="_blank" rel="noopener" data-i18n="path.program">Official programme site ↗</a><a href="#iitm-learning" data-i18n="path.learning">Learning trajectory ↓</a><a href="#ev-edu-001" data-i18n="path.evidence">Evidence status ↓</a></div>
     </article>
     <article class="path-card planned-track">
       <div class="case-top"><span>TRACK B / SEPARATE PATHWAY</span><span class="badge self" data-state-status="academics.engineering.status">—</span></div>
@@ -241,8 +241,85 @@
   <p class="privacy-note" data-i18n="path.privacy">Private portal evidence is used only to support the public status label. Account, contact, payment and dashboard details are not republished.</p>
 </section>
 
+<section class="indexed iitm-learning" id="iitm-learning">
+  <header class="section-head">
+    <p>01 / IITM LEARNING TRAJECTORY</p>
+    <h2 data-i18n="iitmLearning.title">What the curriculum adds</h2>
+    <p data-i18n="iitmLearning.intro">Official IIT Madras curriculum structure, translated into a learning progression without presenting planned coursework as completed expertise.</p>
+  </header>
+
+  <div class="iitm-sourcebar">
+    <div><span data-i18n="iitmLearning.currentStatus">CURRENT PROGRAMME STATUS</span><b data-state-status="academics.iitm.status">—</b></div>
+    <div><span data-i18n="iitmLearning.displayMode">DISPLAY MODE</span><b id="iitm-learning-mode">—</b></div>
+    <div><span data-i18n="iitmLearning.source">OFFICIAL SOURCE</span><a href="https://study.iitm.ac.in/ds/academics.html" target="_blank" rel="noopener">IIT Madras Academics ↗</a></div>
+    <div><span data-i18n="iitmLearning.verified">CURRICULUM VERIFIED</span><b id="iitm-curriculum-verified">—</b></div>
+  </div>
+
+  <aside class="iitm-source-note">
+    <b data-i18n="iitmLearning.discipline">SOURCE DISCIPLINE</b>
+    <p data-i18n="iitmLearning.disciplineText">Course names and programme structure come from the current official IIT Madras pages. The progression, project links and software–electronics synthesis are portfolio interpretations, not institutional claims.</p>
+  </aside>
+
+  <div class="iitm-course-state" aria-label="Personal IIT Madras course status">
+    <article>
+      <span data-i18n="iitmLearning.completed">COMPLETED / PASSED</span>
+      <div id="iitm-completed-courses" class="course-state-list"></div>
+    </article>
+    <article>
+      <span data-i18n="iitmLearning.current">CURRENTLY LEARNING</span>
+      <div id="iitm-current-courses" class="course-state-list"></div>
+    </article>
+    <article>
+      <span data-i18n="iitmLearning.upcoming">UPCOMING IN CURRICULUM</span>
+      <div id="iitm-upcoming-courses" class="course-state-list"></div>
+    </article>
+  </div>
+
+  <div class="iitm-progression" aria-label="Portfolio interpretation of the official curriculum progression" id="iitm-progression"></div>
+
+  <div class="iitm-learning-layers" id="iitm-learning-layers" aria-live="polite"></div>
+
+  <section class="iitm-connections" aria-labelledby="iitm-connections-title">
+    <header>
+      <span data-i18n="iitmLearning.connectionsKicker">ACADEMIC CONNECTIONS · NOT CHRONOLOGY CLAIMS</span>
+      <h3 id="iitm-connections-title" data-i18n="iitmLearning.connectionsTitle">How the curriculum connects to work already in the portfolio</h3>
+      <p data-i18n="iitmLearning.connectionsIntro">These links explain conceptual overlap. They do not imply that a project was built after completing a course unless a later academic record explicitly proves that chronology.</p>
+    </header>
+    <div id="iitm-academic-connections" class="academic-connections-grid"></div>
+  </section>
+
+  <div class="iitm-profile-synthesis">
+    <article>
+      <span data-i18n="iitmLearning.before">EXISTING EVIDENCE</span>
+      <h3>Software · Automation · Project Building · Early Research</h3>
+      <p data-i18n="iitmLearning.beforeText">Public projects and research records exist independently of later IITM coursework.</p>
+    </article>
+    <article>
+      <span data-i18n="iitmLearning.adds">CURRICULUM CONTRIBUTION</span>
+      <h3>Mathematical Rigour · Statistical Reasoning · Data Systems · ML / AI · Software Engineering</h3>
+      <p data-i18n="iitmLearning.addsText">This describes the official programme trajectory, not coursework already completed by the portfolio owner.</p>
+    </article>
+    <article>
+      <span data-i18n="iitmLearning.intersection">PERSONAL LONG-TERM SYNTHESIS</span>
+      <h3>Software × Data × AI × Electronics × Physical Systems</h3>
+      <p data-i18n="iitmLearning.intersectionText">The eventual intersection is a personal engineering direction, not an IIT Madras endorsement and not a claim of present expertise.</p>
+    </article>
+  </div>
+
+  <div class="iitm-intersection" id="iitm-long-term-intersection">
+    <div><span data-i18n="iitmLearning.longTerm">LONG-TERM INTERSECTION</span><b data-i18n="iitmLearning.longTermNote">Direction only · no current-expertise claim</b></div>
+    <div id="iitm-intersection-areas" class="intersection-areas"></div>
+  </div>
+
+  <div class="case-links iitm-official-links">
+    <a href="https://study.iitm.ac.in/ds/academics.html" target="_blank" rel="noopener">Official curriculum ↗</a>
+    <a href="https://study.iitm.ac.in/ds/admissions.html" target="_blank" rel="noopener">Official qualifier process ↗</a>
+    <a href="#academic-path">Current academic state ↑</a>
+  </div>
+</section>
+
 <section class="indexed reviewer-optional defer-render">
-  <header class="section-head"><p>01 / ORIENTATION</p><h2 data-i18n="identity.title">Identity map</h2></header>
+  <header class="section-head"><p>02 / ORIENTATION</p><h2 data-i18n="identity.title">Identity map</h2></header>
   <div class="identity">
     <article><span>BUILD</span><h3>Python · AI · Automation · Cloud</h3><p data-i18n="identity.build">Practical software systems, local workflows and AI-assisted tools.</p></article>
     <article><span>RESEARCH</span><h3 data-i18n="identity.rh">Human-centred AI · Information systems · Open science</h3><p data-i18n="identity.r">Questions about implementation, evidence, cognition and reproducibility.</p></article>
@@ -253,7 +330,7 @@
 </section>
 
 <section class="indexed reviewer-optional defer-render">
-  <header class="section-head"><p>02 / ORIGIN</p><h2 data-i18n="origins.title">Why I build</h2><p data-i18n="origins.intro">Most of the questions that shaped me did not look important when they began.</p></header>
+  <header class="section-head"><p>03 / ORIGIN</p><h2 data-i18n="origins.title">Why I build</h2><p data-i18n="origins.intro">Most of the questions that shaped me did not look important when they began.</p></header>
   <div class="origin-grid">
     <article><em>01</em><h3 data-i18n="origins.remote">A missing remote</h3><p data-i18n="origins.remoteText">An ordinary workaround became a question about invisible communication between devices.</p></article>
     <article><em>02</em><h3 data-i18n="origins.phone">A stolen phone</h3><p data-i18n="origins.phoneText">Independent searching turned “nothing can be done” into a lesson about tracing systems and persistence.</p></article>
@@ -263,7 +340,7 @@
 </section>
 
 <section class="indexed" id="next">
-  <header class="section-head"><p>03 / SYSTEM LAYERS</p><h2 data-i18n="layers.title">Across software and silicon</h2><p data-i18n="layers.intro">This map separates demonstrated experience, active learning and longer-term direction across computational and physical layers.</p></header>
+  <header class="section-head"><p>04 / SYSTEM LAYERS</p><h2 data-i18n="layers.title">Across software and silicon</h2><p data-i18n="layers.intro">This map separates demonstrated experience, active learning and longer-term direction across computational and physical layers.</p></header>
   <div class="roadmap-legend"><span class="current-key">CURRENT EXPERIENCE</span><span class="active-key">ACTIVE STUDY</span><span class="bridge-key">BRIDGE</span><span class="next-key">PLANNED LEARNING</span></div>
   <ol class="system-roadmap" aria-label="System layers roadmap">
     <li class="current"><b>01</b><div><small data-i18n="layers.current">current experience</small><strong>APPLICATIONS</strong><span data-i18n="layers.app">Interfaces, workflows and user-facing systems</span></div></li>
@@ -278,7 +355,7 @@
 </section>
 
 <section class="indexed" id="work">
-  <header class="section-head"><p>04 / BUILD</p><h2 data-i18n="work.title">Project case files</h2><p data-i18n="work.intro">Projects are shown with the same things that matter in engineering: problem, architecture, decisions, limitations and evidence.</p></header>
+  <header class="section-head"><p>05 / BUILD</p><h2 data-i18n="work.title">Project case files</h2><p data-i18n="work.intro">Projects are shown with the same things that matter in engineering: problem, architecture, decisions, limitations and evidence.</p></header>
   <div class="project-grid">
     <article class="case" id="project-halim" data-search="Halim Nexus AI Python Streamlit SQLite Gemini Twilio">
       <div class="case-top"><span>PROJECT / 01 · <time data-state="projects.halim.statusDate">—</time></span><span class="badge" data-state-status="projects.halim.status">—</span></div><h3>Halim Nexus AI</h3><p class="sub" data-i18n="halim.sub">Educational software system</p>
@@ -339,7 +416,7 @@
 </section>
 
 <section class="indexed" id="research">
-  <header class="section-head"><p>05 / RESEARCH NOTEBOOK</p><h2 data-i18n="research.title">Research, including what did not survive review</h2><p data-i18n="research.intro">The point of the record is not to hide critique. It is to show what changed because of it.</p></header>
+  <header class="section-head"><p>06 / RESEARCH NOTEBOOK</p><h2 data-i18n="research.title">Research, including what did not survive review</h2><p data-i18n="research.intro">The point of the record is not to hide critique. It is to show what changed because of it.</p></header>
   <article class="research-card" id="research-healthcare" data-search="AI-Assisted Healthcare Systems preprint implementation gap human centred">
     <div class="research-id"><span>RESEARCH / 01</span><span class="badge" data-state-status="research.healthcare.status">—</span></div>
     <div class="research-statusbar critical-status" aria-label="Research status"><span><b>CURRENT STATUS</b><em data-state-status="research.healthcare.status">—</em></span><span><b>LAST UPDATED</b><em data-state="research.healthcare.statusDate">—</em></span><span><b>SOURCE</b><a data-state-href="research.healthcare.sourceHref" data-state="research.healthcare.source">—</a></span><span><b>REVIEW</b><em data-state="research.healthcare.peerReview">—</em></span><span><b>PRIOR SUBMISSION</b><em data-state="research.healthcare.priorSubmissionOutcome">—</em></span></div><h3>AI-Assisted Healthcare Systems: Bridging the Implementation Gap Through a Human-Centered Perspective</h3><p data-i18n="r1.summary">An independent review of 18 peer-reviewed studies across clinical support, documentation, patient engagement, accessibility and governance, focused on human oversight and implementation barriers.</p>
@@ -374,7 +451,7 @@
 </section>
 
 <section class="indexed dpg" id="public-systems">
-  <header class="section-head"><p>06 / PUBLIC-INTEREST SYSTEMS</p><h2 data-i18n="dpg.title">From one device to a public system</h2></header>
+  <header class="section-head"><p>07 / PUBLIC-INTEREST SYSTEMS</p><h2 data-i18n="dpg.title">From one device to a public system</h2></header>
   <div class="dpg-grid">
     <div class="dpg-media dpg-media-updated">
       <a class="media-card feature group-photo-card" href="https://drive.google.com/file/d/1EbkE4S8AxSuEUb0Y--eKOeO0nkXhLnwC/view?usp=drivesdk" target="_blank" rel="noopener">
@@ -396,7 +473,7 @@
 </section>
 
 <section class="indexed defer-render" id="experience">
-  <header class="section-head"><p>07 / RECORD</p><h2 data-i18n="record.title">Milestones and supporting record</h2><p data-i18n="record.intro">Current and historical project, research and academic states are generated from the centralized status record. Earlier experience remains a separate supporting record.</p></header>
+  <header class="section-head"><p>08 / RECORD</p><h2 data-i18n="record.title">Milestones and supporting record</h2><p data-i18n="record.intro">Current and historical project, research and academic states are generated from the centralized status record. Earlier experience remains a separate supporting record.</p></header>
   <div class="record-subhead"><span data-i18n="record.milestones">STATUS MILESTONES</span><small>Newest verified/current states first</small></div>
   <div class="timeline status-timeline" id="status-timeline" aria-live="polite"></div>
   <div class="record-subhead supporting"><span data-i18n="record.supporting">SUPPORTING EXPERIENCE</span><small>Historical context · evidence type kept explicit</small></div>
@@ -409,7 +486,7 @@
 </section>
 
 <section class="indexed defer-render" id="capabilities">
-  <header class="section-head"><p>08 / CAPABILITY MATRIX</p><h2 data-i18n="skills.title">Skills tied to work, not percentages</h2><p data-i18n="skills.evidenceIntro">Primary capabilities link to public work or issuer-backed learning. Tools without comparable public evidence remain visible, but at lower evidence weight.</p></header>
+  <header class="section-head"><p>09 / CAPABILITY MATRIX</p><h2 data-i18n="skills.title">Skills tied to work, not percentages</h2><p data-i18n="skills.evidenceIntro">Primary capabilities link to public work or issuer-backed learning. Tools without comparable public evidence remain visible, but at lower evidence weight.</p></header>
   <div class="capability-state-grid" aria-label="Capability state classification">
     <article><span data-i18n="capability.current">CURRENT EXPERIENCE</span><ul data-state-list="capabilities.currentExperience"></ul></article>
     <article><span data-i18n="capability.active">ACTIVE LEARNING</span><ul data-state-list="capabilities.activeLearning"></ul></article>
@@ -426,7 +503,7 @@
 </section>
 
 <section class="indexed" id="credentials">
-  <header class="section-head"><p>09 / VERIFIED LEARNING</p><h2 data-i18n="credentials.title">Credentials</h2><p data-i18n="credentials.intro">Issuer links are surfaced directly. A credential is evidence of completed learning, not a claim of expert mastery.</p></header>
+  <header class="section-head"><p>10 / VERIFIED LEARNING</p><h2 data-i18n="credentials.title">Credentials</h2><p data-i18n="credentials.intro">Issuer links are surfaced directly. A credential is evidence of completed learning, not a claim of expert mastery.</p></header>
   <div class="credential-grid">
     <article id="cred-nasa">
       <span>NASA</span>
@@ -467,7 +544,7 @@
 </section>
 
 <section class="indexed" id="evidence">
-  <header class="section-head"><p>10 / EVIDENCE</p><h2 data-i18n="evidence.title">Verification centre</h2><p data-i18n="evidence.intro">Statuses distinguish issuer records, repositories, supplied documents and self-reported items instead of treating every claim as equally verified.</p><span class="verification-stamp" data-i18n="evidence.reviewed">Evidence reviewed · September 2026</span></header>
+  <header class="section-head"><p>11 / EVIDENCE</p><h2 data-i18n="evidence.title">Verification centre</h2><p data-i18n="evidence.intro">Statuses distinguish issuer records, repositories, supplied documents and self-reported items instead of treating every claim as equally verified.</p><span class="verification-stamp" data-i18n="evidence.reviewed">Evidence reviewed · September 2026</span></header>
   <details class="evidence-help">
     <summary data-i18n="evidence.help.title">How to read the evidence labels</summary>
     <div class="evidence-definitions">
@@ -493,33 +570,33 @@
 </section>
 
 <section class="indexed reviewer-optional defer-render" id="open-science">
-  <header class="section-head"><p>11 / RESEARCH PRACTICE</p><h2 data-i18n="open.title">Open science as a working habit</h2></header>
+  <header class="section-head"><p>12 / RESEARCH PRACTICE</p><h2 data-i18n="open.title">Open science as a working habit</h2></header>
   <div class="split"><p data-i18n="open.text">NASA Open Science Essentials introduced me to FAIR principles, repositories, licensing, version control, persistent identifiers and the idea that research becomes more useful when other people can inspect, reproduce and build on it. I am still learning to apply those practices consistently.</p><blockquote data-i18n="open.quote">Good systems should not depend on one person understanding everything. Good research should not either.</blockquote></div>
 </section>
 
 <section class="indexed reviewer-optional defer-render">
-  <header class="section-head"><p>12 / PROCESS NOTES</p><h2 data-i18n="how.title">How I think</h2></header>
+  <header class="section-head"><p>13 / PROCESS NOTES</p><h2 data-i18n="how.title">How I think</h2></header>
   <div class="thoughts"><p data-i18n="how.1">I notice processes that feel unnecessarily difficult.</p><p data-i18n="how.2">I tend to follow a question until it becomes a different question.</p><p data-i18n="how.3">I have learned that technically correct does not always mean useful.</p><p data-i18n="how.4">I am becoming more comfortable discovering that my first answer was wrong.</p><p data-i18n="how.5">I care about whether the person on the other side actually benefits.</p></div>
 </section>
 
 <section class="indexed reviewer-optional defer-render">
-  <header class="section-head"><p>13 / INTERNATIONAL PROFILE</p><h2 data-i18n="international.title">Across contexts, not defined by one destination</h2></header>
+  <header class="section-head"><p>14 / INTERNATIONAL PROFILE</p><h2 data-i18n="international.title">Across contexts, not defined by one destination</h2></header>
   <div class="route"><div><b>SAUDI ARABIA</b><small data-i18n="international.saudi">early years and schooling</small></div><i></i><div><b>INDIA</b><small data-i18n="international.india">current education base</small></div><i></i><div><b data-i18n="international.next">INTERNATIONAL STUDY</b><small data-i18n="international.nextText">engineering education and research exposure</small></div></div>
   <div class="language-levels"><p><b>English · Hindi · Urdu</b><span data-i18n="lang.pro">professional working proficiency</span></p><p><b>Arabic</b><span data-i18n="lang.limited">limited working proficiency</span></p><p><b>日本語 / Japanese</b><span data-i18n="lang.beginner">beginner / learning</span></p></div>
 </section>
 
 <section class="indexed reviewer-optional defer-render">
-  <header class="section-head"><p>14 / QUESTION INDEX</p><h2 data-i18n="questions.title">Questions that keep returning</h2></header>
+  <header class="section-head"><p>15 / QUESTION INDEX</p><h2 data-i18n="questions.title">Questions that keep returning</h2></header>
   <div class="question-index"><a href="#profile" data-i18n="questions.1">How does one device tell another what to do?</a><a href="#research" data-i18n="questions.2">Why do technically capable systems fail after deployment?</a><a href="#research" data-i18n="questions.3">What is lost when information becomes shorter?</a><a href="#work" data-i18n="questions.4">How can software remain useful without sending everything to the cloud?</a><a href="#next" data-i18n="questions.5">What happens below the software layer?</a></div>
 </section>
 
 <section class="indexed reviewer-optional defer-render" id="changelog">
-  <header class="section-head"><p>15 / CHANGELOG</p><h2 data-i18n="changelog.title">Portfolio changelog</h2><p data-i18n="changelog.intro">A factual maintenance record, not a marketing feed.</p></header>
+  <header class="section-head"><p>16 / CHANGELOG</p><h2 data-i18n="changelog.title">Portfolio changelog</h2><p data-i18n="changelog.intro">A factual maintenance record, not a marketing feed.</p></header>
   <ol class="portfolio-changelog" id="portfolio-changelog"></ol>
 </section>
 
 <section class="indexed resume defer-render" id="resume">
-  <header class="section-head"><p>16 / RÉSUMÉ</p><h2 data-i18n="resume.title">Compressed record, expanded here</h2><p data-i18n="resume.text">The résumé is the short version. This site carries the context, evidence, limits and learning behind it.</p></header>
+  <header class="section-head"><p>17 / RÉSUMÉ</p><h2 data-i18n="resume.title">Compressed record, expanded here</h2><p data-i18n="resume.text">The résumé is the short version. This site carries the context, evidence, limits and learning behind it.</p></header>
   <div class="actions"><a class="btn primary" href="https://drive.google.com/file/d/1es2jFYbbYQQ4BdC5oNyECEX2p4zypKti/view?usp=drivesdk" target="_blank" rel="noopener" data-i18n="resume.view">View résumé</a><a class="btn" href="https://drive.google.com/drive/folders/1lfIN70JK2dh4F601bA2VX2e68HeRbT9U" target="_blank" rel="noopener" data-i18n="resume.files">Résumé files</a><button class="btn" id="print" data-i18n="resume.print">Print profile</button></div>
 </section>
 </main>

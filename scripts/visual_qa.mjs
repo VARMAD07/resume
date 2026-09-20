@@ -44,6 +44,17 @@ async function assert(name,condition,details={}){
   await assert("desktop no page errors",pageErrors.length===0,{pageErrors});
   await assert("desktop no console errors",consoleErrors.length===0,{consoleErrors});
   await assert("desktop no failed requests",failedRequests.length===0,{failedRequests});
+  await page.waitForFunction(()=>document.documentElement.dataset.stateReady==="true");
+  const state=await page.evaluate(()=>fetch("data/portfolio-state.json",{cache:"no-cache"}).then(r=>r.json()));
+  await assert("central portfolio state loads",Boolean(state&&state.academics&&state.research&&state.projects),{asOf:state?.asOf});
+  await assert("hero is timeless",!(await page.locator("#profile").innerText()).match(/Class 12|QUALIFIER PATHWAY|PLANNED|will sit|I plan to/i),{heroText:(await page.locator("#profile").innerText()).slice(0,900)});
+  await assert("current status dashboard renders",await page.locator("#current-status").count()===1&&!(await page.locator("#current-status").innerText()).includes("—"),{text:(await page.locator("#current-status").innerText()).slice(0,1200)});
+  await assert("IITM current status propagates from source of truth",(await page.locator('[data-state-status="academics.iitm.status"]').first().innerText()).trim()===state.academics.iitm.status,{dom:await page.locator('[data-state-status="academics.iitm.status"]').first().innerText(),state:state.academics.iitm.status});
+  await assert("engineering current status propagates from source of truth",(await page.locator('[data-state-status="academics.engineering.status"]').first().innerText()).trim()===state.academics.engineering.status,{dom:await page.locator('[data-state-status="academics.engineering.status"]').first().innerText(),state:state.academics.engineering.status});
+  await assert("status milestone timeline is generated",(await page.locator("#status-timeline article").count())>=6,{count:await page.locator("#status-timeline article").count()});
+  await assert("academic copy has no stale exam prediction",!(await page.locator("#academic-path").innerText()).match(/will sit|I plan to|next month|next year|preparing to/i));
+  await assert("capability state buckets render",(await page.locator(".capability-state-grid article").count())===3,{count:await page.locator(".capability-state-grid article").count()});
+  await assert("portfolio changelog renders",(await page.locator("#portfolio-changelog li").count())>=1,{count:await page.locator("#portfolio-changelog li").count()});
   const heroBeforeBanner=await page.evaluate(()=>{
     const hero=document.querySelector("#profile");
     const banner=document.querySelector(".portfolio-banner");
@@ -69,6 +80,11 @@ async function assert(name,condition,details={}){
   const ogW=await page.locator('meta[property="og:image:width"]').getAttribute("content");
   const ogH=await page.locator('meta[property="og:image:height"]').getAttribute("content");
   await assert("OG dimensions are explicit",ogW==="1200"&&ogH==="630",{ogW,ogH});
+  const ogPhysical=await page.evaluate(async()=>{
+    const src=document.querySelector('meta[property="og:image"]')?.content;
+    return await new Promise(resolve=>{const img=new Image();img.onload=()=>resolve({w:img.naturalWidth,h:img.naturalHeight,src});img.onerror=()=>resolve({w:0,h:0,src});img.src=src;});
+  });
+  await assert("OG asset is physically 1200x630",ogPhysical.w===1200&&ogPhysical.h===630,ogPhysical);
   await assert("research status remains explicit",(await page.locator("#research").innerText()).includes("PREPRINT")&&(await page.locator("#research").innerText()).includes("MANUSCRIPT"));
   await assert("evidence definitions available",await page.locator("#evidence .evidence-help").count()===1);
   const ogImage=await page.locator('meta[property="og:image"]').getAttribute("content");
@@ -157,7 +173,7 @@ async function assert(name,condition,details={}){
   const badges=await page.locator("#credentials .credential-art").evaluateAll(imgs=>imgs.map(i=>({src:i.currentSrc||i.src,w:i.naturalWidth,h:i.naturalHeight})));
   await assert("five credential badges render",badges.length===5 && badges.every(x=>x.w>0),{badges});
 
-  for(const [sel,file] of [["#next","desktop-system-layers.png"],["#research","desktop-research.png"],[".dpg","desktop-dpg.png"],["#credentials","desktop-credentials.png"],["#evidence","desktop-evidence.png"]]){
+  for(const [sel,file] of [["#current-status","desktop-current-status.png"],["#academic-path","desktop-academic-path.png"],["#next","desktop-system-layers.png"],["#research","desktop-research.png"],[".dpg","desktop-dpg.png"],["#credentials","desktop-credentials.png"],["#evidence","desktop-evidence.png"]]){
     const loc=page.locator(sel); await loc.scrollIntoViewIfNeeded(); await page.waitForTimeout(200); await loc.screenshot({path:`${OUT}/${file}`});
   }
 
@@ -188,6 +204,9 @@ async function assert(name,condition,details={}){
   await assert("reviewer mode activates",(await page.locator("body").getAttribute("data-view"))==="reviewer");
   await assert("reviewer notice visible",await page.locator("#reviewer-mode-note").isVisible());
   await assert("reviewer optional sections hidden",visibleOptional===0,{total:await optional.count(),visible:visibleOptional});
+  await page.waitForFunction(()=>document.documentElement.dataset.stateReady==="true");
+  await assert("reviewer mode includes current status fast path",(await page.locator('#reviewer-mode-note a[href="#current-status"]').count())===1);
+  await assert("reviewer mode surfaces current state",(await page.locator("#reviewer-current-state").innerText()).trim().length>0,{state:await page.locator("#reviewer-current-state").innerText()});
   await assert("reviewer no page errors",pageErrors.length===0,{pageErrors});
   await assert("reviewer no console errors",consoleErrors.length===0,{consoleErrors});
   await assert("reviewer no failed requests",failedRequests.length===0,{failedRequests});

@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "asOf": "SEP 2026",
+  "validityWindow": "SEP 2026 → SEP 2027",
+  "profile": {
+    "stage": "PRE-UNIVERSITY",
+    "stageDate": "2026",
+    "location": "Kanpur, India"
+  },
+  "statusDefinitions": {
+    "PLANNED": "Not yet applied or started; direction only.",
+    "PREPARING": "Preparation is active, with no submitted application or completed milestone implied.",
+    "APPLIED": "Application submitted.",
+    "SUBMITTED": "Work formally submitted.",
+    "UNDER REVIEW": "A submitted item is under formal review.",
+    "QUALIFIER PATHWAY": "Registered in the qualifier-stage admissions pathway; not admission or enrolment.",
+    "QUALIFIED": "Required qualifier milestone completed.",
+    "ADMITTED": "Formal admission confirmed.",
+    "ENROLLED": "Formal enrolment completed.",
+    "ACTIVE": "Currently active.",
+    "COMPLETED": "Completed.",
+    "PUBLISHED": "Formally published in the stated venue.",
+    "PREPRINT": "Public manuscript available before peer-reviewed journal publication.",
+    "MANUSCRIPT": "Research manuscript; not presented as peer-reviewed publication.",
+    "IN PROGRESS": "Work is actively in progress.",
+    "ARCHIVED": "Historical item retained for record.",
+    "VERIFIED": "Evidence independently or issuer-verified as specified.",
+    "SELF-REPORTED": "Supported only by applicant-supplied record.",
+    "LEARNING DIRECTION": "Area of study or technical direction; not claimed expertise.",
+    "PROTOTYPE": "Implemented prototype; not presented as production deployment.",
+    "OPEN SOURCE": "Public source repository available."
+  },
+  "academics": {
+    "iitm": {
+      "id": "iitm",
+      "category": "ACADEMIC",
+      "label": "IIT Madras · BS Data Science and Applications",
+      "shortLabel": "IITM BS DS&A",
+      "status": "QUALIFIER PATHWAY",
+      "statusDate": "SEP 2026",
+      "nextState": "QUALIFIED",
+      "evidence": {
+        "type": "PORTAL EVIDENCE",
+        "href": "#ev-edu-001",
+        "label": "Private IITM portal evidence reviewed"
+      },
+      "note": "Qualifier-stage admissions pathway. This is not presented as admission, enrolment or degree completion.",
+      "history": [
+        {
+          "status": "QUALIFIER PATHWAY",
+          "date": "SEP 2026",
+          "sortKey": 20260900,
+          "evidenceType": "PORTAL EVIDENCE",
+          "note": "Application accepted; supplied dashboard evidence showed QUALIFIER level at capture."
+        }
+      ]
+    },
+    "engineering": {
+      "id": "engineering",
+      "category": "ACADEMIC DIRECTION",
+      "label": "On-campus Electronics / ECE / Mechatronics degree",
+      "shortLabel": "Engineering pathway",
+      "status": "PLANNED",
+      "statusDate": "SEP 2026",
+      "nextState": "APPLIED",
+      "evidence": {
+        "type": "SELF-REPORTED",
+        "href": "#academic-path",
+        "label": "Applicant-declared academic direction"
+      },
+      "note": "Separate degree pathway. No institution, application, admission or enrolment is claimed until verified.",
+      "history": [
+        {
+          "status": "PLANNED",
+          "date": "SEP 2026",
+          "sortKey": 20260900,
+          "evidenceType": "SELF-REPORTED",
+          "note": "Direction only; not an earned or admitted qualification."
+        }
+      ]
+    }
+  },
+  "projects": {
+    "halim": {
+      "id": "halim",
+      "category": "PROJECT",
+      "label": "Halim Nexus AI",
+      "status": "PROTOTYPE",
+      "statusDate": "MAY 2026",
+      "evidence": {
+        "type": "PUBLIC SOURCE",
+        "href": "https://github.com/VARMAD07/halim-nexus-ai",
+        "label": "Public repository + live Streamlit app"
+      },
+      "history": [
+        {
+          "status": "PROTOTYPE",
+          "date": "MAY 2026",
+          "sortKey": 20260500,
+          "evidenceType": "PUBLIC SOURCE",
+          "note": "Public repository and live application available."
+        }
+      ]
+    },
+    "studysync": {
+      "id": "studysync",
+      "category": "PROJECT",
+      "label": "StudySyncEngine",
+      "status": "OPEN SOURCE",
+      "statusDate": "MAY 2026",
+      "evidence": {
+        "type": "PUBLIC SOURCE",
+        "href": "https://github.com/VARMAD07/study-sync-engine",
+        "label": "Public GitHub repository"
+      },
+      "history": [
+        {
+          "status": "OPEN SOURCE",
+          "date": "MAY 2026",
+          "sortKey": 20260500,
+          "evidenceType": "PUBLIC SOURCE",
+          "note": "Public source repository available."
+        }
+      ]
+    }
+  },
+  "research": {
+    "healthcare": {
+      "id": "healthcare",
+      "category": "RESEARCH",
+      "label": "AI-Assisted Healthcare Systems",
+      "status": "PREPRINT",
+      "statusDate": "JUN 2026",
+      "source": "Zenodo",
+      "sourceHref": "https://zenodo.org/records/20707263",
+      "evidence": {
+        "type": "PUBLIC SOURCE",
+        "href": "https://zenodo.org/records/20707263",
+        "label": "Zenodo public archive"
+      },
+      "peerReview": "NOT PEER-REVIEWED",
+      "reviewOutcome": "JOURNAL SUBMISSION NOT ACCEPTED",
+      "note": "Preprint and research-learning record; not presented as a peer-reviewed journal publication.",
+      "history": [
+        {
+          "status": "PREPRINT",
+          "date": "JUN 2026",
+          "sortKey": 20260623,
+          "evidenceType": "PUBLIC SOURCE",
+          "note": "Public preprint available on Zenodo."
+        }
+      ]
+    },
+    "metabasis": {
+      "id": "metabasis",
+      "category": "RESEARCH",
+      "label": "METABASIS / Books vs. Reels",
+      "status": "MANUSCRIPT",
+      "statusDate": "2026",
+      "source": "Supplied research files",
+      "sourceHref": "https://drive.google.com/drive/folders/1amILTpPs7zl2SLiqWDBmldaTK4t1mohw?usp=drive_link",
+      "evidence": {
+        "type": "SUPPLIED DOCUMENT",
+        "href": "#ev-research-002",
+        "label": "Supplied research files"
+      },
+      "peerReview": "NOT PEER-REVIEWED",
+      "reviewOutcome": null,
+      "note": "Independent manuscript; provisional concepts remain explicitly identified as requiring validation.",
+      "history": [
+        {
+          "status": "MANUSCRIPT",
+          "date": "2026",
+          "sortKey": 20260000,
+          "evidenceType": "SUPPLIED DOCUMENT",
+          "note": "Independent manuscript."
+        }
+      ]
+    }
+  },
+  "capabilities": {
+    "currentExperience": [
+      "Python",
+      "Automation",
+      "Streamlit",
+      "AI integration",
+      "OCR",
+      "Systems development"
+    ],
+    "activeLearning": [
+      "Data Science",
+      "Open Science",
+      "Electronics foundations"
+    ],
+    "futureDirection": [
+      "Embedded Systems",
+      "Digital Logic",
+      "VLSI",
+      "Semiconductors",
+      "Microelectronics"
+    ]
+  },
+  "changelog": [
+    {
+      "date": "SEP 2026",
+      "sortKey": 20260920,
+      "text": "Centralized status architecture, evidence-linked milestones and future-proof update workflow introduced."
+    }
+  ]
+}

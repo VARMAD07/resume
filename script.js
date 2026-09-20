@@ -127,10 +127,10 @@ function renderPortfolioState(state){
   document.documentElement.dataset.stateReady="true";
   document.querySelectorAll("[data-state]").forEach(el=>{
     const value=getState(el.dataset.state,state);
-    el.textContent=value??"—";
+    el.textContent=value??"Not recorded";
   });
   document.querySelectorAll("[data-state-status]").forEach(el=>{
-    const value=getState(el.dataset.stateStatus,state)??"—";
+    const value=getState(el.dataset.stateStatus,state)??"Not recorded";
     el.textContent=value;
     el.dataset.status=statusSlug(value);
   });
@@ -140,7 +140,7 @@ function renderPortfolioState(state){
   });
   document.querySelectorAll("[data-state-list-inline]").forEach(el=>{
     const value=getState(el.dataset.stateListInline,state);
-    el.textContent=Array.isArray(value)?value.join(" · "):"—";
+    el.textContent=Array.isArray(value)&&value.length?value.join(" · "):"Not recorded";
   });
   document.querySelectorAll("[data-state-list]").forEach(el=>{
     const value=getState(el.dataset.stateList,state);
@@ -154,13 +154,22 @@ function renderPortfolioState(state){
   });
 
   const academics=$("#current-academics"),building=$("#current-building"),research=$("#current-research"),learning=$("#current-learning");
-  if(academics){academics.replaceChildren();for(const item of Object.values(state.academics||{}))renderStatusLine(academics,item.shortLabel||item.label,item.status,item.statusDate,item.evidence?.type);}
+  if(academics){academics.replaceChildren();for(const item of Object.values(state.academics||{}).filter(item=>item.dashboard!==false))renderStatusLine(academics,item.shortLabel||item.label,item.status,item.statusDate,item.evidence?.type);}
   if(building){building.replaceChildren();for(const item of Object.values(state.projects||{}))renderStatusLine(building,item.label,item.status,item.statusDate,item.evidence?.type);}
   if(research){research.replaceChildren();for(const item of Object.values(state.research||{}))renderStatusLine(research,item.label,item.status,item.statusDate,item.evidence?.type);}
-  if(learning){learning.replaceChildren();for(const item of state.capabilities?.activeLearning||[]){const p=document.createElement("p");const span=document.createElement("span");span.textContent=item;p.append(span);learning.append(p);}}
+  if(learning){
+    learning.replaceChildren();
+    for(const item of state.capabilities?.activeLearning||[]){
+      const p=document.createElement("p");
+      const span=document.createElement("span");span.textContent=item;
+      const badge=document.createElement("b");badge.textContent="ACTIVE";badge.dataset.status="active";
+      const when=document.createElement("small");when.textContent=state.asOf||"Current";
+      p.append(span,badge,when);learning.append(p);
+    }
+  }
 
   const reviewer=$("#reviewer-current-state");
-  if(reviewer) reviewer.textContent=`${state.asOf} · ${state.academics.iitm.shortLabel}: ${state.academics.iitm.status} · ${state.profile.stage} ${state.profile.stageDate}`;
+  if(reviewer) reviewer.textContent=`${state.asOf} · ${state.profile.stage} ${state.profile.stageDate} · ${state.academics.iitm.shortLabel}: ${state.academics.iitm.status}`;
 
   const timeline=$("#status-timeline");
   if(timeline){

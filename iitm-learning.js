@@ -64,16 +64,18 @@ function populateIitmCourseDetails(details,group,curriculum,state){
   details.dataset.rendered="true";
 }
 function iitmDisplayMode(programmeStatus,t){
+  if(programmeStatus==="QUALIFIER PATHWAY") return t("iitmLearning.modeQualifier","QUALIFIER PREPARATION / CURRICULUM VIEW");
+  if(["QUALIFIED","ADMITTED"].includes(programmeStatus)) return t("iitmLearning.modeTrajectory","FOUNDATION ENTRY PATHWAY");
   if(["ENROLLED","ACTIVE"].includes(programmeStatus)) return t("iitmLearning.modeCurrent","CURRENT ACADEMIC CURRICULUM");
   if(programmeStatus==="COMPLETED") return t("iitmLearning.modeCompleted","COMPLETED COURSEWORK RECORD");
-  return t("iitmLearning.modeTrajectory","INTENDED ACADEMIC DIRECTION");
+  return t("iitmLearning.modeTrajectory","CURRICULUM TRAJECTORY");
 }
 
 export function renderIitmLearning(curriculum,state,t=(key,fallback)=>fallback){
   if(!curriculum||!state||!$("#iitm-learning")) return;
 
   const programmeStatus=state.academics?.iitm?.status||"";
-  const verified=$("#iitm-curriculum-verified");if(verified) verified.textContent=curriculum.verifiedAt||"—";
+  const verified=$("#iitm-curriculum-verified");if(verified) verified.textContent=curriculum.verifiedAt||t("iitmLearning.verifiedUnavailable","See official source");
   const mode=$("#iitm-learning-mode");if(mode) mode.textContent=iitmDisplayMode(programmeStatus,t);
 
   const all=flattenIitmCourses(curriculum).map(course=>({...course,record:courseStateRecord(course.code,state,curriculum)}));

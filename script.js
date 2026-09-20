@@ -400,7 +400,7 @@ if(iitmLearningSection&&"IntersectionObserver" in window){
 }else if(iitmLearningSection){
   setTimeout(ensureIitmCurriculum,1800);
 }
-$('a[href="#iitm-learning"]').forEach(a=>{
+$$('a[href="#iitm-learning"]').forEach(a=>{
   a.addEventListener("focus",ensureIitmCurriculum,{once:true});
   a.addEventListener("pointerenter",ensureIitmCurriculum,{once:true});
   a.addEventListener("click",ensureIitmCurriculum,{once:true});

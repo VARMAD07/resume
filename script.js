@@ -63,11 +63,11 @@ const getState=(path,root=portfolioState)=>path.split(".").reduce((value,key)=>v
 const statusSlug=value=>String(value||"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 const isExternalHref=href=>/^https?:\/\//.test(href||"");
 
-function renderStatusLine(container,label,status,date){
+function renderStatusLine(container,label,status,date,evidenceType){
   const row=document.createElement("p");
   const name=document.createElement("span"); name.textContent=label;
   const badge=document.createElement("b"); badge.textContent=status; badge.dataset.status=statusSlug(status);
-  const when=document.createElement("small"); when.textContent=date||"";
+  const when=document.createElement("small"); when.textContent=[date,evidenceType].filter(Boolean).join(" · ");
   row.append(name,badge,when);
   container.append(row);
 }
@@ -130,9 +130,9 @@ function renderPortfolioState(state){
   });
 
   const academics=$("#current-academics"),building=$("#current-building"),research=$("#current-research"),learning=$("#current-learning");
-  if(academics){academics.replaceChildren();renderStatusLine(academics,state.academics.iitm.shortLabel,state.academics.iitm.status,state.academics.iitm.statusDate);renderStatusLine(academics,state.academics.engineering.shortLabel,state.academics.engineering.status,state.academics.engineering.statusDate);}
-  if(building){building.replaceChildren();for(const item of Object.values(state.projects||{}))renderStatusLine(building,item.label,item.status,item.statusDate);}
-  if(research){research.replaceChildren();for(const item of Object.values(state.research||{}))renderStatusLine(research,item.label,item.status,item.statusDate);}
+  if(academics){academics.replaceChildren();renderStatusLine(academics,state.academics.iitm.shortLabel,state.academics.iitm.status,state.academics.iitm.statusDate,state.academics.iitm.evidence?.type);renderStatusLine(academics,state.academics.engineering.shortLabel,state.academics.engineering.status,state.academics.engineering.statusDate,state.academics.engineering.evidence?.type);}
+  if(building){building.replaceChildren();for(const item of Object.values(state.projects||{}))renderStatusLine(building,item.label,item.status,item.statusDate,item.evidence?.type);}
+  if(research){research.replaceChildren();for(const item of Object.values(state.research||{}))renderStatusLine(research,item.label,item.status,item.statusDate,item.evidence?.type);}
   if(learning){learning.replaceChildren();for(const item of state.capabilities?.activeLearning||[]){const p=document.createElement("p");const span=document.createElement("span");span.textContent=item;p.append(span);learning.append(p);}}
 
   const reviewer=$("#reviewer-current-state");
@@ -141,8 +141,9 @@ function renderPortfolioState(state){
   const timeline=$("#status-timeline");
   if(timeline){
     timeline.replaceChildren();
-    for(const item of collectMilestones(state)){
+    for(const [milestoneIndex,item] of collectMilestones(state).entries()){
       const article=document.createElement("article");
+      if(milestoneIndex===0) article.classList.add("latest-milestone");
       article.dataset.kind=String(item.category||"record").toLowerCase().replace(/[^a-z0-9]+/g,"-");
       if(item.current) article.classList.add("current-milestone");
       const time=document.createElement("time");time.textContent=item.date;

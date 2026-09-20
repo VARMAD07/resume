@@ -6,9 +6,13 @@ Evidence-first multilingual academic + engineering portfolio designed for GitHub
 https://varmad07.github.io/resume/
 
 ## Architecture
-- `index.html` — semantic content and evidence-linked portfolio
-- `styles.css` — responsive LIGHT/DARK visual system, RTL support, print styles
-- `script.js` — EN/AR/JA interface, theme, local search, copy actions, resume-ref context
+- `index.html` — semantic content, reviewer summary and evidence-linked portfolio
+- `styles.css` — responsive LIGHT/DARK visual system, RTL support and print styles
+- `script.js` — centralized-state rendering, EN/AR/JA interface, theme, local search and accessibility interactions
+- `data/portfolio-state.json` — single source of truth for current academic, project, research and capability states
+- `data/iitm-curriculum.json` — official-source IIT Madras curriculum snapshot, kept separate from personal course progress
+- `iitm-learning.js` — lazy curriculum/learning-architecture renderer
+- `scripts/visual_qa.mjs` + integrity scripts — responsive, accessibility, state, link and privacy quality gates
 - `404.html` — custom project-pages-safe error page
 - `manifest.webmanifest` + `sw.js` — lightweight installability / offline shell
 - `assets/icons/icon.svg` — site icon

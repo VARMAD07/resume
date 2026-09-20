@@ -45,7 +45,7 @@ def main():
     parser=Collector()
     parser.feed(HTML.read_text(encoding="utf-8"))
     errors=[]
-    for tag,key,value in parser.refs:
+    for tag,key,value in parser.refs + parser.meta_content_refs:
         target=local_target(value)
         if not target:
             continue

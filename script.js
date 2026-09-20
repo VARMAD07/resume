@@ -36,6 +36,7 @@ async function applyLang(next){
       if(value!=null) el.textContent=value;
     });
     langInitialized=true;
+    if(iitmCurriculum&&portfolioState) renderIitmLearning(iitmCurriculum,portfolioState);
   }catch{
     if(requested!=="en"){
       lang="en";
@@ -47,6 +48,7 @@ async function applyLang(next){
         const value=EN_BASE[el.dataset.i18n];
         if(value!=null) el.textContent=value;
       });
+      if(iitmCurriculum&&portfolioState) renderIitmLearning(iitmCurriculum,portfolioState);
     }
   }
 }
@@ -59,9 +61,191 @@ function applyTheme(next){
 }
 
 let portfolioState=null;
+let iitmCurriculum=null;
 const getState=(path,root=portfolioState)=>path.split(".").reduce((value,key)=>value?.[key],root);
 const statusSlug=value=>String(value||"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 const isExternalHref=href=>/^https?:\/\//.test(href||"");
+
+const uiText=(key,fallback)=>D[lang]?.[key]??EN_BASE[key]??fallback;
+function flattenIitmCourses(curriculum){
+  const courses=[];
+  for(const layer of curriculum?.layers||[]){
+    for(const course of layer.courses||[]) courses.push({...course,layerId:layer.id,layerLabel:layer.label,officialLevel:layer.officialLevel});
+    for(const course of layer.coreCourses||[]) courses.push({...course,layerId:layer.id,layerLabel:layer.label,officialLevel:layer.officialLevel});
+    for(const track of layer.optionTracks||[]){
+      for(const course of track.courses||[]) courses.push({...course,layerId:layer.id,layerLabel:layer.label,officialLevel:layer.officialLevel,optionTrack:track.label});
+    }
+  }
+  return courses;
+}
+function courseStateRecord(code){
+  const override=portfolioState?.academics?.iitm?.courseStatuses?.[code];
+  return override||{status:iitmCurriculum?.personalCourseStatuses?.defaultStatus||"PLANNED",date:null,evidence:null,note:null};
+}
+function courseStatusChip(record){
+  const chip=document.createElement("span");
+  chip.className="course-status-chip";
+  chip.textContent=record.status||"PLANNED";
+  chip.dataset.status=statusSlug(record.status||"PLANNED");
+  return chip;
+}
+function renderCourseStateList(container,courses,kind){
+  if(!container) return;
+  container.replaceChildren();
+  if(!courses.length){
+    const empty=document.createElement("p");
+    empty.className="course-state-empty";
+    if(kind==="completed") empty.textContent=uiText("iitmLearning.noneCompleted","No verified completed IITM coursework is recorded yet.");
+    else if(kind==="current") empty.textContent=uiText("iitmLearning.noneCurrent","No formally registered IITM course is claimed as current yet.");
+    else empty.textContent=uiText("iitmLearning.noneUpcoming","No upcoming curriculum layer is currently identified.");
+    container.append(empty);
+    return;
+  }
+  const visible=courses.slice(0,6);
+  for(const course of visible){
+    const item=document.createElement("div");
+    item.className="course-state-item";
+    const name=document.createElement("span"); name.textContent=course.name;
+    const meta=document.createElement("small"); meta.textContent=[course.code,course.record?.date,course.record?.evidence?.type].filter(Boolean).join(" · ");
+    item.append(name,courseStatusChip(course.record),meta);
+    container.append(item);
+  }
+  if(courses.length>visible.length){
+    const more=document.createElement("small");more.className="course-more";more.textContent=`+${courses.length-visible.length} ${uiText("iitmLearning.more","more in the curriculum map below")}`;container.append(more);
+  }
+}
+function iitmDisplayMode(programmeStatus){
+  if(["ENROLLED","ACTIVE"].includes(programmeStatus)) return uiText("iitmLearning.modeCurrent","CURRENT ACADEMIC CURRICULUM");
+  if(["COMPLETED"].includes(programmeStatus)) return uiText("iitmLearning.modeCompleted","COMPLETED COURSEWORK RECORD");
+  return uiText("iitmLearning.modeTrajectory","INTENDED ACADEMIC DIRECTION");
+}
+function renderIitmLearning(curriculum,state){
+  if(!curriculum||!state||!$("#iitm-learning")) return;
+  const programmeStatus=state.academics?.iitm?.status||"";
+  const verified=$("#iitm-curriculum-verified"); if(verified) verified.textContent=curriculum.verifiedAt||"—";
+  const mode=$("#iitm-learning-mode"); if(mode) mode.textContent=iitmDisplayMode(programmeStatus);
+
+  const all=flattenIitmCourses(curriculum).map(course=>({...course,record:courseStateRecord(course.code)}));
+  const completed=all.filter(c=>["COMPLETED","PASSED","REPEATED","ARCHIVED"].includes(c.record.status));
+  const current=all.filter(c=>c.record.status==="CURRENT");
+  let upcoming=all.filter(c=>c.record.status==="PLANNED");
+  if(!completed.length&&!current.length&&upcoming.length){
+    const firstLayer=curriculum.layers?.[0]?.id;
+    upcoming=upcoming.filter(c=>c.layerId===firstLayer);
+  }
+  renderCourseStateList($("#iitm-completed-courses"),completed,"completed");
+  renderCourseStateList($("#iitm-current-courses"),current,"current");
+  renderCourseStateList($("#iitm-upcoming-courses"),upcoming,"upcoming");
+
+  const sourceNote=$(".iitm-source-note");
+  let qualifier=$("#iitm-qualifier-context");
+  if(sourceNote&&!qualifier){qualifier=document.createElement("div");qualifier.id="iitm-qualifier-context";qualifier.className="qualifier-context";sourceNote.append(qualifier);}
+  if(qualifier){
+    qualifier.replaceChildren();
+    const strong=document.createElement("strong");strong.textContent=uiText("iitmLearning.qualifierLabel","OFFICIAL QUALIFIER CONTEXT");
+    const p=document.createElement("p");
+    const names=(curriculum.qualifierContext?.courses||[]).map(code=>all.find(c=>c.code===code)?.name).filter(Boolean);
+    p.textContent=programmeStatus==="QUALIFIER PATHWAY"
+      ? `${uiText("iitmLearning.qualifierCurrent","The current programme state is Qualifier Pathway. IIT Madras states that regular-entry qualifier preparation uses four weeks of content from:")} ${names.join(" · ")}. ${uiText("iitmLearning.qualifierCaution","This is qualifier content, not a claim that these courses are completed or formally registered.")}`
+      : curriculum.qualifierContext?.note||"";
+    qualifier.append(strong,p);
+  }
+
+  const progression=$("#iitm-progression");
+  if(progression){
+    progression.replaceChildren();
+    (curriculum.conceptualProgression?.steps||[]).forEach((step,index,steps)=>{
+      const span=document.createElement("span");span.textContent=step;progression.append(span);
+      if(index<steps.length-1){const i=document.createElement("i");i.textContent="→";i.setAttribute("aria-hidden","true");progression.append(i);}
+    });
+    const note=document.createElement("small");note.textContent=curriculum.conceptualProgression?.label||"";progression.append(note);
+  }
+
+  const layers=$("#iitm-learning-layers");
+  if(layers){
+    layers.replaceChildren();
+    for(const [index,layer] of (curriculum.layers||[]).entries()){
+      const article=document.createElement("article");article.className="iitm-layer";article.dataset.layer=layer.id;
+      const head=document.createElement("header");
+      const num=document.createElement("span");num.textContent=String(index+1).padStart(2,"0");
+      const title=document.createElement("div");const h3=document.createElement("h3");h3.textContent=layer.label;const level=document.createElement("small");level.textContent=layer.officialLevel;title.append(h3,level);head.append(num,title);
+      const explanation=document.createElement("p");explanation.textContent=layer.interpretation;
+      article.append(head,explanation);
+
+      if(layer.curriculumMeaning?.length){
+        const meaning=document.createElement("div");meaning.className="iitm-meaning-grid";
+        for(const item of layer.curriculumMeaning){const cell=document.createElement("p");const b=document.createElement("b");b.textContent=item.area;const txt=document.createElement("span");txt.textContent=item.why;cell.append(b,txt);meaning.append(cell);}
+        article.append(meaning);
+      }
+
+      const details=document.createElement("details");details.className="iitm-course-details";
+      const summary=document.createElement("summary");
+      const layerCourses=[
+        ...(layer.courses||[]),...(layer.coreCourses||[]),
+        ...(layer.optionTracks||[]).flatMap(track=>track.courses||[])
+      ];
+      summary.textContent=`${uiText("iitmLearning.officialCourses","Official courses")} · ${layerCourses.length}`;
+      const list=document.createElement("ul");
+      for(const course of [...(layer.courses||[]),...(layer.coreCourses||[])]){
+        const record=courseStateRecord(course.code);
+        const li=document.createElement("li");
+        const name=document.createElement("span");name.textContent=course.name;
+        const meta=document.createElement("small");meta.textContent=`${course.code} · ${course.credits} cr`;
+        li.append(name,meta,courseStatusChip(record));list.append(li);
+      }
+      for(const track of layer.optionTracks||[]){
+        const trackHead=document.createElement("li");trackHead.className="option-track-label";trackHead.textContent=track.label;list.append(trackHead);
+        for(const course of track.courses||[]){
+          const record=courseStateRecord(course.code);
+          const li=document.createElement("li");li.className="option-course";
+          const name=document.createElement("span");name.textContent=course.name;
+          const meta=document.createElement("small");meta.textContent=`${course.code} · ${course.credits} cr`;
+          li.append(name,meta,courseStatusChip(record));list.append(li);
+        }
+      }
+      details.append(summary,list);
+      article.append(details);
+      if(layer.optionNote||layer.electivePolicy){
+        const note=document.createElement("p");note.className="curriculum-policy";note.textContent=layer.optionNote||layer.electivePolicy;article.append(note);
+      }
+      layers.append(article);
+    }
+  }
+
+  const connections=$("#iitm-academic-connections");
+  if(connections){
+    connections.replaceChildren();
+    for(const connection of curriculum.academicConnections||[]){
+      const article=document.createElement("article");
+      const head=document.createElement("div");const area=document.createElement("h4");area.textContent=connection.area;const relation=document.createElement("span");relation.textContent=connection.relation;head.append(area,relation);
+      const note=document.createElement("p");note.textContent=connection.note;
+      const links=document.createElement("div");links.className="connection-links";
+      for(const target of connection.targets||[]){
+        const targetEl=document.getElementById(target); if(!targetEl) continue;
+        const a=document.createElement("a");a.href="#"+target; a.textContent=(targetEl.querySelector("h3")?.textContent||target)+" ↓";links.append(a);
+      }
+      article.append(head,note,links);connections.append(article);
+    }
+  }
+
+  const intersection=$("#iitm-intersection-areas");
+  if(intersection){
+    intersection.replaceChildren();
+    for(const area of curriculum.longTermIntersection?.areas||[]){const span=document.createElement("span");span.textContent=area;intersection.append(span);}
+  }
+  document.documentElement.dataset.iitmLearningReady="true";
+}
+async function loadIitmCurriculum(){
+  try{
+    const response=await fetch("data/iitm-curriculum.json",{cache:"no-cache"});
+    if(!response.ok) throw new Error(`curriculum HTTP ${response.status}`);
+    iitmCurriculum=await response.json();
+    if(portfolioState) renderIitmLearning(iitmCurriculum,portfolioState);
+  }catch(error){
+    console.error("IITM curriculum data unavailable",error);
+    document.documentElement.dataset.iitmLearningReady="error";
+  }
+}
 
 function renderStatusLine(container,label,status,date,evidenceType){
   const row=document.createElement("p");
@@ -169,6 +353,8 @@ function renderPortfolioState(state){
     }
   }
 
+  if(iitmCurriculum) renderIitmLearning(iitmCurriculum,state);
+
   const changelog=$("#portfolio-changelog");
   if(changelog){
     changelog.replaceChildren();
@@ -193,6 +379,7 @@ async function loadPortfolioState(){
 applyTheme(theme);
 void applyLang(lang);
 void loadPortfolioState();
+void loadIitmCurriculum();
 const skipLink=$(".skip");
 if(skipLink){
   skipLink.addEventListener("click",event=>{
@@ -224,6 +411,7 @@ const index=[
 {label:"Selected work",meta:"FAST PATH / projects / research / academics",href:"#selected-work"},
 {label:"Current status",meta:"VERIFIED STATE / academics / projects / research",href:"#current-status"},
 {label:"Academic status",meta:"IIT MADRAS / engineering pathway / status history",href:"#academic-path"},
+{label:"IITM learning trajectory",meta:"OFFICIAL CURRICULUM / foundations / data science / ML / AI / projects",href:"#iitm-learning"},
 {label:"Credentials",meta:"ISSUER RECORDS / NASA / Google / Google Cloud",href:"#credentials"},
 {label:"Résumé",meta:"COMPRESSED RECORD / PDF",href:"#resume"},
 {label:"Contact",meta:"EMAIL / LinkedIn / GitHub / ORCID",href:"#contact"},

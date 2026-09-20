@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import fs from "node:fs";
-const state=JSON.parse(fs.readFileSync("data/portfolio-state.json","utf8"));
+const state=JSON.parse(fs.readFileSync("data/portfolio-state.json","utf8"));\nif(state.schemaVersion!==2) throw new Error("Expected portfolio state schemaVersion 2.");
 
 const requiredStatuses=new Set(Object.keys(state.statusDefinitions||{}));
 const evidenceTypes=new Set(["PUBLIC SOURCE","ISSUER RECORD","SUPPLIED DOCUMENT","PORTAL EVIDENCE","SELF-REPORTED"]);
@@ -57,20 +57,43 @@ for(const [modelName,model] of Object.entries(state.transitionModels||{})){
     if(to!=null&&!requiredStatuses.has(to)) errors.push("transitionModels."+modelName+": unsupported target status "+to);
   }
 }
+for(const [modelName,model] of Object.entries(state.presentationModels||{})){
+  if(!model||typeof model!=="object"){errors.push("presentationModels."+modelName+": invalid model");continue;}
+  for(const [from,presentation] of Object.entries(model)){
+    if(!requiredStatuses.has(from)) errors.push("presentationModels."+modelName+": unsupported source status "+from);
+    if(!requiredStatuses.has(presentation)) errors.push("presentationModels."+modelName+": unsupported presentation status "+presentation);
+  }
+}
 for(const [key,item] of Object.entries(state.projects||{})){
   if(!nonEmpty(item.role)) errors.push("projects."+key+".role: missing");
+  if(item.transitionModel!=="project") errors.push("projects."+key+": must use the centralized project transition model");
+  if(!Object.prototype.hasOwnProperty.call(state.transitionModels?.project||{},item.status)) errors.push("projects."+key+": current status is not mapped in project transition model");
 }
 if(state.academics?.school?.dashboard!==true) errors.push("academics.school must appear in the current-academics dashboard");
 if(state.academics?.engineering?.dashboard!==false) errors.push("future engineering direction must stay out of the current-academics dashboard");
 if(state.academics?.iitm?.status==="QUALIFIER PATHWAY" && /admitted|enrolled|active student/i.test(state.academics.iitm.note||"")){
   errors.push("IITM note conflicts with qualifier-stage status");
 }
+if(state.academics?.iitm?.activityModel!=="iitmActivity") errors.push("academics.iitm: missing iitmActivity presentation model");
+const iitmActivity=state.presentationModels?.[state.academics?.iitm?.activityModel]?.[state.academics?.iitm?.status];
+if(state.academics?.iitm?.status==="QUALIFIER PATHWAY"&&iitmActivity!=="PREPARING") errors.push("Qualifier Pathway must present current activity as PREPARING");
+
 if(!Array.isArray(state.capabilities?.currentExperience)||!state.capabilities.currentExperience.length) errors.push("capabilities.currentExperience must be a non-empty array");
 if(!Array.isArray(state.capabilities?.activeLearning)||!state.capabilities.activeLearning.length) errors.push("capabilities.activeLearning must be a non-empty array");
 if(!Array.isArray(state.capabilities?.futureDirection)||!state.capabilities.futureDirection.length) errors.push("capabilities.futureDirection must be a non-empty array");
 if(!nonEmpty(state.asOf)) errors.push("asOf missing");
 if(!nonEmpty(state.lastVerified)) errors.push("lastVerified missing");
 if(!nonEmpty(state.validityWindow)) errors.push("validityWindow missing");
+if(!Array.isArray(state.changelog)||state.changelog.length<4) errors.push("changelog must contain the implemented production history");
+for(const [i,entry] of (state.changelog||[]).entries()){
+  if(!nonEmpty(entry.date)||!nonEmpty(entry.title)||!nonEmpty(entry.text)) errors.push("changelog["+i+"]: date, title and text are required");
+}
+function findNull(value,path="state"){
+  if(value===null){errors.push(path+": null values are not allowed in public portfolio state");return;}
+  if(Array.isArray(value)){value.forEach((child,i)=>findNull(child,path+"["+i+"]"));return;}
+  if(value&&typeof value==="object"){for(const [key,child] of Object.entries(value)) findNull(child,path+"."+key);}
+}
+findNull(state);
 
 if(errors.length){
   console.error("Portfolio state validation failed:");

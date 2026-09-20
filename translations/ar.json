@@ -332,5 +332,7 @@
   "review.directionValue": "الإلكترونيات + الأنظمة المدمجة",
   "review.evidence": "الأدلة",
   "review.evidenceValue": "GitHub · Zenodo · سجلات الجهات المصدرة",
-  "lang.assessment": "اللغات · تقييم ذاتي"
+  "lang.assessment": "اللغات · تقييم ذاتي",
+  "iitmLearning.modeQualifier": "إعداد المؤهل / عرض المنهج",
+  "iitmLearning.verifiedUnavailable": "راجع المصدر الرسمي"
 }

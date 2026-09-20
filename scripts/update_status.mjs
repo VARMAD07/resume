@@ -55,4 +55,5 @@ if(opts.changelog){
   state.changelog.push({date:opts["as-of"]||opts.date,sortKey:entry.sortKey,text:opts.changelog});
 }
 fs.writeFileSync(FILE,JSON.stringify(state,null,2)+"\n");
-const derivedNext=item.transitionModel?state.transitionModels?.[item.transitionModel]?.[entry.status]:null;\nconsole.log(`Updated ${target}: ${entry.status} · ${entry.date}. Previous history retained.${derivedNext?` Next possible verified state: ${derivedNext}.`:""}`);
+const derivedNext=item.transitionModel?state.transitionModels?.[item.transitionModel]?.[entry.status]:null;
+console.log(`Updated ${target}: ${entry.status} · ${entry.date}. Previous history retained.${derivedNext?` Next possible verified state: ${derivedNext}.`:""}`);

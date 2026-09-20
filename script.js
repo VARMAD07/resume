@@ -114,6 +114,29 @@ function renderCourseStateList(container,courses,kind){
     const more=document.createElement("small");more.className="course-more";more.textContent=`+${courses.length-visible.length} ${uiText("iitmLearning.more","more in the curriculum map below")}`;container.append(more);
   }
 }
+function populateIitmCourseDetails(details,layer){
+  let list=details.querySelector("ul");
+  if(!list){list=document.createElement("ul");details.append(list);}
+  list.replaceChildren();
+  for(const course of [...(layer.courses||[]),...(layer.coreCourses||[])]){
+    const record=courseStateRecord(course.code);
+    const li=document.createElement("li");
+    const name=document.createElement("span");name.textContent=course.name;
+    const meta=document.createElement("small");meta.textContent=`${course.code} · ${course.credits} cr`;
+    li.append(name,meta,courseStatusChip(record));list.append(li);
+  }
+  for(const track of layer.optionTracks||[]){
+    const trackHead=document.createElement("li");trackHead.className="option-track-label";trackHead.textContent=track.label;list.append(trackHead);
+    for(const course of track.courses||[]){
+      const record=courseStateRecord(course.code);
+      const li=document.createElement("li");li.className="option-course";
+      const name=document.createElement("span");name.textContent=course.name;
+      const meta=document.createElement("small");meta.textContent=`${course.code} · ${course.credits} cr`;
+      li.append(name,meta,courseStatusChip(record));list.append(li);
+    }
+  }
+  details.dataset.rendered="true";
+}
 function iitmDisplayMode(programmeStatus){
   if(["ENROLLED","ACTIVE"].includes(programmeStatus)) return uiText("iitmLearning.modeCurrent","CURRENT ACADEMIC CURRICULUM");
   if(["COMPLETED"].includes(programmeStatus)) return uiText("iitmLearning.modeCompleted","COMPLETED COURSEWORK RECORD");
@@ -185,25 +208,8 @@ function renderIitmLearning(curriculum,state){
         ...(layer.optionTracks||[]).flatMap(track=>track.courses||[])
       ];
       summary.textContent=`${uiText("iitmLearning.officialCourses","Official courses")} · ${layerCourses.length}`;
-      const list=document.createElement("ul");
-      for(const course of [...(layer.courses||[]),...(layer.coreCourses||[])]){
-        const record=courseStateRecord(course.code);
-        const li=document.createElement("li");
-        const name=document.createElement("span");name.textContent=course.name;
-        const meta=document.createElement("small");meta.textContent=`${course.code} · ${course.credits} cr`;
-        li.append(name,meta,courseStatusChip(record));list.append(li);
-      }
-      for(const track of layer.optionTracks||[]){
-        const trackHead=document.createElement("li");trackHead.className="option-track-label";trackHead.textContent=track.label;list.append(trackHead);
-        for(const course of track.courses||[]){
-          const record=courseStateRecord(course.code);
-          const li=document.createElement("li");li.className="option-course";
-          const name=document.createElement("span");name.textContent=course.name;
-          const meta=document.createElement("small");meta.textContent=`${course.code} · ${course.credits} cr`;
-          li.append(name,meta,courseStatusChip(record));list.append(li);
-        }
-      }
-      details.append(summary,list);
+      details.append(summary);
+      details.addEventListener("toggle",()=>{if(details.open&&!details.dataset.rendered)populateIitmCourseDetails(details,layer);});
       article.append(details);
       if(layer.optionNote||layer.electivePolicy){
         const note=document.createElement("p");note.className="curriculum-policy";note.textContent=layer.optionNote||layer.electivePolicy;article.append(note);

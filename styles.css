@@ -1153,6 +1153,8 @@ html:not([data-state-ready]) [data-state-list-inline]{color:var(--muted)}
 .portfolio-changelog li{display:grid;grid-template-columns:130px 1fr;gap:18px;padding:13px 0;border-bottom:1px solid var(--line)}
 .portfolio-changelog time{font:700 9px ui-monospace,monospace;color:var(--accent);letter-spacing:.07em}
 .portfolio-changelog span{font-size:11px;color:var(--muted)}
+.portfolio-changelog span b{display:block;margin-bottom:4px;color:var(--ink);font:700 10px/1.4 ui-monospace,monospace;letter-spacing:.07em}
+.portfolio-changelog span small{display:block;color:var(--muted);font-size:10px;line-height:1.55}
 
 .reviewer-current-state{display:block;margin-top:4px;color:var(--accent);font:700 8px/1.4 ui-monospace,monospace;letter-spacing:.05em}
 
@@ -1371,4 +1373,11 @@ html:not([data-state-ready]) [data-state-list-inline]{color:var(--muted)}
   color:var(--muted);
   font:700 9px/1.55 ui-monospace,monospace;
   letter-spacing:.05em
+}
+
+.language-assessment{
+  margin:18px 0 10px;
+  font:700 9px/1.4 ui-monospace,monospace;
+  letter-spacing:.1em;
+  color:var(--accent);
 }

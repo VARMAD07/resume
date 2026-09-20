@@ -9,10 +9,10 @@ The live portfolio is designed so normal milestone updates happen from one sourc
 The same state file also controls the concise reviewer summary and current-status dashboard. `profile.stage`, `profile.stageDate` and `academics.school` carry the current school stage. Future-only paths such as `academics.engineering` use `dashboard: false` until they become a verified current academic state.
 
 1. Change the relevant item's `status`, `statusDate`, `evidence` and optional `note`.
-2. Append the previous/current state to that item's `history` instead of deleting meaningful history.
-3. Set `nextState` only to the next *possible verified state*. It is not a prediction.
+2. Append the verified state to that item's `history` instead of deleting meaningful history.
+3. Do not store a separate `nextState`. The UI derives the next possible state from `transitionModels`, preventing stale "next" copy after a status change.
 4. Add a factual entry to `changelog` only when the portfolio itself changes materially.
-5. Commit. The page automatically updates the current-status dashboard, academic cards, project/research status lines, status history and milestone timeline.
+5. Commit. The page automatically updates the current-status dashboard, reviewer summary, academic cards, project/research status lines, derived next state, status history and milestone timeline.
 
 ## Example: IITM qualifier becomes qualified
 

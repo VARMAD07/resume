@@ -132,6 +132,62 @@ const COPY_PATCH={
 };
 for(const [lng,map] of Object.entries(COPY_PATCH)){Object.assign(D[lng],map);}
 
+const V2_COPY={
+  en:{
+    "nav.academics":"Academics","nav.credentials":"Credentials","nav.resume":"Résumé","nav.contact":"Contact",
+    "hero.kicker":"STUDENT · BUILDER · RESEARCHER",
+    "hero.role":"Class 12 PCM · Software × Data Science × Electronics",
+    "hero.lede":"Building intelligent systems where computation, data and physical systems meet.",
+    "hero.trajectory":"Software × Data Science × Electronics",
+    "hero.academic":"Parallel academic plan: IIT Madras BS Data Science & Applications at the admissions/qualifier stage, alongside a planned on-campus Electronics/ECE/Mechatronics degree.",
+    "hero.iitm":"IITM BS DS&A · admissions/qualifier stage",
+    "hero.field":"Engineering degree · planned in parallel",
+    "scope.next":"PLANNED ENGINEERING",
+    "path.title":"Parallel academic strategy",
+    "reviewer.note":"Focused academic path · selected work · research · evidence · résumé",
+    "highlights.kicker":"START HERE / 30-SECOND REVIEW",
+    "highlights.title":"Selected work",
+    "highlights.intro":"Five anchors for a fast review: two builds, one research record, one public-systems experience and the current academic path.",
+    "highlights.open":"Inspect ↗"
+  },
+  ar:{
+    "nav.academics":"الأكاديميات","nav.credentials":"الشهادات","nav.resume":"السيرة الذاتية","nav.contact":"التواصل",
+    "hero.kicker":"طالب · باني أنظمة · باحث",
+    "hero.role":"الصف الثاني عشر PCM · البرمجيات × علوم البيانات × الإلكترونيات",
+    "hero.lede":"أبني أنظمة ذكية عند نقطة التقاء الحوسبة والبيانات والأنظمة الفيزيائية.",
+    "hero.trajectory":"البرمجيات × علوم البيانات × الإلكترونيات",
+    "hero.academic":"خطة أكاديمية متوازية: مسار BS في علوم البيانات والتطبيقات لدى IIT Madras في مرحلة القبول/التأهيل، إلى جانب درجة حضورية مخطط لها في الإلكترونيات/ECE/الميكاترونكس.",
+    "hero.iitm":"IITM BS DS&A · مرحلة القبول/التأهيل",
+    "hero.field":"درجة هندسية · مخطط لها بالتوازي",
+    "scope.next":"الهندسة المخطط لها",
+    "path.title":"استراتيجية أكاديمية متوازية",
+    "reviewer.note":"مسار أكاديمي مركز · أعمال مختارة · بحث · أدلة · سيرة ذاتية",
+    "highlights.kicker":"ابدأ هنا / مراجعة في 30 ثانية",
+    "highlights.title":"أعمال مختارة",
+    "highlights.intro":"خمس نقاط للمراجعة السريعة: مشروعان، سجل بحثي، تجربة في الأنظمة العامة، والمسار الأكاديمي الحالي.",
+    "highlights.open":"افتح ↗"
+  },
+  ja:{
+    "nav.academics":"学習経路","nav.credentials":"資格","nav.resume":"履歴書","nav.contact":"連絡先",
+    "hero.kicker":"学生 · ビルダー · 研究者",
+    "hero.role":"高校12年相当PCM · ソフトウェア × データサイエンス × 電子工学",
+    "hero.lede":"計算・データ・物理システムが交わる場所で、知的システムを作っています。",
+    "hero.trajectory":"ソフトウェア × データサイエンス × 電子工学",
+    "hero.academic":"並行する学術計画：IIT Madras BS Data Science & Applications の入学/Qualifier段階と、予定している電子工学/ECE/メカトロニクスの対面学位。",
+    "hero.iitm":"IITM BS DS&A · 入学/Qualifier段階",
+    "hero.field":"工学学位 · 並行して計画中",
+    "scope.next":"計画中の工学分野",
+    "path.title":"並行する学術戦略",
+    "reviewer.note":"学習経路 · 選定作品 · 研究 · 証拠 · 履歴書に集中",
+    "highlights.kicker":"ここから / 30秒レビュー",
+    "highlights.title":"選定作品",
+    "highlights.intro":"短時間で確認する5つの軸：2つの制作、1つの研究記録、公共システムへの接点、現在の学習経路。",
+    "highlights.open":"確認 ↗"
+  }
+};
+for(const [lng,map] of Object.entries(V2_COPY)){Object.assign(D[lng],map);}
+
+
 const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
 let lang=localStorage.getItem("mhf-lang")||"en";
 let theme=localStorage.getItem("mhf-theme")||"home";
@@ -169,6 +225,11 @@ $$("[data-copy]").forEach(b=>b.addEventListener("click",async()=>{try{await navi
 
 const dialog=$("#search-dialog"),input=$("#search-input"),results=$("#search-results");
 const index=[
+{label:"Selected work",meta:"FAST PATH / projects / research / academics",href:"#selected-work"},
+{label:"Academic status",meta:"IIT MADRAS / qualifier / planned engineering",href:"#academic-path"},
+{label:"Credentials",meta:"ISSUER RECORDS / NASA / Google / Google Cloud",href:"#credentials"},
+{label:"Résumé",meta:"COMPRESSED RECORD / PDF",href:"#resume"},
+{label:"Contact",meta:"EMAIL / LinkedIn / GitHub / ORCID",href:"#contact"},
 {label:"Halim Nexus AI",meta:"PROJECT / Python / AI / SQLite / Twilio",href:"#work"},
 {label:"StudySyncEngine",meta:"PROJECT / OCR / local automation / privacy",href:"#work"},
 {label:"AI-Assisted Healthcare Systems",meta:"RESEARCH / preprint / methodology / Zenodo",href:"#research"},

@@ -72,7 +72,6 @@
       "shortLabel": "IITM BS DS&A",
       "status": "QUALIFIER PATHWAY",
       "statusDate": "SEP 2026",
-      "nextState": "QUALIFIED",
       "evidence": {
         "type": "PORTAL EVIDENCE",
         "href": "#ev-edu-001",
@@ -95,7 +94,8 @@
         "officialPage": "https://study.iitm.ac.in/ds/academics.html",
         "qualifierPage": "https://study.iitm.ac.in/ds/admissions.html"
       },
-      "dashboard": true
+      "dashboard": true,
+      "transitionModel": "iitm"
     },
     "engineering": {
       "id": "engineering",
@@ -104,7 +104,6 @@
       "shortLabel": "Engineering pathway",
       "status": "PLANNED",
       "statusDate": "SEP 2026",
-      "nextState": "APPLIED",
       "evidence": {
         "type": "SELF-REPORTED",
         "href": "#academic-path",
@@ -120,7 +119,8 @@
           "note": "Direction only; not an earned or admitted qualification."
         }
       ],
-      "dashboard": false
+      "dashboard": false,
+      "transitionModel": "application"
     }
   },
   "projects": {
@@ -201,7 +201,8 @@
           "note": "Public preprint available on Zenodo."
         }
       ],
-      "priorSubmissionOutcome": "JOURNAL SUBMISSION NOT ACCEPTED"
+      "priorSubmissionOutcome": "JOURNAL SUBMISSION NOT ACCEPTED",
+      "transitionModel": "research"
     },
     "metabasis": {
       "id": "metabasis",
@@ -227,7 +228,8 @@
           "evidenceType": "SUPPLIED DOCUMENT",
           "note": "Independent manuscript."
         }
-      ]
+      ],
+      "transitionModel": "research"
     }
   },
   "capabilities": {
@@ -273,5 +275,36 @@
       "text": "Status, reviewer-summary, QA and evidence-maintenance architecture tightened without changing the visual identity."
     }
   ],
-  "lastVerified": "20 SEP 2026"
+  "lastVerified": "20 SEP 2026",
+  "transitionModels": {
+    "iitm": {
+      "QUALIFIER PATHWAY": "QUALIFIED",
+      "QUALIFIED": "ADMITTED",
+      "ADMITTED": "ENROLLED",
+      "ENROLLED": "ACTIVE",
+      "ACTIVE": null
+    },
+    "application": {
+      "PLANNED": "APPLIED",
+      "APPLIED": "ADMITTED",
+      "ADMITTED": "ENROLLED",
+      "ENROLLED": "ACTIVE",
+      "ACTIVE": null
+    },
+    "research": {
+      "MANUSCRIPT": "PREPRINT",
+      "PREPRINT": "SUBMITTED",
+      "SUBMITTED": "UNDER REVIEW",
+      "UNDER REVIEW": "ACCEPTED",
+      "ACCEPTED": "PUBLISHED",
+      "PUBLISHED": null
+    },
+    "project": {
+      "IN DEVELOPMENT": "ACTIVE",
+      "ACTIVE": "COMPLETED",
+      "COMPLETED": "MAINTAINED",
+      "MAINTAINED": "ARCHIVED",
+      "ARCHIVED": null
+    }
+  }
 }

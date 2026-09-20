@@ -63,6 +63,16 @@ function applyTheme(next){
 let portfolioState=null;
 let iitmCurriculum=null;
 const getState=(path,root=portfolioState)=>path.split(".").reduce((value,key)=>value?.[key],root);
+function deriveTransitions(state){
+  for(const group of [state.academics,state.projects,state.research]){
+    for(const item of Object.values(group||{})){
+      if(!item?.transitionModel) continue;
+      const model=state.transitionModels?.[item.transitionModel];
+      item.nextState=model&&Object.prototype.hasOwnProperty.call(model,item.status)?model[item.status]:null;
+    }
+  }
+  return state;
+}
 const statusSlug=value=>String(value||"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 const isExternalHref=href=>/^https?:\/\//.test(href||"");
 
@@ -123,6 +133,7 @@ function collectMilestones(state){
   return rows.sort((a,b)=>(b.sortKey||0)-(a.sortKey||0));
 }
 function renderPortfolioState(state){
+  state=deriveTransitions(state);
   portfolioState=state;
   document.documentElement.dataset.stateReady="true";
   document.querySelectorAll("[data-state]").forEach(el=>{
@@ -150,7 +161,8 @@ function renderPortfolioState(state){
   document.querySelectorAll("[data-history-source]").forEach(el=>renderHistory(el,getState(el.dataset.historySource,state)));
   document.querySelectorAll("[data-next-state-wrap]").forEach(el=>{
     const dynamic=el.querySelector("[data-state]");
-    el.hidden=!dynamic||!dynamic.textContent||dynamic.textContent==="—";
+    const value=dynamic?getState(dynamic.dataset.state,state):null;
+    el.hidden=value==null||value==="";
   });
 
   const academics=$("#current-academics"),building=$("#current-building"),research=$("#current-research"),learning=$("#current-learning");

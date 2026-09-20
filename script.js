@@ -141,9 +141,11 @@ function renderPortfolioState(state){
   const timeline=$("#status-timeline");
   if(timeline){
     timeline.replaceChildren();
-    for(const [milestoneIndex,item] of collectMilestones(state).entries()){
+    const milestones=collectMilestones(state);
+    const latestEvidenceIndex=milestones.findIndex(item=>item.evidenceType!=="SELF-REPORTED");
+    for(const [milestoneIndex,item] of milestones.entries()){
       const article=document.createElement("article");
-      if(milestoneIndex===0) article.classList.add("latest-milestone");
+      if(milestoneIndex===latestEvidenceIndex) article.classList.add("latest-milestone");
       article.dataset.kind=String(item.category||"record").toLowerCase().replace(/[^a-z0-9]+/g,"-");
       if(item.current) article.classList.add("current-milestone");
       const time=document.createElement("time");time.textContent=item.date;

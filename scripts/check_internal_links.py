@@ -12,6 +12,7 @@ class Collector(HTMLParser):
         super().__init__()
         self.ids=set()
         self.refs=[]
+        self.meta_content_refs=[]
     def handle_starttag(self, tag, attrs):
         a=dict(attrs)
         if "id" in a:
@@ -20,6 +21,8 @@ class Collector(HTMLParser):
             value=a.get(key)
             if value:
                 self.refs.append((tag,key,value))
+        if tag=="meta" and a.get("content") and (a.get("property")=="og:image" or a.get("name")=="twitter:image"):
+            self.meta_content_refs.append((tag,"content",a["content"]))
 
 def local_target(value):
     if value.startswith(("mailto:","tel:","javascript:","data:")):
@@ -65,7 +68,7 @@ def main():
         for err in errors:
             print(" -",err)
         raise SystemExit(1)
-    print(f"OK: checked {len(parser.refs)} references and {len(parser.ids)} anchors.")
+    print(f"OK: checked {len(parser.refs)+len(parser.meta_content_refs)} references and {len(parser.ids)} anchors.")
 
 if __name__=="__main__":
     main()

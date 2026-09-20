@@ -60,3 +60,33 @@ node scripts/update_status.mjs academics.iitm \
 ```
 
 The helper appends the new state to history instead of overwriting the old history. Review the JSON diff before committing. Evidence labels/links can also be supplied with `--evidence-label` and `--evidence-href`.
+
+
+## IIT Madras course updates
+
+The official curriculum snapshot used by the portfolio is:
+
+`data/iitm-curriculum.json`
+
+It was verified against the official IIT Madras BS Data Science and Applications Academics and Admissions pages in September 2026.
+
+Personal course states live only in:
+
+`data/portfolio-state.json → academics.iitm.courseStatuses`
+
+The default for every curriculum course is `PLANNED`. Do not mark a course `CURRENT`, `COMPLETED`, `PASSED`, `REPEATED`, or `ARCHIVED` without an academic record supporting that state.
+
+Fast helper:
+
+```bash
+node scripts/update_iitm_course.mjs BSMA1001 \
+  --status="CURRENT" \
+  --date="JAN 2027" \
+  --evidence-type="PORTAL EVIDENCE" \
+  --note="Registered course shown in the official academic record." \
+  --as-of="JAN 2027"
+```
+
+The helper preserves course-status history and updates only the centralized state record.
+
+When IIT Madras changes the official curriculum, update `data/iitm-curriculum.json` from the official programme pages first. Do not preserve an old course list simply because the portfolio previously used it.

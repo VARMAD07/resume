@@ -60,6 +60,16 @@ function applyTheme(next){
 
 applyTheme(theme);
 void applyLang(lang);
+const skipLink=$(".skip");
+if(skipLink){
+  skipLink.addEventListener("click",event=>{
+    event.preventDefault();
+    const main=$("#main");
+    main?.focus({preventScroll:true});
+    main?.scrollIntoView({block:"start"});
+    history.replaceState(null,"","#main");
+  });
+}
 $$("[data-lang]").forEach(b=>b.addEventListener("click",()=>{void applyLang(b.dataset.lang)}));
 $("#theme").addEventListener("click",()=>applyTheme(theme==="home"?"lab":"home"));
 $("#menu").addEventListener("click",()=>{

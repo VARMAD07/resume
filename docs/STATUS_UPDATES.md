@@ -90,3 +90,26 @@ node scripts/update_iitm_course.mjs BSMA1001 \
 The helper preserves course-status history and updates only the centralized state record.
 
 When IIT Madras changes the official curriculum, update `data/iitm-curriculum.json` from the official programme pages first. Do not preserve an old course list simply because the portfolio previously used it.
+
+
+## IITM curriculum architecture
+
+The portfolio separates two things deliberately:
+
+- **Official source data:** `data/iitm-curriculum.json → officialStructure / courses`
+- **Portfolio learning architecture:** `data/iitm-curriculum.json → learningArchitecture`
+
+The learning architecture is a six-part explanatory view:
+
+1. Foundation
+2. Programming
+3. Data Science
+4. Machine Learning / AI
+5. Systems
+6. Elective / Advanced Learning
+
+These are portfolio groupings, not replacements for IIT Madras's official Foundation / Diploma / Degree structure. Every displayed course retains its official level in the external curriculum data.
+
+The advanced/elective group is explicitly volatile because IIT Madras states that elective availability may change by term. Re-verify the official Academics page before treating an elective as currently offered after the curriculum review date.
+
+Do not hard-code new course names into `index.html`. Update `data/iitm-curriculum.json` from the official IIT Madras programme page, then let the UI render it.

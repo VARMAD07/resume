@@ -2,46 +2,70 @@
 import fs from "node:fs";
 const state=JSON.parse(fs.readFileSync("data/portfolio-state.json","utf8"));
 
-const requiredStatuses=new Set([
-  "PLANNED","PREPARING","APPLIED","SUBMITTED","UNDER REVIEW","QUALIFIER PATHWAY","QUALIFIED",
-  "ADMITTED","ENROLLED","ACTIVE","COMPLETED","PUBLISHED","PREPRINT","MANUSCRIPT","IN PROGRESS",
-  "ARCHIVED","VERIFIED","SELF-REPORTED","LEARNING DIRECTION","ACCEPTED","IN DEVELOPMENT","MAINTAINED","PROTOTYPE","OPEN SOURCE"
-]);
+const requiredStatuses=new Set(Object.keys(state.statusDefinitions||{}));
+const evidenceTypes=new Set(["PUBLIC SOURCE","ISSUER RECORD","SUPPLIED DOCUMENT","PORTAL EVIDENCE","SELF-REPORTED"]);
+const errors=[];
 
-let errors=[];
-const allItems=[
-  ["academics.iitm",state.academics?.iitm],
-  ["academics.engineering",state.academics?.engineering],
-  ["projects.halim",state.projects?.halim],
-  ["projects.studysync",state.projects?.studysync],
-  ["research.healthcare",state.research?.healthcare],
-  ["research.metabasis",state.research?.metabasis]
+const nonEmpty=(value)=>typeof value==="string"&&value.trim().length>0;
+const groups=[
+  ["academics",state.academics],
+  ["projects",state.projects],
+  ["research",state.research]
 ];
-for(const [path,item] of allItems){
-  if(!item){errors.push(path+": missing");continue;}
-  for(const key of ["status","statusDate","evidence","history"]) if(item[key]==null) errors.push(path+": missing "+key);
-  if(!requiredStatuses.has(item.status)) errors.push(path+": unsupported status "+item.status);
-  if(!item.evidence?.type) errors.push(path+": evidence.type missing");
-  if(!Array.isArray(item.history)||!item.history.length) errors.push(path+": history missing");
-  else {
+
+for(const [groupName,group] of groups){
+  if(!group||typeof group!=="object"){errors.push(groupName+": missing group");continue;}
+  for(const [key,item] of Object.entries(group)){
+    const path=groupName+"."+key;
+    if(!item||typeof item!=="object"){errors.push(path+": missing");continue;}
+    for(const field of ["label","status","statusDate","evidence","history"]){
+      if(item[field]==null) errors.push(path+": missing "+field);
+    }
+    if(!requiredStatuses.has(item.status)) errors.push(path+": unsupported status "+item.status);
+    if(!evidenceTypes.has(item.evidence?.type)) errors.push(path+": unsupported evidence type "+String(item.evidence?.type));
+    if(!nonEmpty(item.statusDate)) errors.push(path+": statusDate must be non-empty");
+    if(item.nextState!=null&&!requiredStatuses.has(item.nextState)) errors.push(path+": unsupported nextState "+item.nextState);
+    if(!Array.isArray(item.history)||!item.history.length){
+      errors.push(path+": history missing");
+      continue;
+    }
     const last=item.history[item.history.length-1];
     if(last.status!==item.status) errors.push(path+": latest history status must match current status");
+    let previousSort=-Infinity;
     for(const h of item.history){
       if(!requiredStatuses.has(h.status)) errors.push(path+": history has unsupported status "+h.status);
-      if(!h.date||!h.evidenceType) errors.push(path+": every history state needs date and evidenceType");
+      if(!nonEmpty(h.date)||!evidenceTypes.has(h.evidenceType)) errors.push(path+": every history state needs date and supported evidenceType");
+      if(Number.isFinite(h.sortKey)){
+        if(h.sortKey<previousSort) errors.push(path+": history sortKey must be chronological");
+        previousSort=h.sortKey;
+      }
     }
   }
 }
+
+for(const field of ["stage","stageDate","schoolSystem","status","location"]){
+  if(!nonEmpty(state.profile?.[field])) errors.push("profile."+field+": missing or empty");
+}
+if(!requiredStatuses.has(state.profile?.status)) errors.push("profile.status: unsupported status");
+if(!evidenceTypes.has(state.profile?.evidence?.type)) errors.push("profile.evidence.type: unsupported evidence type");
+
+for(const [key,item] of Object.entries(state.projects||{})){
+  if(!nonEmpty(item.role)) errors.push("projects."+key+".role: missing");
+}
+if(state.academics?.school?.dashboard!==true) errors.push("academics.school must appear in the current-academics dashboard");
+if(state.academics?.engineering?.dashboard!==false) errors.push("future engineering direction must stay out of the current-academics dashboard");
 if(state.academics?.iitm?.status==="QUALIFIER PATHWAY" && /admitted|enrolled|active student/i.test(state.academics.iitm.note||"")){
   errors.push("IITM note conflicts with qualifier-stage status");
 }
-if(!Array.isArray(state.capabilities?.currentExperience)||!Array.isArray(state.capabilities?.activeLearning)||!Array.isArray(state.capabilities?.futureDirection)){
-  errors.push("capability buckets must all be arrays");
-}
-if(!state.asOf) errors.push("asOf missing");
+if(!Array.isArray(state.capabilities?.currentExperience)||!state.capabilities.currentExperience.length) errors.push("capabilities.currentExperience must be a non-empty array");
+if(!Array.isArray(state.capabilities?.activeLearning)||!state.capabilities.activeLearning.length) errors.push("capabilities.activeLearning must be a non-empty array");
+if(!Array.isArray(state.capabilities?.futureDirection)||!state.capabilities.futureDirection.length) errors.push("capabilities.futureDirection must be a non-empty array");
+if(!nonEmpty(state.asOf)) errors.push("asOf missing");
+if(!nonEmpty(state.validityWindow)) errors.push("validityWindow missing");
+
 if(errors.length){
   console.error("Portfolio state validation failed:");
-  for(const e of errors) console.error(" - "+e);
+  for(const error of errors) console.error(" - "+error);
   process.exit(1);
 }
-console.log("OK: portfolio state is internally consistent and updateable from one source.");
+console.log("OK: portfolio state, evidence taxonomy, history and dashboard classifications are internally consistent.");

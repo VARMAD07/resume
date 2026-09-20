@@ -385,7 +385,26 @@ async function loadPortfolioState(){
 applyTheme(theme);
 void applyLang(lang);
 void loadPortfolioState();
-void loadIitmCurriculum();
+let iitmCurriculumLoading=false;
+const ensureIitmCurriculum=()=>{
+  if(iitmCurriculum||iitmCurriculumLoading) return;
+  iitmCurriculumLoading=true;
+  loadIitmCurriculum().finally(()=>{iitmCurriculumLoading=false;});
+};
+const iitmLearningSection=$("#iitm-learning");
+if(iitmLearningSection&&"IntersectionObserver" in window){
+  const observer=new IntersectionObserver(entries=>{
+    if(entries.some(entry=>entry.isIntersecting)){ensureIitmCurriculum();observer.disconnect();}
+  },{rootMargin:"700px 0px"});
+  observer.observe(iitmLearningSection);
+}else if(iitmLearningSection){
+  setTimeout(ensureIitmCurriculum,1800);
+}
+$('a[href="#iitm-learning"]').forEach(a=>{
+  a.addEventListener("focus",ensureIitmCurriculum,{once:true});
+  a.addEventListener("pointerenter",ensureIitmCurriculum,{once:true});
+  a.addEventListener("click",ensureIitmCurriculum,{once:true});
+});
 const skipLink=$(".skip");
 if(skipLink){
   skipLink.addEventListener("click",event=>{

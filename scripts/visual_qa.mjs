@@ -44,6 +44,18 @@ async function assert(name,condition,details={}){
   await assert("desktop no page errors",pageErrors.length===0,{pageErrors});
   await assert("desktop no console errors",consoleErrors.length===0,{consoleErrors});
   await assert("desktop no failed requests",failedRequests.length===0,{failedRequests});
+  const heroBeforeBanner=await page.evaluate(()=>{
+    const hero=document.querySelector("#profile");
+    const banner=document.querySelector(".portfolio-banner");
+    return Boolean(hero&&banner&&(hero.compareDocumentPosition(banner)&Node.DOCUMENT_POSITION_FOLLOWING));
+  });
+  await assert("hero precedes decorative identity banner",heroBeforeBanner);
+  const selectedBeforeBanner=await page.evaluate(()=>{
+    const selected=document.querySelector("#selected-work");
+    const banner=document.querySelector(".portfolio-banner");
+    return Boolean(selected&&banner&&(selected.compareDocumentPosition(banner)&Node.DOCUMENT_POSITION_FOLLOWING));
+  });
+  await assert("selected work precedes decorative identity banner",selectedBeforeBanner);
   const heroText=await page.locator("#profile").innerText();
   await assert("hero communicates student builder researcher",heroText.includes("STUDENT")&&heroText.includes("BUILDER")&&heroText.includes("RESEARCHER"),{heroText:heroText.slice(0,300)});
   await assert("hero communicates software data electronics",heroText.includes("Software")||heroText.includes("SOFTWARE"),{heroText:heroText.slice(0,400)});

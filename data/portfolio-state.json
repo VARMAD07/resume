@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "asOf": "SEP 2026",
   "validityWindow": "SEP 2026 → SEP 2027",
   "profile": {
@@ -90,12 +90,13 @@
       "courseStatuses": {},
       "curriculum": {
         "source": "data/iitm-curriculum.json",
-        "verifiedAt": "SEP 2026",
+        "verifiedAt": "20 SEP 2026",
         "officialPage": "https://study.iitm.ac.in/ds/academics.html",
         "qualifierPage": "https://study.iitm.ac.in/ds/admissions.html"
       },
       "dashboard": true,
-      "transitionModel": "iitm"
+      "transitionModel": "iitm",
+      "activityModel": "iitmActivity"
     },
     "engineering": {
       "id": "engineering",
@@ -144,7 +145,8 @@
           "note": "Public repository and live application available."
         }
       ],
-      "role": "Builder / developer"
+      "role": "Builder / developer",
+      "transitionModel": "project"
     },
     "studysync": {
       "id": "studysync",
@@ -166,7 +168,8 @@
           "note": "Public source repository available."
         }
       ],
-      "role": "Builder / developer"
+      "role": "Builder / developer",
+      "transitionModel": "project"
     }
   },
   "research": {
@@ -218,7 +221,6 @@
         "label": "Supplied research files"
       },
       "peerReview": "NOT PEER-REVIEWED",
-      "reviewOutcome": null,
       "note": "Independent manuscript; provisional concepts remain explicitly identified as requiring validation.",
       "history": [
         {
@@ -262,17 +264,26 @@
     {
       "date": "SEP 2026",
       "sortKey": 20260920,
-      "text": "Centralized status architecture, evidence-linked milestones and future-proof update workflow introduced."
+      "text": "Centralized status architecture, evidence-linked milestones and future-proof update workflow introduced.",
+      "title": "STATE + EVIDENCE ARCHITECTURE"
     },
     {
       "date": "SEP 2026",
       "sortKey": 20260920,
-      "text": "IIT Madras learning trajectory added from the current official curriculum, with personal course states kept evidence-gated."
+      "text": "IIT Madras learning trajectory added from the current official curriculum, with personal course states kept evidence-gated.",
+      "title": "IITM LEARNING ARCHITECTURE"
     },
     {
       "date": "20 SEP 2026",
       "sortKey": 20260920.5,
-      "text": "Status, reviewer-summary, QA and evidence-maintenance architecture tightened without changing the visual identity."
+      "text": "Status, reviewer-summary, QA and evidence-maintenance architecture tightened without changing the visual identity.",
+      "title": "REVIEWER + QA HARDENING"
+    },
+    {
+      "date": "20 SEP 2026",
+      "sortKey": 20260920.9,
+      "title": "FINAL PRODUCTION PASS",
+      "text": "Final production pass completed: centralized state presentation, IITM qualifier/activity distinction, international and language wording, runtime placeholder checks, project/research transition readiness, and production QA were tightened without changing the visual identity."
     }
   ],
   "lastVerified": "20 SEP 2026",
@@ -281,30 +292,37 @@
       "QUALIFIER PATHWAY": "QUALIFIED",
       "QUALIFIED": "ADMITTED",
       "ADMITTED": "ENROLLED",
-      "ENROLLED": "ACTIVE",
-      "ACTIVE": null
+      "ENROLLED": "ACTIVE"
     },
     "application": {
       "PLANNED": "APPLIED",
       "APPLIED": "ADMITTED",
       "ADMITTED": "ENROLLED",
-      "ENROLLED": "ACTIVE",
-      "ACTIVE": null
+      "ENROLLED": "ACTIVE"
     },
     "research": {
       "MANUSCRIPT": "PREPRINT",
       "PREPRINT": "SUBMITTED",
       "SUBMITTED": "UNDER REVIEW",
       "UNDER REVIEW": "ACCEPTED",
-      "ACCEPTED": "PUBLISHED",
-      "PUBLISHED": null
+      "ACCEPTED": "PUBLISHED"
     },
     "project": {
+      "PROTOTYPE": "ACTIVE",
+      "OPEN SOURCE": "ACTIVE",
       "IN DEVELOPMENT": "ACTIVE",
       "ACTIVE": "COMPLETED",
       "COMPLETED": "MAINTAINED",
-      "MAINTAINED": "ARCHIVED",
-      "ARCHIVED": null
+      "MAINTAINED": "ARCHIVED"
+    }
+  },
+  "presentationModels": {
+    "iitmActivity": {
+      "QUALIFIER PATHWAY": "PREPARING",
+      "QUALIFIED": "QUALIFIED",
+      "ADMITTED": "ADMITTED",
+      "ENROLLED": "ENROLLED",
+      "ACTIVE": "ACTIVE"
     }
   }
 }

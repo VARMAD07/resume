@@ -56,7 +56,14 @@
           "evidenceType": "PORTAL EVIDENCE",
           "note": "Application accepted; supplied dashboard evidence showed QUALIFIER level at capture."
         }
-      ]
+      ],
+      "courseStatuses": {},
+      "curriculum": {
+        "source": "data/iitm-curriculum.json",
+        "verifiedAt": "SEP 2026",
+        "officialPage": "https://study.iitm.ac.in/ds/academics.html",
+        "qualifierPage": "https://study.iitm.ac.in/ds/admissions.html"
+      }
     },
     "engineering": {
       "id": "engineering",
@@ -215,6 +222,11 @@
       "date": "SEP 2026",
       "sortKey": 20260920,
       "text": "Centralized status architecture, evidence-linked milestones and future-proof update workflow introduced."
+    },
+    {
+      "date": "SEP 2026",
+      "sortKey": 20260920,
+      "text": "IIT Madras learning trajectory added from the current official curriculum, with personal course states kept evidence-gated."
     }
   ]
 }

@@ -1188,3 +1188,148 @@ html:not([data-state-ready]) [data-state-list-inline]{color:var(--muted)}
   .current-status-grid{grid-template-columns:1fr 1fr}
   .status-links,.portfolio-changelog{display:none}
 }
+
+
+/* 2026-09-20 IITM learning trajectory */
+#iitm-learning{scroll-margin-top:92px}
+.iitm-sourcebar{
+  display:grid;grid-template-columns:1.1fr 1.25fr 1.1fr .85fr;
+  border:1px solid var(--line);background:var(--panel);margin-bottom:12px
+}
+.iitm-sourcebar>div{padding:15px;border-right:1px solid var(--line);display:grid;gap:7px;min-width:0}
+.iitm-sourcebar>div:last-child{border-right:0}
+.iitm-sourcebar span,.iitm-sourcebar b,.iitm-sourcebar a{
+  font:700 9px/1.45 ui-monospace,monospace;letter-spacing:.07em
+}
+.iitm-sourcebar span{color:var(--muted)}
+.iitm-sourcebar b,.iitm-sourcebar a{color:var(--accent);text-decoration:none;overflow-wrap:anywhere}
+
+.iitm-source-note{
+  border-left:3px solid var(--accent);padding:14px 16px;background:color-mix(in srgb,var(--accent) 4%,var(--panel));
+  margin:0 0 14px
+}
+.iitm-source-note>b,.qualifier-context strong{
+  font:700 9px/1.4 ui-monospace,monospace;letter-spacing:.08em;color:var(--accent)
+}
+.iitm-source-note>p,.qualifier-context p{margin:7px 0 0;color:var(--muted);font-size:11px;line-height:1.6}
+.qualifier-context{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+
+.iitm-course-state{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0
+}
+.iitm-course-state>article{border:1px solid var(--line);padding:16px;background:var(--panel);min-width:0}
+.iitm-course-state>article>span{
+  display:block;margin-bottom:10px;font:700 9px/1.4 ui-monospace,monospace;letter-spacing:.08em;color:var(--accent)
+}
+.iitm-course-state>article:nth-child(1){border-top:3px solid var(--signal)}
+.iitm-course-state>article:nth-child(2){border-top:3px solid var(--accent)}
+.iitm-course-state>article:nth-child(3){border-top:3px solid var(--muted)}
+.course-state-list{display:grid;gap:7px}
+.course-state-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 8px;padding-top:7px;border-top:1px solid var(--line)}
+.course-state-item:first-child{border-top:0;padding-top:0}
+.course-state-item>span:first-child{font-size:11px;line-height:1.45}
+.course-state-item small{grid-column:1/-1;color:var(--muted);font-size:9px;line-height:1.45}
+.course-status-chip{
+  align-self:start;padding:3px 5px;border:1px solid var(--line);
+  font:700 8px/1.3 ui-monospace,monospace;letter-spacing:.05em;color:var(--accent)
+}
+.course-state-empty{margin:0;color:var(--muted);font-size:11px;line-height:1.55}
+.course-more{color:var(--muted);font-size:9px}
+
+.iitm-progression{
+  display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:17px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:20px 0
+}
+.iitm-progression span{
+  padding:7px 8px;border:1px solid var(--line);font:700 9px/1.3 ui-monospace,monospace;letter-spacing:.06em;background:var(--panel)
+}
+.iitm-progression i{font-style:normal;color:var(--accent);font-size:11px}
+.iitm-progression small{width:100%;color:var(--muted);font:700 8px/1.5 ui-monospace,monospace;letter-spacing:.05em}
+
+.iitm-learning-layers{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.iitm-layer{border:1px solid var(--line);padding:18px;background:var(--panel);min-width:0}
+.iitm-layer>header{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;align-items:start}
+.iitm-layer>header>span{font:700 9px ui-monospace,monospace;color:var(--accent)}
+.iitm-layer h3{margin:0;font-size:18px;line-height:1.1}
+.iitm-layer header small{display:block;margin-top:5px;color:var(--muted);font-size:9px}
+.iitm-layer>p{color:var(--muted);font-size:11.5px;line-height:1.62}
+.iitm-meaning-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:12px 0}
+.iitm-meaning-grid p{margin:0;border-top:1px solid var(--line);padding-top:8px;display:grid;gap:4px}
+.iitm-meaning-grid b{font:700 8px ui-monospace,monospace;letter-spacing:.07em;color:var(--accent)}
+.iitm-meaning-grid span{font-size:10px;line-height:1.45;color:var(--muted)}
+.iitm-course-details{margin-top:13px;border-top:1px solid var(--line);padding-top:12px}
+.iitm-course-details summary{cursor:pointer;font:700 9px/1.4 ui-monospace,monospace;color:var(--accent);letter-spacing:.06em}
+.iitm-course-details ul{list-style:none;margin:10px 0 0;padding:0;border-top:1px solid var(--line)}
+.iitm-course-details li:not(.option-track-label){
+  display:grid;grid-template-columns:minmax(0,1fr) 100px auto;gap:9px;align-items:center;
+  padding:8px 0;border-bottom:1px solid var(--line)
+}
+.iitm-course-details li>span:first-child{font-size:10.5px;line-height:1.4}
+.iitm-course-details li>small{color:var(--muted);font:8px/1.4 ui-monospace,monospace}
+.option-track-label{
+  margin-top:11px;padding:8px;border:1px solid var(--line);background:color-mix(in srgb,var(--accent) 3%,var(--panel));
+  font:700 8px/1.4 ui-monospace,monospace;letter-spacing:.06em;color:var(--muted)
+}
+.curriculum-policy{
+  margin:12px 0 0!important;padding-top:10px;border-top:1px solid var(--line);
+  font-size:10px!important;line-height:1.55!important;color:var(--muted)!important
+}
+
+.iitm-connections{margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
+.iitm-connections>header{display:grid;grid-template-columns:190px minmax(0,1fr);gap:8px 24px;margin-bottom:14px}
+.iitm-connections>header>span{grid-row:1/3;font:700 9px/1.5 ui-monospace,monospace;letter-spacing:.08em;color:var(--accent)}
+.iitm-connections h3{margin:0;font-size:24px;line-height:1.1}
+.iitm-connections header p{margin:0;color:var(--muted);font-size:11px;line-height:1.55}
+.academic-connections-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.academic-connections-grid article{border:1px solid var(--line);padding:13px;background:var(--panel);min-width:0}
+.academic-connections-grid article>div:first-child{display:grid;gap:5px}
+.academic-connections-grid h4{margin:0;font-size:12px}
+.academic-connections-grid article>div:first-child span{font:700 8px ui-monospace,monospace;color:var(--accent);letter-spacing:.06em}
+.academic-connections-grid p{font-size:10px;line-height:1.5;color:var(--muted)}
+.connection-links{display:grid;gap:5px}
+.connection-links a{font-size:9px;color:var(--accent);text-decoration:none}
+
+.iitm-profile-synthesis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.iitm-profile-synthesis article{border:1px solid var(--line);padding:16px;background:var(--panel)}
+.iitm-profile-synthesis span{font:700 8px ui-monospace,monospace;letter-spacing:.08em;color:var(--accent)}
+.iitm-profile-synthesis h3{font-size:14px;line-height:1.35;margin:9px 0}
+.iitm-profile-synthesis p{margin:0;font-size:10.5px;line-height:1.55;color:var(--muted)}
+
+.iitm-intersection{display:grid;grid-template-columns:220px minmax(0,1fr);gap:16px;margin-top:10px;border:1px solid var(--line);padding:16px;background:var(--panel)}
+.iitm-intersection>div:first-child{display:grid;gap:7px;align-content:start}
+.iitm-intersection span,.iitm-intersection b{font:700 9px/1.45 ui-monospace,monospace;letter-spacing:.06em}
+.iitm-intersection>div:first-child span{color:var(--accent)}
+.iitm-intersection>div:first-child b{color:var(--muted)}
+.intersection-areas{display:flex;flex-wrap:wrap;gap:7px}
+.intersection-areas span{padding:7px 8px;border:1px solid var(--line);color:var(--muted)}
+.iitm-official-links{margin-top:12px}
+
+@media(max-width:1180px){
+  .iitm-sourcebar{grid-template-columns:1fr 1fr}
+  .iitm-sourcebar>div:nth-child(2){border-right:0}
+  .iitm-sourcebar>div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .academic-connections-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:900px){
+  .iitm-learning-layers{grid-template-columns:1fr}
+  .academic-connections-grid{grid-template-columns:1fr 1fr}
+  .iitm-profile-synthesis{grid-template-columns:1fr}
+  .iitm-intersection{grid-template-columns:1fr}
+}
+@media(max-width:720px){
+  .iitm-sourcebar,.iitm-course-state{grid-template-columns:1fr}
+  .iitm-sourcebar>div{border-right:0;border-bottom:1px solid var(--line)}
+  .iitm-sourcebar>div:last-child{border-bottom:0}
+  .iitm-meaning-grid,.academic-connections-grid{grid-template-columns:1fr}
+  .iitm-course-details li:not(.option-track-label){grid-template-columns:1fr auto}
+  .iitm-course-details li>small{grid-column:1/-1}
+  .iitm-connections>header{display:block}
+  .iitm-connections>header>span{display:block;margin-bottom:8px}
+  .iitm-progression{align-items:flex-start}
+  .iitm-progression i{transform:rotate(90deg)}
+}
+@media print{
+  .iitm-course-details>ul{display:none}
+  .iitm-learning-layers{grid-template-columns:1fr 1fr}
+  .academic-connections-grid{grid-template-columns:1fr 1fr}
+}

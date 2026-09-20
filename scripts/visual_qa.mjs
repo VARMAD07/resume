@@ -55,6 +55,7 @@ async function assert(name,condition,details={}){
   await assert("academic copy has no stale exam prediction",!(await page.locator("#academic-path").innerText()).match(/will sit|I plan to|next month|next year|preparing to/i));
   await assert("capability state buckets render",(await page.locator(".capability-state-grid article").count())===3,{count:await page.locator(".capability-state-grid article").count()});
   await assert("portfolio changelog renders",(await page.locator("#portfolio-changelog li").count())>=1,{count:await page.locator("#portfolio-changelog li").count()});
+  await page.locator("#iitm-learning").scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>document.documentElement.dataset.iitmLearningReady==="true");
   const curriculum=await page.evaluate(()=>fetch("data/iitm-curriculum.json",{cache:"no-cache"}).then(r=>r.json()));
   await assert("IITM curriculum data loads",Boolean(curriculum&&curriculum.layers?.length===4&&curriculum.sources?.every(x=>x.url.startsWith("https://study.iitm.ac.in/ds/"))),{verifiedAt:curriculum?.verifiedAt,layers:curriculum?.layers?.length});

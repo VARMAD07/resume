@@ -1381,3 +1381,45 @@ html:not([data-state-ready]) [data-state-list-inline]{color:var(--muted)}
   letter-spacing:.1em;
   color:var(--accent);
 }
+
+/* Portrait-free introduction: quiet hierarchy and a shorter route to evidence. */
+.hero{
+  min-height:auto;
+  grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);
+  gap:clamp(32px,5vw,76px);
+  padding:clamp(48px,6vw,88px) 0;
+  align-items:start;
+}
+.hero h1{font-size:clamp(48px,6.3vw,86px);line-height:1.02;letter-spacing:-.045em;margin:24px 0 28px}
+.hero-copy .lede{font-size:clamp(23px,2.1vw,30px);line-height:1.48;max-width:25ch}
+.hero-role{line-height:1.8;letter-spacing:.035em;max-width:48ch}
+.hero-side{position:static;grid-template-columns:1fr;align-self:start;gap:20px}
+.hero-side .instrument{box-shadow:none;background:var(--panel);padding:24px 28px}
+.hero-side .instrument dl>div{padding:15px 0}
+.hero .actions{gap:10px;margin-top:28px}
+.hero .btn{font-size:12px;padding:11px 15px}
+.hero .contact-rail{grid-column:auto}
+.portfolio-banner img{aspect-ratio:1672/941;object-fit:contain;min-height:0}
+@media(max-width:1050px){
+  .hero{grid-template-columns:1fr;gap:32px}
+  .hero-copy{max-width:800px}
+  .hero h1 span{display:inline}
+  .hero h1 span:not(:last-child)::after{content:" "}
+  .hero-copy .lede{max-width:38ch}
+  .hero-side{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
+}
+@media(max-width:720px){
+  .hero{padding:40px 0 48px;gap:28px}
+  .hero h1{font-size:clamp(40px,10.5vw,66px);line-height:1.08;margin:20px 0 24px}
+  .hero h1 span{display:block}
+  .hero-copy .lede{font-size:24px;max-width:30ch}
+  .hero-side{grid-template-columns:1fr;gap:16px}
+  .hero-side .instrument{padding:20px}
+  .hero .actions{display:grid;grid-template-columns:1fr 1fr}
+  .hero .actions .primary{grid-column:1/-1}
+  .hero .btn{min-height:44px;text-align:center}
+}
+
+/* Keep conditional UI hidden until its corresponding state is active. */
+[hidden]{display:none!important}
+@media(max-width:720px){.hero-side .instrument dl{display:block}.hero-side .instrument dl>div{border-inline:0;padding:15px 0}}

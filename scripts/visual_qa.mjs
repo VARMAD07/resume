@@ -106,7 +106,7 @@ async function assert(name,condition,details={}){
   });
   await assert("hero precedes decorative identity banner",heroBeforeBanner);
   await assert("profile portrait restored",await page.locator(".profile-card.portrait img").count()===1);
-  await assert("sharing metadata uses supplied banner",(await page.locator('meta[property="og:image"]').getAttribute("content")).endsWith("/mhf-banner-20260924-v2.jpg"));
+  await assert("sharing metadata uses supplied banner",(await page.locator('meta[property="og:image"]').getAttribute("content")).endsWith("/mhf-banner-spaced-v3.jpg"));
   const selectedBeforeBanner=await page.evaluate(()=>{
     const selected=document.querySelector("#selected-work");
     const banner=document.querySelector(".portfolio-banner");
@@ -128,7 +128,7 @@ async function assert(name,condition,details={}){
   await assert("timeline taxonomy distinguishes project and research",(await page.locator('#experience [data-kind="project"]').count())>=2&&(await page.locator('#experience [data-kind="research"]').count())>=2,{projects:await page.locator('#experience [data-kind="project"]').count(),research:await page.locator('#experience [data-kind="research"]').count()});
   const ogW=await page.locator('meta[property="og:image:width"]').getAttribute("content");
   const ogH=await page.locator('meta[property="og:image:height"]').getAttribute("content");
-  await assert("OG dimensions are explicit",ogW==="1672"&&ogH==="941",{ogW,ogH});
+  await assert("OG dimensions are explicit",ogW==="1733"&&ogH==="908",{ogW,ogH});
   await assert("SEO title is production title",(await page.title())==="Mohammad Hammad Faridi · Student, Builder, Researcher",{title:await page.title()});
   await assert("canonical URL is production URL",(await page.locator('link[rel="canonical"]').getAttribute("href"))==="https://varmad07.github.io/resume/",{canonical:await page.locator('link[rel="canonical"]').getAttribute("href")});
   await assert("meta description is precise",(await page.locator('meta[name="description"]').getAttribute("content"))==="Portfolio of Mohammad Hammad Faridi, a Class 12 PCM student exploring software, data science, AI and electronics through projects, research and structured learning.",{description:await page.locator('meta[name="description"]').getAttribute("content")});
@@ -144,7 +144,7 @@ async function assert(name,condition,details={}){
   await assert("evidence definitions available",await page.locator("#evidence .evidence-help").count()===1);
   await assert("current school evidence is classified",(await page.locator("#ev-edu-002").innerText()).includes("SUPPLIED DOCUMENT")&&(await page.locator("#ev-edu-002").innerText()).includes(state.academics.school.status),{text:await page.locator("#ev-edu-002").innerText()});
   const ogImage=await page.locator('meta[property="og:image"]').getAttribute("content");
-  await assert("OG image points to dedicated banner asset",Boolean(ogImage&&ogImage.includes("assets/images/og/mhf-banner-20260924-v2.jpg")),{ogImage});
+  await assert("OG image points to dedicated banner asset",Boolean(ogImage&&ogImage.includes("assets/images/og/mhf-banner-spaced-v3.jpg")),{ogImage});
 
   const headerChecks=await page.locator(".section-head").evaluateAll(headers=>headers.map((h,index)=>{
     const title=h.querySelector("h2");

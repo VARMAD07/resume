@@ -14,7 +14,7 @@ Central current states live in `data/portfolio-state.json`. Update that record f
 - **Projects:** update repository/live-app links when projects move, archive or materially change.
 - **Evidence review date:** refresh the centralized `lastVerified` value after a real verification pass.
 - **Sitemap:** update `<lastmod>` when a substantial public update ships.
-- **Social preview:** update the versioned JPEG referenced by Open Graph and Twitter tags in `index.html`, along with its dimensions; update `assets/images/identity-banner-20260924-v2.webp` for the page banner only when the portfolio identity/banner changes.
+- **Social preview:** update the versioned JPEG referenced by Open Graph and Twitter tags in `index.html`, along with its dimensions; update `assets/images/identity-banner-spaced-v3.webp` for the page banner only when the portfolio identity/banner changes.
 
 ## Evidence vocabulary
 

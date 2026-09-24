@@ -1399,7 +1399,7 @@ html:not([data-state-ready]) [data-state-list-inline]{color:var(--muted)}
 .hero .actions{gap:10px;margin-top:28px}
 .hero .btn{font-size:12px;padding:11px 15px}
 .hero .contact-rail{grid-column:auto}
-.portfolio-banner img{aspect-ratio:1672/941;object-fit:contain;min-height:0}
+.portfolio-banner img{aspect-ratio:1733/908;object-fit:contain;min-height:0}
 @media(max-width:1050px){
   .hero{grid-template-columns:1fr;gap:32px}
   .hero-copy{max-width:800px}
@@ -1469,3 +1469,7 @@ html:not([data-state-ready]) [data-state-list-inline]{color:var(--muted)}
  .current-status-panel{width:100%}
 }
 @media print{.hero>.instrument{display:none}}
+
+/* Keep the banner aligned with content and avoid an oversized trailing gap. */
+main .portfolio-banner{margin:28px auto 40px}
+@media(max-width:720px){main .portfolio-banner{margin:20px auto 28px}}

@@ -105,8 +105,8 @@ async function assert(name,condition,details={}){
     return Boolean(hero&&banner&&(hero.compareDocumentPosition(banner)&Node.DOCUMENT_POSITION_FOLLOWING));
   });
   await assert("hero precedes decorative identity banner",heroBeforeBanner);
-  await assert("standalone portrait removed",await page.locator(".profile-card.portrait,img[src*=profile-]").count()===0);
-  await assert("sharing metadata uses supplied banner",(await page.locator('meta[property="og:image"]').getAttribute("content")).endsWith("/mhf-banner-20260924.jpg"));
+  await assert("profile portrait restored",await page.locator(".profile-card.portrait img").count()===1);
+  await assert("sharing metadata uses supplied banner",(await page.locator('meta[property="og:image"]').getAttribute("content")).endsWith("/mhf-banner-20260924-v2.jpg"));
   const selectedBeforeBanner=await page.evaluate(()=>{
     const selected=document.querySelector("#selected-work");
     const banner=document.querySelector(".portfolio-banner");
@@ -144,7 +144,7 @@ async function assert(name,condition,details={}){
   await assert("evidence definitions available",await page.locator("#evidence .evidence-help").count()===1);
   await assert("current school evidence is classified",(await page.locator("#ev-edu-002").innerText()).includes("SUPPLIED DOCUMENT")&&(await page.locator("#ev-edu-002").innerText()).includes(state.academics.school.status),{text:await page.locator("#ev-edu-002").innerText()});
   const ogImage=await page.locator('meta[property="og:image"]').getAttribute("content");
-  await assert("OG image points to dedicated banner asset",Boolean(ogImage&&ogImage.includes("assets/images/og/mhf-banner-20260924.jpg")),{ogImage});
+  await assert("OG image points to dedicated banner asset",Boolean(ogImage&&ogImage.includes("assets/images/og/mhf-banner-20260924-v2.jpg")),{ogImage});
 
   const headerChecks=await page.locator(".section-head").evaluateAll(headers=>headers.map((h,index)=>{
     const title=h.querySelector("h2");

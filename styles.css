@@ -1423,3 +1423,49 @@ html:not([data-state-ready]) [data-state-list-inline]{color:var(--muted)}
 /* Keep conditional UI hidden until its corresponding state is active. */
 [hidden]{display:none!important}
 @media(max-width:720px){.hero-side .instrument dl{display:block}.hero-side .instrument dl>div{border-inline:0;padding:15px 0}}
+
+/* Portrait and introduction share a clear, compact editorial opening. */
+.hero{grid-template-columns:minmax(0,1fr) 360px;gap:32px 70px;align-items:center;padding:56px 0 64px}
+.hero h1{font-size:clamp(44px,5.2vw,72px);font-weight:520;letter-spacing:-.045em;line-height:1.08;margin:22px 0 24px}
+.hero h1 span{display:block}
+.hero h1 span::after{content:none}
+.hero-copy .lede{max-width:31ch;font-size:clamp(22px,2vw,28px);line-height:1.5;margin-bottom:0}
+.hero-role{font-size:11px;max-width:54ch;line-height:1.8;letter-spacing:.04em}
+.hero-side{display:block;align-self:center}
+.hero-side .profile-card.portrait{width:100%;max-width:360px;margin:0;box-shadow:0 14px 40px rgba(8,27,40,.08)}
+.hero-side .profile-card.portrait img{width:100%;height:auto;aspect-ratio:4/5;max-height:none;object-fit:cover;object-position:center 18%}
+.hero-side .profile-card.portrait figcaption{font-size:9px;line-height:1.5;padding:12px;flex-wrap:wrap}
+.hero-copy .contact-rail{margin-top:24px;max-width:570px;background:transparent}
+.hero-copy .contact-rail a{padding:9px 12px}
+.hero>.instrument{grid-column:1/-1;box-shadow:none;padding:22px 26px;background:var(--panel)}
+.hero>.instrument dl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.hero>.instrument dl>div{border:0;padding:18px 0 0;min-width:0}
+.hero>.instrument dd{line-height:1.65;font-size:12px}
+.hero>.instrument dt{line-height:1.5}
+.current-status-panel{width:100%}
+.section-head h2,.current-status-panel>header h2,.selected-highlights h2{line-height:1.12;letter-spacing:-.035em}
+.section-head>h2+p{line-height:1.75;max-width:70ch}
+.highlight-card p{font-size:14px;line-height:1.7}
+.highlight-card h3{line-height:1.25}
+.reviewer-snapshot b{font-size:14px;line-height:1.55}
+.reviewer-snapshot small{font-size:11px;line-height:1.65}
+@media(max-width:1050px){
+ .hero{grid-template-columns:minmax(0,1fr) 300px;gap:32px;padding-top:42px}
+ .hero h1{font-size:clamp(40px,5.8vw,60px)}
+ .hero>.instrument dl{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 28px}
+ .hero-copy .contact-rail a{grid-template-columns:64px minmax(0,1fr);gap:8px}
+}
+@media(max-width:720px){
+ .hero{grid-template-columns:1fr;gap:28px;padding:36px 0 44px}
+ .hero h1{font-size:clamp(38px,10vw,58px)}
+ .hero-copy .lede{font-size:23px;max-width:32ch}
+ .hero-side .profile-card.portrait{max-width:300px;margin-inline:auto}
+ .hero-copy .contact-rail{margin-top:22px}
+ .hero>.instrument{padding:20px}
+ .hero>.instrument dl{grid-template-columns:1fr;gap:0}
+ .hero>.instrument dl>div{padding:16px 0;border-bottom:1px solid var(--line)}
+ .hero>.instrument dl>div:last-child{border:0;padding-bottom:0}
+ .hero .actions{gap:8px}
+ .current-status-panel{width:100%}
+}
+@media print{.hero>.instrument{display:none}}

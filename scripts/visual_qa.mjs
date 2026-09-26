@@ -181,6 +181,7 @@ async function assert(name,condition,details={}){
     await loc.scrollIntoViewIfNeeded();
     await page.waitForTimeout(250);
   }
+  await page.locator("img").evaluateAll(imgs=>Promise.all(imgs.map(img=>{img.loading="eager";return img.decode().catch(()=>{});})));
   const images=await imageStatus(page);
   const broken=images.filter(i=>!i.complete||i.naturalWidth===0);
   await assert("all displayed images load",broken.length===0,{broken});
@@ -211,6 +212,7 @@ async function assert(name,condition,details={}){
   await page.locator("#theme").click();
 
   await page.locator('button[data-lang="ar"]').click();
+  await page.waitForFunction(()=>document.documentElement.dataset.languageReady==="ar");
   await assert("Arabic switches RTL",(await page.locator("html").getAttribute("dir"))==="rtl",{
     lang:await page.locator("html").getAttribute("lang"),
     nav:await page.locator(".desktop-nav a").first().innerText()
@@ -219,6 +221,7 @@ async function assert(name,condition,details={}){
   await assert("IITM trajectory translates to Arabic",(await page.locator("#iitm-learning .section-head h2").innerText()).trim()==="ما الذي يضيفه المنهج",{title:await page.locator("#iitm-learning .section-head h2").innerText()});
   await page.screenshot({path:`${OUT}/desktop-arabic.png`,fullPage:false});
   await page.locator('button[data-lang="ja"]').click();
+  await page.waitForFunction(()=>document.documentElement.dataset.languageReady==="ja");
   await assert("second-audit status labels translate to Japanese",(await page.locator(".academic-status-legend span").first().innerText()).trim()==="現在の経験",{label:await page.locator(".academic-status-legend span").first().innerText()});
   await assert("IITM trajectory translates to Japanese",(await page.locator("#iitm-learning .section-head h2").innerText()).trim()==="このカリキュラムが加えるもの",{title:await page.locator("#iitm-learning .section-head h2").innerText()});
   await assert("Japanese language switch works",(await page.locator("html").getAttribute("lang"))==="ja",{
@@ -226,6 +229,7 @@ async function assert(name,condition,details={}){
     nav:await page.locator(".desktop-nav a").first().innerText()
   });
   await page.locator('button[data-lang="en"]').click();
+  await page.waitForFunction(()=>document.documentElement.dataset.languageReady==="en");
   await page.emulateMedia({reducedMotion:"reduce"});
   const reducedMotion=await page.evaluate(()=>{
     const el=document.querySelector(".case");

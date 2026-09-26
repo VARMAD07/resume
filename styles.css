@@ -1473,3 +1473,18 @@ html:not([data-state-ready]) [data-state-list-inline]{color:var(--muted)}
 /* Keep the banner aligned with content and avoid an oversized trailing gap. */
 main .portfolio-banner{margin:28px auto 40px}
 @media(max-width:720px){main .portfolio-banner{margin:20px auto 28px}}
+
+/* Multilingual text must wrap without distorting Arabic shaping or identifiers. */
+html[lang="ar"] :is(.micro,.badge,.record-type,.theme,.course-status-chip,.eyebrow){letter-spacing:normal}
+html[lang="ar"] :is(p,li,summary){line-height:1.9}
+html[lang="ja"] body{font-family:system-ui,"Yu Gothic","Meiryo",sans-serif}
+html[lang="ja"] :is(p,li,summary){line-break:strict;word-break:normal;overflow-wrap:anywhere}
+:is(.status-dashboard,.status-timeline,.path-card,.course-state-item) :is(b,small,span){overflow-wrap:anywhere}
+.contact-rail b,code,[data-copy],a[href^="mailto:"]{unicode-bidi:isolate;direction:ltr}
+html[dir="rtl"] h1[dir="ltr"]{text-align:right}
+@media(max-width:720px){
+ html[dir="rtl"] .timeline article{grid-template-columns:minmax(0,1fr)}
+ html[dir="rtl"] .timeline :is(time,article>div,.badge){grid-column:1;grid-row:auto}
+}
+
+html[lang="ja"] :is(.section-head h2+p,.micro,.badge,.record-type,.course-status-chip){letter-spacing:normal}

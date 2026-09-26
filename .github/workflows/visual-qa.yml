@@ -12,6 +12,7 @@ on:
       - "translations/**"
       - "assets/**"
       - "scripts/visual_qa.mjs"
+      - "scripts/check_localization.mjs"
       - ".github/workflows/visual-qa.yml"
   workflow_dispatch:
 
@@ -37,6 +38,8 @@ jobs:
           sleep 2
       - name: Run rendering and interaction QA
         run: node scripts/visual_qa.mjs
+      - name: Check Arabic and Japanese localization
+        run: node scripts/check_localization.mjs
       - name: Upload visual QA report and screenshots
         if: always()
         uses: actions/upload-artifact@v4

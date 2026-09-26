@@ -9,10 +9,10 @@ function courseStateRecord(code,state,curriculum){
   const override=state?.academics?.iitm?.courseStatuses?.[code];
   return override||{status:curriculum?.personalCourseStatuses?.defaultStatus||"PLANNED",date:null,evidence:null,note:null};
 }
-function courseStatusChip(record){
+function courseStatusChip(record,t){
   const chip=document.createElement("span");
   chip.className="course-status-chip";
-  chip.textContent=record.status||"PLANNED";
+  chip.textContent=t("status."+record.status,record.status||"PLANNED");
   chip.dataset.status=statusSlug(record.status||"PLANNED");
   return chip;
 }
@@ -34,7 +34,7 @@ function renderCourseStateList(container,courses,kind,t){
     item.className="course-state-item";
     const name=document.createElement("span");name.textContent=course.name;
     const meta=document.createElement("small");meta.textContent=[course.code,course.record?.date,course.record?.evidence?.type].filter(Boolean).join(" · ");
-    item.append(name,courseStatusChip(course.record),meta);
+    item.append(name,courseStatusChip(course.record,t),meta);
     container.append(item);
   }
   if(courses.length>visible.length){
@@ -49,7 +49,7 @@ function coursesForArchitectureGroup(group,curriculum){
     .map(code=>curriculum?.courses?.[code]?{code,...curriculum.courses[code]}:null)
     .filter(Boolean);
 }
-function populateIitmCourseDetails(details,group,curriculum,state){
+function populateIitmCourseDetails(details,group,curriculum,state,t){
   let list=details.querySelector("ul");
   if(!list){list=document.createElement("ul");details.append(list);}
   list.replaceChildren();
@@ -58,14 +58,14 @@ function populateIitmCourseDetails(details,group,curriculum,state){
     const li=document.createElement("li");
     const name=document.createElement("span");name.textContent=course.name;
     const meta=document.createElement("small");meta.textContent=`${course.code} · ${course.credits} cr · ${course.officialLevel}`;
-    li.append(name,meta,courseStatusChip(record));
+    li.append(name,meta,courseStatusChip(record,t));
     list.append(li);
   }
   details.dataset.rendered="true";
 }
 function iitmDisplayMode(programmeStatus,t){
   if(programmeStatus==="QUALIFIER PATHWAY") return t("iitmLearning.modeQualifier","QUALIFIER PREPARATION / CURRICULUM VIEW");
-  if(["QUALIFIED","ADMITTED"].includes(programmeStatus)) return t("iitmLearning.modeTrajectory","FOUNDATION ENTRY PATHWAY");
+  if(["QUALIFIED","ADMITTED"].includes(programmeStatus)) return t("iitmLearning.modeEntry","FOUNDATION ENTRY PATHWAY");
   if(["ENROLLED","ACTIVE"].includes(programmeStatus)) return t("iitmLearning.modeCurrent","CURRENT ACADEMIC CURRICULUM");
   if(programmeStatus==="COMPLETED") return t("iitmLearning.modeCompleted","COMPLETED COURSEWORK RECORD");
   return t("iitmLearning.modeTrajectory","CURRICULUM TRAJECTORY");
@@ -75,7 +75,7 @@ export function renderIitmLearning(curriculum,state,t=(key,fallback)=>fallback){
   if(!curriculum||!state||!$("#iitm-learning")) return;
 
   const programmeStatus=state.academics?.iitm?.status||"";
-  const verified=$("#iitm-curriculum-verified");if(verified) verified.textContent=curriculum.verifiedAt||t("iitmLearning.verifiedUnavailable","See official source");
+  const verified=$("#iitm-curriculum-verified");if(verified) verified.textContent=t("_literal",curriculum.verifiedAt||t("iitmLearning.verifiedUnavailable","See official source"));
   const mode=$("#iitm-learning-mode");if(mode) mode.textContent=iitmDisplayMode(programmeStatus,t);
 
   const all=flattenIitmCourses(curriculum).map(course=>({...course,record:courseStateRecord(course.code,state,curriculum)}));
@@ -114,10 +114,10 @@ export function renderIitmLearning(curriculum,state,t=(key,fallback)=>fallback){
   if(progression){
     progression.replaceChildren();
     (curriculum.conceptualProgression?.steps||[]).forEach((step,index,steps)=>{
-      const span=document.createElement("span");span.textContent=step;progression.append(span);
+      const span=document.createElement("span");span.textContent=t("_literal",step);progression.append(span);
       if(index<steps.length-1){const i=document.createElement("i");i.textContent="→";i.setAttribute("aria-hidden","true");progression.append(i);}
     });
-    const note=document.createElement("small");note.textContent=curriculum.conceptualProgression?.label||"";progression.append(note);
+    const note=document.createElement("small");note.textContent=t("_literal",curriculum.conceptualProgression?.label||"");progression.append(note);
   }
 
   const layers=$("#iitm-learning-layers");
@@ -130,7 +130,7 @@ export function renderIitmLearning(curriculum,state,t=(key,fallback)=>fallback){
       const head=document.createElement("header");
       const num=document.createElement("span");num.textContent=String(index+1).padStart(2,"0");
       const title=document.createElement("div");
-      const h3=document.createElement("h3");h3.textContent=group.label;
+      const h3=document.createElement("h3");h3.textContent=t("_literal",group.label);
       const officialLevels=[...new Set(coursesForArchitectureGroup(group,curriculum).map(c=>c.officialLevel))];
       const level=document.createElement("small");
       level.textContent=`${t("iitmLearning.portfolioGroup","PORTFOLIO VIEW")} · ${officialLevels.join(" / ")}`;
@@ -139,11 +139,11 @@ export function renderIitmLearning(curriculum,state,t=(key,fallback)=>fallback){
       const meaning=document.createElement("div");meaning.className="iitm-meaning-grid";
       const why=document.createElement("p");
       const whyLabel=document.createElement("b");whyLabel.textContent=t("iitmLearning.why","WHY IT MATTERS");
-      const whyText=document.createElement("span");whyText.textContent=group.purpose||"";
+      const whyText=document.createElement("span");whyText.textContent=t("_literal",group.purpose||"");
       why.append(whyLabel,whyText);
       const connection=document.createElement("p");
       const connectionLabel=document.createElement("b");connectionLabel.textContent=t("iitmLearning.connection","PORTFOLIO CONNECTION");
-      const connectionText=document.createElement("span");connectionText.textContent=group.connection||"";
+      const connectionText=document.createElement("span");connectionText.textContent=t("_literal",group.connection||"");
       connection.append(connectionLabel,connectionText);
       meaning.append(why,connection);article.append(meaning);
 
@@ -152,20 +152,20 @@ export function renderIitmLearning(curriculum,state,t=(key,fallback)=>fallback){
       const groupCourses=coursesForArchitectureGroup(group,curriculum);
       summary.textContent=`${t("iitmLearning.representativeCourses","Representative official courses")} · ${groupCourses.length}`;
       details.append(summary);
-      details.addEventListener("toggle",()=>{if(details.open&&!details.dataset.rendered)populateIitmCourseDetails(details,group,curriculum,state);});
+      details.addEventListener("toggle",()=>{if(details.open&&!details.dataset.rendered)populateIitmCourseDetails(details,group,curriculum,state,t);});
       article.append(details);
 
       if(group.volatile){
         const note=document.createElement("p");
         note.className="curriculum-policy";
-        note.textContent=curriculum.officialStructure?.degreeLevel?.electivePolicy||"";
+        note.textContent=t("_literal",curriculum.officialStructure?.degreeLevel?.electivePolicy||"");
         article.append(note);
       }
       layers.append(article);
     }
     const architectureNote=document.createElement("p");
     architectureNote.className="curriculum-architecture-note";
-    architectureNote.textContent=curriculum.learningArchitecture?.note||"";
+    architectureNote.textContent=t("_literal",curriculum.learningArchitecture?.note||"");
     layers.append(architectureNote);
   }
 
@@ -175,10 +175,10 @@ export function renderIitmLearning(curriculum,state,t=(key,fallback)=>fallback){
     for(const connection of curriculum.academicConnections||[]){
       const article=document.createElement("article");
       const head=document.createElement("div");
-      const area=document.createElement("h4");area.textContent=connection.area;
-      const relation=document.createElement("span");relation.textContent=connection.relation;
+      const area=document.createElement("h4");area.textContent=t("_literal",connection.area);
+      const relation=document.createElement("span");relation.textContent=t("_literal",connection.relation);
       head.append(area,relation);
-      const note=document.createElement("p");note.textContent=connection.note;
+      const note=document.createElement("p");note.textContent=t("_literal",connection.note);
       const links=document.createElement("div");links.className="connection-links";
       for(const target of connection.targets||[]){
         const targetEl=document.getElementById(target);if(!targetEl) continue;
@@ -191,7 +191,7 @@ export function renderIitmLearning(curriculum,state,t=(key,fallback)=>fallback){
   const intersection=$("#iitm-intersection-areas");
   if(intersection){
     intersection.replaceChildren();
-    for(const area of curriculum.longTermIntersection?.areas||[]){const span=document.createElement("span");span.textContent=area;intersection.append(span);}
+    for(const area of curriculum.longTermIntersection?.areas||[]){const span=document.createElement("span");span.textContent=t("_literal",area);intersection.append(span);}
   }
 
   document.documentElement.dataset.iitmLearningReady="true";
